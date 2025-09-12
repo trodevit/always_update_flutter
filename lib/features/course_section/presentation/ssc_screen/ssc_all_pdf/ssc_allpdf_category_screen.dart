@@ -41,7 +41,7 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                       child: GestureDetector(
                         onTap: () {
                           // Get.to(() => SscGroupSubjectScreen());
-                          NavigationService .navigateToWithArgs(
+                          NavigationService.navigateToWithArgs(
                             Routes.sscAllPdfSubjectItemScreen,
                             {'type': widget.type, 'classType': 'science'},
                           );
@@ -86,6 +86,10 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.sscAllPdfSubjectItemScreen,
+                            {'type': widget.type, 'classType': 'arts'},
+                          );
                           ToastUtil.showShortToast(
                             'Navigating to ${widget.type} -> Arts -> ALL PDF List',
                           );
@@ -127,6 +131,10 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.sscAllPdfSubjectItemScreen,
+                            {'type': widget.type, 'classType': 'commerce'},
+                          );
                           ToastUtil.showShortToast(
                             'Navigating to ${widget.type} -> Commerce -> ALL PDF List',
                           );

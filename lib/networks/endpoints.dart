@@ -43,4 +43,10 @@ final class Endpoints {
   // * shortcut technique
   static String getShortcutTechnique(dynamic type) =>
       "/api/class/ssc/shortcut/$type";
+
+  // * ssc pdf subject
+  static String getSscPDFSubject() => "/api/subjects";
+  static String getSscPDFSubjectSingleItem(
+          dynamic type, className, subjectId) =>
+      "/api/class/ssc/allpdf/$className/$type/$subjectId";
 }

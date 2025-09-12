@@ -82,7 +82,10 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() => SscShortcutScreen());
+                          NavigationService.navigateToWithArgs(
+                            Routes.sscPDFCategoryScreen,
+                            {'type': 'short_question'},
+                          );
                           log('Navigating to SSC Shortcut Screen');
                         },
                         child: Container(
@@ -122,7 +125,10 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() => SscShortcutScreen());
+                          NavigationService.navigateToWithArgs(
+                            Routes.sscPDFCategoryScreen,
+                            {'type': 'big_question'},
+                          );
                           log('Navigating to SSC Shortcut Screen');
                         },
                         child: Container(

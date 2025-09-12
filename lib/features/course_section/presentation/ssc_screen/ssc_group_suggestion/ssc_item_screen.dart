@@ -11,6 +11,7 @@ import 'package:always_update/features/course_section/presentation/video_screen.
 import 'package:always_update/features/pdf_view_screen.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:always_update/networks/api_acess.dart';
+import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -75,7 +76,7 @@ class _SscItemScreenState extends State<SscItemScreen> {
                                   Radius.circular(6.r), // Top-right corner
                             ),
                             child: Image.network(
-                              'https://picsum.photos/id/1018/600/300',
+                              imageUrls + sscData[index].thumbnail!,
                               width: double.infinity,
                               height: 200, // Adjust height as needed
                               fit: BoxFit.cover,

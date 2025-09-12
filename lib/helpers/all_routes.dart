@@ -8,6 +8,7 @@ import 'package:always_update/features/course_section/presentation/course_home_s
 import 'package:always_update/features/course_section/presentation/course_login_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_subjet_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_category_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_group_suggestion/ssc_group_subject_screen.dart';
@@ -43,6 +44,8 @@ final class Routes {
   static const String sscPDFCategoryScreen = '/sscPDFCategoryScreen';
   static const String sscAllPdfSubjectItemScreen =
       '/sscAllPdfSubjectItemScreen';
+
+  static const String sscPDFSubjectItemScreen = '/sscPDFSubjectItemScreen';
 
   // * ###################### HSC Course Section ######################
 }
@@ -278,6 +281,27 @@ final class RouteGenerator {
                 builder: (context) => SscAllPdfSubjectItemScreen(
                   type: argument['type'],
                   classType: argument['classType'],
+                ),
+              );
+
+      case Routes.sscPDFSubjectItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SscAllPdfSubjectSingleItemScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                  subjectTitle: argument['subjectTitle'],
+                  itemID: argument['itemID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => SscAllPdfSubjectSingleItemScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                  subjectTitle: argument['subjectTitle'],
+                  itemID: argument['itemID'],
                 ),
               );
 

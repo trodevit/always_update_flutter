@@ -1,8 +1,12 @@
 import 'package:always_update/features/class_section/data/subject_model_rx.dart';
 import 'package:always_update/features/class_section/model/subject_model.dart';
 import 'package:always_update/features/course_section/data/course_rx.dart';
+import 'package:always_update/features/course_section/data/data/ssc_data/ssc_allpdf/get_pdf_subject_item_rx.dart';
+import 'package:always_update/features/course_section/data/data/ssc_data/ssc_allpdf/ssc_subject_rx.dart';
 import 'package:always_update/features/course_section/data/data/ssc_data/ssc_group/ssc_group_suggestion_rx.dart';
 import 'package:always_update/features/course_section/data/data/ssc_data/ssc_model.dart';
+import 'package:always_update/features/course_section/data/data/ssc_data/ssc_pdf_single_item_model.dart';
+import 'package:always_update/features/course_section/data/data/ssc_data/ssc_pdf_subject_model.dart';
 import 'package:always_update/features/course_section/data/data/ssc_data/ssc_shortcut/ssc_shortcut_rx.dart';
 import 'package:always_update/features/course_section/data/post_course_login_rx.dart';
 import 'package:always_update/features/course_section/model/course_login_model.dart';
@@ -48,4 +52,14 @@ GetSscGroupSuggestionRX sscGroupSuggestionRX = GetSscGroupSuggestionRX(
 GetSscShortcutRX sscShortCutTechniquesRX = GetSscShortcutRX(
   empty: SscGroupSubjectModel(),
   dataFetcher: BehaviorSubject<SscGroupSubjectModel>(),
+);
+
+SscPDFSubjectRX sscPDFSubjectRX = SscPDFSubjectRX(
+  empty: SscPdfSubjectModel(),
+  dataFetcher: BehaviorSubject<SscPdfSubjectModel>(),
+);
+
+GetPDFSubjectSingleItemRX sscPDFSubjectSingleItemRX = GetPDFSubjectSingleItemRX(
+  empty: SscPdfSubjectSingleItemModel(),
+  dataFetcher: BehaviorSubject<SscPdfSubjectSingleItemModel>(),
 );
