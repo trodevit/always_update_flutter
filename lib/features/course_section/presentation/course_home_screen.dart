@@ -3,12 +3,10 @@ import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_icons.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_category_screen.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 class CourseHomeScreen extends StatefulWidget {
   const CourseHomeScreen({super.key});
@@ -62,8 +60,11 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() =>
-                              SscCategoryScreen()); // Pass the widget directly
+                          // Get.to(() =>
+                          //     SscCategoryScreen()); // Pass the widget directly
+                          NavigationService.navigateTo(
+                            Routes.sscTypeCategoryScreen,
+                          );
                         },
                         child: Container(
                           height: 100,

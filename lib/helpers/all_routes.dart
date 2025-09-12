@@ -6,13 +6,16 @@ import 'package:always_update/features/class_section/presentation/class_topic_sc
 import 'package:always_update/features/course_section/presentation/course_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_home_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_login_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_all_pdf/ssc_allpdf_subjet_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_category_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_group_suggestion/ssc_group_subject_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_shortcut_technique/ssc_shortcut_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_subjet_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_group_suggestion/ssc_group_subject_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_shortcut_technique/ssc_shortcut_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_type_course_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/ssc_video_suggestion_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/suggestion_formula_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/video_course_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/video_screen.dart';
@@ -36,6 +39,8 @@ final class Routes {
   static const String suggestionFormulaScreen = '/suggestionFormulaScreen';
 
   // * ###################### SSC Course Section ######################
+  static const String sscTypeCategoryScreen = '/sscTypeCategoryScreen';
+  static const String sscVideoCategoryScreen = '/sscVideoCategoryScreen';
   static const String sscCategoryScreen = '/sscCategoryScreen';
   static const String sscGroupSubjectScreen = '/sscGroupSubjectScreen';
   static const String sscShortCutTechniqueScreen =
@@ -47,7 +52,8 @@ final class Routes {
 
   static const String sscPDFSubjectItemScreen = '/sscPDFSubjectItemScreen';
 
-  // * ###################### HSC Course Section ######################
+  // * ###################### SSC Video Course Section ######################
+  static const String sscVideoDashboardScreen = '/sscVideoDashboardScreen';
 }
 
 final class RouteGenerator {
@@ -207,6 +213,17 @@ final class RouteGenerator {
               );
 
       // * ######################### SSC Course Section #########################
+      // * ######################################################################
+      case Routes.sscTypeCategoryScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const SscTypeCourseScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const SscTypeCourseScreen(),
+              );
+
       case Routes.sscCategoryScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -304,6 +321,28 @@ final class RouteGenerator {
                   itemID: argument['itemID'],
                 ),
               );
+
+      // * ######################################################################
+      // * ######################### SSC Video Section #########################
+      case Routes.sscVideoCategoryScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const SscVideoCategoryScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const SscVideoCategoryScreen(),
+              );
+
+      // case Routes.sscVideoDashboardScreen:
+      //   return Platform.isAndroid
+      //       ? _FadedTransitionRoute(
+      //           widget: const SscVideoDashboardScreen(),
+      //           settings: settings,
+      //         )
+      //       : CupertinoPageRoute(
+      //           builder: (context) => const SscVideoDashboardScreen(),
+      //         );
 
       default:
         return null;
