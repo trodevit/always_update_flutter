@@ -3,12 +3,10 @@ import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_icons.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
-import 'package:always_update/features/course_section/presentation/ssc_screen/ssc_shortcut_technique/ssc_shortcut_screen.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 class SscAllPdfScreen extends StatefulWidget {
   const SscAllPdfScreen({super.key});
