@@ -22,7 +22,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এসএসসি গ্রুপ ভিত্তিক ভিডিও সাজেশন',
+        title: 'এসএসসি ভিডিও কোর্স',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -34,11 +34,9 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
-                    // NavigationService.navigateTo(
-                    //   Routes.sscCategoryScreen,
-                    // );
+                    NavigationService.navigateTo(
+                      Routes.sscGroupSuggestionScreen,
+                    );
                   },
                   child: Container(
                     width: double.infinity,

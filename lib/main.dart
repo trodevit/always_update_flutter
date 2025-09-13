@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'package:always_update/features/home_screen/presentation/home_screen.dart';

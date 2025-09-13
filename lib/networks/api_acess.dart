@@ -11,6 +11,8 @@ import 'package:always_update/features/course_section/data/data/ssc_data/ssc_sho
 import 'package:always_update/features/course_section/data/post_course_login_rx.dart';
 import 'package:always_update/features/course_section/model/course_login_model.dart';
 import 'package:always_update/features/course_section/model/course_model.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/data/get_video_sugg_item_rx.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/model/get_video_sugg_model.dart';
 import 'package:always_update/features/home_screen/data/class_name_rx.dart';
 import 'package:always_update/features/home_screen/data/post_device_info_rx.dart';
 import 'package:always_update/features/home_screen/model/class_name_model.dart';
@@ -62,4 +64,10 @@ SscPDFSubjectRX sscPDFSubjectRX = SscPDFSubjectRX(
 GetPDFSubjectSingleItemRX sscPDFSubjectSingleItemRX = GetPDFSubjectSingleItemRX(
   empty: SscPdfSubjectSingleItemModel(),
   dataFetcher: BehaviorSubject<SscPdfSubjectSingleItemModel>(),
+);
+
+// * #################### SSC Video Suggestion ####################
+GetVideoSuggRX sscVideoSuggRX = GetVideoSuggRX(
+  empty: SscVideoSuggModel(),
+  dataFetcher: BehaviorSubject<SscVideoSuggModel>(),
 );

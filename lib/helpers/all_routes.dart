@@ -15,6 +15,7 @@ import 'package:always_update/features/course_section/presentation/ssc_pdf_scree
 import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_shortcut_technique/ssc_shortcut_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_type_course_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/ssc_video_ittem_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/ssc_video_suggestion_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/suggestion_formula_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/video_course_list_screen.dart';
@@ -54,6 +55,8 @@ final class Routes {
 
   // * ###################### SSC Video Course Section ######################
   static const String sscVideoDashboardScreen = '/sscVideoDashboardScreen';
+  static const String sscGroupSuggestionScreen = '/sscGroupSuggestionScreen';
+  static const String sscVideoItemScreen = '/sscVideoItemScreen';
 }
 
 final class RouteGenerator {
@@ -334,15 +337,32 @@ final class RouteGenerator {
                 builder: (context) => const SscVideoCategoryScreen(),
               );
 
-      // case Routes.sscVideoDashboardScreen:
-      //   return Platform.isAndroid
-      //       ? _FadedTransitionRoute(
-      //           widget: const SscVideoDashboardScreen(),
-      //           settings: settings,
-      //         )
-      //       : CupertinoPageRoute(
-      //           builder: (context) => const SscVideoDashboardScreen(),
-      //         );
+      case Routes.sscGroupSuggestionScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const SscGroupSuggestionScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const SscGroupSuggestionScreen(),
+              );
+
+      case Routes.sscVideoItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SscVideoItemScreen(
+                  type: argument['type'],
+                  className: argument['className'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => SscVideoItemScreen(
+                  type: argument['type'],
+                  className: argument['className'],
+                ),
+              );
 
       default:
         return null;

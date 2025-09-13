@@ -49,4 +49,9 @@ final class Endpoints {
   static String getSscPDFSubjectSingleItem(
           dynamic type, className, subjectId) =>
       "/api/class/ssc/allpdf/$className/$type/$subjectId";
+
+  // * ######################### SSC Video Course Section #########################
+  // * ssc group suggestion
+  static String getSscVideoGroupSuggestion(dynamic type) =>
+      "/api/class/ssc/video/$type";
 }

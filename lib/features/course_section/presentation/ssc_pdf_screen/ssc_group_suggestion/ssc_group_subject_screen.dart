@@ -78,8 +78,12 @@ class _SscGroupSubjectScreenState extends State<SscGroupSubjectScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
-                          Get.to(() => SscItemScreen(
-                              type: 'commerce', className: 'ব্যবসায় বিভাগ'));
+                          Get.to(
+                            () => SscItemScreen(
+                              type: 'commerce',
+                              className: 'ব্যবসায় বিভাগ',
+                            ),
+                          );
                         },
                         child: Container(
                           height: 100,
