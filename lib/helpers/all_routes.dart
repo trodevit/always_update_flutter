@@ -6,6 +6,9 @@ import 'package:always_update/features/class_section/presentation/class_topic_sc
 import 'package:always_update/features/course_section/presentation/course_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_home_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_login_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_screen/honours_dashboard_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_screen/honours_group/honours_group_dashboard_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_screen/honours_group/honours_group_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
@@ -14,7 +17,12 @@ import 'package:always_update/features/course_section/presentation/ssc_pdf_scree
 import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_group_suggestion/ssc_group_subject_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_shortcut_technique/ssc_shortcut_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_type_course_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_all_video/ssc_all_video_subject_list_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_all_video/ssc_all_video_subject_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_all_video/ssc_video_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_shortcut/ssc_video_shortcut_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_shortcut/ssc_video_shortcut_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/ssc_video_ittem_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/ssc_video_suggestion_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/suggestion_formula_screen.dart';
@@ -57,6 +65,19 @@ final class Routes {
   static const String sscVideoDashboardScreen = '/sscVideoDashboardScreen';
   static const String sscGroupSuggestionScreen = '/sscGroupSuggestionScreen';
   static const String sscVideoItemScreen = '/sscVideoItemScreen';
+  static const String sscVideoShortcutScreen = '/sscVideoShortcutScreen';
+  static const String sscVideoShortcutItemScreen =
+      '/sscVideoShortcutItemScreen';
+
+  static const String sscVideoSubjectScreen = '/sscVideoSubjectScreen';
+  static const String sscVideoSubjectListScreen = '/sscVideoSubjectListScreen';
+  static const String sscVideoSubjectItemScreen = '/sscVideoSubjectItemScreen';
+
+  // * #################################### Honours Course Section ####################################
+  static const String honoursDashboardScreen = '/honoursDashboardScreen';
+  static const String honoursGroupDashboardScreen =
+      '/honoursGroupDashboardScreen';
+  static const String honoursGroupItemScreen = '/honoursGroupItemScreen';
 }
 
 final class RouteGenerator {
@@ -359,6 +380,120 @@ final class RouteGenerator {
               )
             : CupertinoPageRoute(
                 builder: (context) => SscVideoItemScreen(
+                  type: argument['type'],
+                  className: argument['className'],
+                ),
+              );
+
+      case Routes.sscVideoShortcutScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const SscVideoShortcutScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const SscVideoShortcutScreen(),
+              );
+
+      case Routes.sscVideoShortcutItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SscVideoShortcutItemScreen(
+                  type: argument['type'],
+                  className: argument['className'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => SscVideoShortcutItemScreen(
+                  type: argument['type'],
+                  className: argument['className'],
+                ),
+              );
+
+      case Routes.sscVideoSubjectScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const SscVideoSubjectScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const SscVideoSubjectScreen(),
+              );
+
+      case Routes.sscVideoSubjectListScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SscVideoSubjectListScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => SscVideoSubjectListScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                ),
+              );
+
+      case Routes.sscVideoSubjectItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SscVideoItemSubjectScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                  subjectTitle: argument['subjectTitle'],
+                  itemID: argument['itemID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => SscVideoItemSubjectScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                  subjectTitle: argument['subjectTitle'],
+                  itemID: argument['itemID'],
+                ),
+              );
+
+      // * #################################### Honours Course Section ####################################
+      // * ################################################################################################
+      case Routes.honoursDashboardScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const HonoursDashboardScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const HonoursDashboardScreen(),
+              );
+
+      case Routes.honoursGroupDashboardScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const HonoursGroupDashboardScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const HonoursGroupDashboardScreen(),
+              );
+
+      case Routes.honoursGroupItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget:  HonoursGroupItemScreen(
+                  type: argument['type'],
+                  className: argument['className'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) =>  HonoursGroupItemScreen(
                   type: argument['type'],
                   className: argument['className'],
                 ),

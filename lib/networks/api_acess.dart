@@ -11,6 +11,14 @@ import 'package:always_update/features/course_section/data/data/ssc_data/ssc_sho
 import 'package:always_update/features/course_section/data/post_course_login_rx.dart';
 import 'package:always_update/features/course_section/model/course_login_model.dart';
 import 'package:always_update/features/course_section/model/course_model.dart';
+import 'package:always_update/features/course_section/presentation/honours_screen/honours_group/data/honours_group_rx.dart';
+import 'package:always_update/features/course_section/presentation/honours_screen/honours_group/model/honours_group_model.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/data/get_ssc_subject_video_rx.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/data/get_video_item_rx.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/model/ssc_video_item_model.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/model/ssc_video_subject_model.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_shortcut/data/get_video_shortcut_item_rx.dart';
+import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_shortcut/model/ssc_video_shortcut_model.dart';
 import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/data/get_video_sugg_item_rx.dart';
 import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/model/get_video_sugg_model.dart';
 import 'package:always_update/features/home_screen/data/class_name_rx.dart';
@@ -70,4 +78,28 @@ GetPDFSubjectSingleItemRX sscPDFSubjectSingleItemRX = GetPDFSubjectSingleItemRX(
 GetVideoSuggRX sscVideoSuggRX = GetVideoSuggRX(
   empty: SscVideoSuggModel(),
   dataFetcher: BehaviorSubject<SscVideoSuggModel>(),
+);
+
+// * #################### SSC Video Short Cut ####################
+GetVideoShortcutRX sscVideoShortcutRX = GetVideoShortcutRX(
+  empty: SscVideoShortcutModel(),
+  dataFetcher: BehaviorSubject<SscVideoShortcutModel>(),
+);
+
+// * #################### SSC Video Subject ####################
+SscVideoSubjectRX sscVideoSubjectRX = SscVideoSubjectRX(
+  empty: SscVideoSubjectModel(),
+  dataFetcher: BehaviorSubject<SscVideoSubjectModel>(),
+);
+
+SscVideoItemRX sscVideoItemRX = SscVideoItemRX(
+  empty: SscVideoItemSubjectModel(),
+  dataFetcher: BehaviorSubject<SscVideoItemSubjectModel>(),
+);
+
+
+// * #################### Honours Group Suggestion ####################
+GetHonoursGroupRX honoursGroupRX = GetHonoursGroupRX(
+  empty: HonoursGroupModel(),
+  dataFetcher: BehaviorSubject<HonoursGroupModel>(),
 );

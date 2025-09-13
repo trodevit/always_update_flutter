@@ -54,4 +54,16 @@ final class Endpoints {
   // * ssc group suggestion
   static String getSscVideoGroupSuggestion(dynamic type) =>
       "/api/class/ssc/video/$type";
+
+  static String getVideoShortcut(dynamic type) =>
+      "/api/class/ssc/shortcut/video/$type";
+
+  static String getVideoSubjectItem(dynamic type, dynamic id) =>
+      "/api/class/ssc/video/$type/$id";
+
+  static String getSscVideoSubject() => "/api/subjects";
+
+  // * ######################### Honours Video Course Section #########################
+  static String getHonoursGroup(dynamic type) =>
+      "/api/class/honors/group-pdf/$type";
 }

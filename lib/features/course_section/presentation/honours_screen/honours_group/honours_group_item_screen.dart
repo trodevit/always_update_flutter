@@ -4,7 +4,7 @@ import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/common_widgets/custom_button.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/model/get_video_sugg_model.dart';
+import 'package:always_update/features/course_section/presentation/honours_screen/honours_group/model/honours_group_model.dart';
 import 'package:always_update/features/course_section/presentation/video_screen.dart';
 import 'package:always_update/features/pdf_view_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,23 +14,23 @@ import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter/material.dart';
 
-class SscVideoItemScreen extends StatefulWidget {
+class HonoursGroupItemScreen extends StatefulWidget {
   dynamic type, className;
-  SscVideoItemScreen({
+  HonoursGroupItemScreen({
     super.key,
     this.type,
     this.className,
   });
 
   @override
-  State<SscVideoItemScreen> createState() => _SscVideoItemScreenState();
+  State<HonoursGroupItemScreen> createState() => _HonoursGroupItemScreenState();
 }
 
-class _SscVideoItemScreenState extends State<SscVideoItemScreen> {
+class _HonoursGroupItemScreenState extends State<HonoursGroupItemScreen> {
   @override
   void initState() {
     super.initState();
-    sscVideoSuggRX.videoSuggestionRX(type: widget.type);
+    honoursGroupRX.honoursGroupRX(type: widget.type);
   }
 
   @override
@@ -40,8 +40,8 @@ class _SscVideoItemScreenState extends State<SscVideoItemScreen> {
       appBar: CustomAppBar(
         title: "${widget.className}",
       ),
-      body: StreamBuilder<SscVideoSuggModel>(
-          stream: sscVideoSuggRX.getVideoSuggestionRx,
+      body: StreamBuilder<HonoursGroupModel>(
+          stream: honoursGroupRX.getHonoursGroupRx,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());

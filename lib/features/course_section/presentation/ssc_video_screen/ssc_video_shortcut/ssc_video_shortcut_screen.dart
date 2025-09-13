@@ -9,34 +9,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SscVideoCategoryScreen extends StatefulWidget {
-  const SscVideoCategoryScreen({super.key});
+class SscVideoShortcutScreen extends StatefulWidget {
+  const SscVideoShortcutScreen({super.key});
 
   @override
-  State<SscVideoCategoryScreen> createState() => _SscVideoCategoryScreenState();
+  State<SscVideoShortcutScreen> createState() => _SscVideoShortcutScreenState();
 }
 
-class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
+class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এসএসসি ভিডিও কোর্স',
+        title: 'শর্টকাট টেকনিক সেকশন',
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(
-              16,
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
             child: Column(
               children: [
                 GestureDetector(
                   onTap: () {
-                    NavigationService.navigateTo(
-                      Routes.sscGroupSuggestionScreen,
-                    );
+                    // Get.to(() =>
+                    //     SscCategoryScreen()); // Pass the widget directly
+                    NavigationService.navigateToWithArgs(
+                        Routes.sscVideoShortcutItemScreen, {
+                      'type': 'grammar',
+                      'className': 'গ্রামার সেকশন',
+                    });
                   },
                   child: Container(
                     width: double.infinity,
@@ -59,7 +61,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                             height: 40,
                           ),
                           Text(
-                            'গ্রুপ সাজেশন',
+                            'গ্রামার সেকশন',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
@@ -76,9 +78,11 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                   onTap: () {
                     // Get.to(() =>
                     //     SscCategoryScreen()); // Pass the widget directly
-                    NavigationService.navigateTo(
-                      Routes.sscVideoShortcutScreen,
-                    );
+                    NavigationService.navigateToWithArgs(
+                        Routes.sscVideoShortcutItemScreen, {
+                      'type': 'written',
+                      'className': 'রিটেন সেকশন',
+                    });
                   },
                   child: Container(
                     width: double.infinity,
@@ -101,49 +105,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                             height: 40,
                           ),
                           Text(
-                            'শর্টকাট সেকশন',
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: AppColors.c000000,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                UIHelper.verticalSpace(20.h),
-                GestureDetector(
-                  onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
-                    NavigationService.navigateTo(
-                      Routes.sscVideoSubjectScreen,
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: Colors.grey.shade800,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.courseIcon,
-                            width: 40,
-                            height: 40,
-                          ),
-                          Text(
-                            'ভিডিও সেকশন',
+                            'রিটেন সেকশন',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,

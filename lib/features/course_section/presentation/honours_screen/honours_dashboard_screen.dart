@@ -9,20 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SscVideoCategoryScreen extends StatefulWidget {
-  const SscVideoCategoryScreen({super.key});
+class HonoursDashboardScreen extends StatefulWidget {
+  const HonoursDashboardScreen({super.key});
 
   @override
-  State<SscVideoCategoryScreen> createState() => _SscVideoCategoryScreenState();
+  State<HonoursDashboardScreen> createState() => _HonoursDashboardScreenState();
 }
 
-class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
+class _HonoursDashboardScreenState extends State<HonoursDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এসএসসি ভিডিও কোর্স',
+        title: 'অনার্স কোর্স',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -35,7 +35,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateTo(
-                      Routes.sscGroupSuggestionScreen,
+                      Routes.honoursGroupDashboardScreen,
                     );
                   },
                   child: Container(
@@ -59,7 +59,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                             height: 40,
                           ),
                           Text(
-                            'গ্রুপ সাজেশন',
+                            'গ্রুপ ভিত্তিক সাজেশন',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
@@ -101,7 +101,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                             height: 40,
                           ),
                           Text(
-                            'শর্টকাট সেকশন',
+                            'এমসিকিউ প্রশ্নোত্তর',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
@@ -113,48 +113,48 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                     ),
                   ),
                 ),
-                UIHelper.verticalSpace(20.h),
-                GestureDetector(
-                  onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
-                    NavigationService.navigateTo(
-                      Routes.sscVideoSubjectScreen,
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: Colors.grey.shade800,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.courseIcon,
-                            width: 40,
-                            height: 40,
-                          ),
-                          Text(
-                            'ভিডিও সেকশন',
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: AppColors.c000000,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // UIHelper.verticalSpace(20.h),
+                // GestureDetector(
+                //   onTap: () {
+                //     // Get.to(() =>
+                //     //     SscCategoryScreen()); // Pass the widget directly
+                //     NavigationService.navigateTo(
+                //       Routes.sscVideoSubjectScreen,
+                //     );
+                //   },
+                //   child: Container(
+                //     width: double.infinity,
+                //     decoration: BoxDecoration(
+                //       color: Colors.white,
+                //       borderRadius: BorderRadius.circular(8),
+                //       border: Border.all(
+                //         color: Colors.grey.shade800,
+                //       ),
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(16),
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           SvgPicture.asset(
+                //             AppIcons.courseIcon,
+                //             width: 40,
+                //             height: 40,
+                //           ),
+                //           Text(
+                //             'ভিডিও সেকশন',
+                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
+                //               color: AppColors.c000000,
+                //               fontSize: 16.sp,
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

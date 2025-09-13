@@ -9,20 +9,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SscVideoCategoryScreen extends StatefulWidget {
-  const SscVideoCategoryScreen({super.key});
+class HonoursGroupDashboardScreen extends StatefulWidget {
+  const HonoursGroupDashboardScreen({super.key});
 
   @override
-  State<SscVideoCategoryScreen> createState() => _SscVideoCategoryScreenState();
+  State<HonoursGroupDashboardScreen> createState() =>
+      _HonoursGroupDashboardScreenState();
 }
 
-class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
+class _HonoursGroupDashboardScreenState
+    extends State<HonoursGroupDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এসএসসি ভিডিও কোর্স',
+        title: 'গ্রুপ ভিত্তিক সাজেশন',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -34,8 +36,12 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    NavigationService.navigateTo(
-                      Routes.sscGroupSuggestionScreen,
+                    NavigationService.navigateToWithArgs(
+                      Routes.honoursGroupItemScreen,
+                      {
+                        'type': 'science',
+                        'className': 'বিজ্ঞান বিভাগ',
+                      },
                     );
                   },
                   child: Container(
@@ -59,7 +65,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                             height: 40,
                           ),
                           Text(
-                            'গ্রুপ সাজেশন',
+                            'বিজ্ঞান বিভাগ',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
@@ -74,10 +80,12 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                 UIHelper.verticalSpace(20.h),
                 GestureDetector(
                   onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
-                    NavigationService.navigateTo(
-                      Routes.sscVideoShortcutScreen,
+                    NavigationService.navigateToWithArgs(
+                      Routes.honoursGroupItemScreen,
+                      {
+                        'type': 'arts',
+                        'className': 'মানবিক বিভাগ',
+                      },
                     );
                   },
                   child: Container(
@@ -101,7 +109,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                             height: 40,
                           ),
                           Text(
-                            'শর্টকাট সেকশন',
+                            'মানবিক বিভাগ',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
@@ -116,10 +124,12 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                 UIHelper.verticalSpace(20.h),
                 GestureDetector(
                   onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
-                    NavigationService.navigateTo(
-                      Routes.sscVideoSubjectScreen,
+                    NavigationService.navigateToWithArgs(
+                      Routes.honoursGroupItemScreen,
+                      {
+                        'type': 'commerce',
+                        'className': 'ব্যবসায় বিভাগ',
+                      },
                     );
                   },
                   child: Container(
@@ -143,7 +153,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                             height: 40,
                           ),
                           Text(
-                            'ভিডিও সেকশন',
+                            'ব্যবসায় বিভাগ',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
