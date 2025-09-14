@@ -45,7 +45,7 @@ final class Endpoints {
       "/api/class/ssc/shortcut/$type";
 
   // * ssc pdf subject
-  static String getSscPDFSubject() => "/api/subjects";
+  static String getSscPDFSubject() => "/api/ssc/subjects";
   static String getSscPDFSubjectSingleItem(
           dynamic type, className, subjectId) =>
       "/api/class/ssc/allpdf/$className/$type/$subjectId";
@@ -61,9 +61,15 @@ final class Endpoints {
   static String getVideoSubjectItem(dynamic type, dynamic id) =>
       "/api/class/ssc/video/$type/$id";
 
-  static String getSscVideoSubject() => "/api/subjects";
+  static String getSscVideoSubject() => "/api/ssc/subjects";
 
   // * ######################### Honours Video Course Section #########################
   static String getHonoursGroup(dynamic type) =>
       "/api/class/honors/group-pdf/$type";
+
+  static String getHonoursPDFSubject() => "/api/honors/subjects";
+
+  static String getHonoursPDFSubjectSingleItem(
+          dynamic type, className, subjectId) =>
+      "/api/class/honors/$type/question/$className/$subjectId";
 }

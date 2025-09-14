@@ -6,25 +6,28 @@ import 'package:always_update/features/class_section/presentation/class_topic_sc
 import 'package:always_update/features/course_section/presentation/course_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_home_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_login_screen.dart';
-import 'package:always_update/features/course_section/presentation/honours_screen/honours_dashboard_screen.dart';
-import 'package:always_update/features/course_section/presentation/honours_screen/honours_group/honours_group_dashboard_screen.dart';
-import 'package:always_update/features/course_section/presentation/honours_screen/honours_group/honours_group_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_subjet_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_category_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_group_suggestion/ssc_group_subject_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_pdf_screen/ssc_shortcut_technique/ssc_shortcut_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_course/honours_dashboard_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_course/honours_group/honours_group_dashboard_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_course/honours_group/honours_group_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/honours_mcq_subjectlist_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/honours_msc_dashboard_screen.dart';
+import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/honourse_mcq_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_subjet_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_group_suggestion/ssc_group_subject_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_shortcut_technique/ssc_shortcut_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_type_course_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_all_video/ssc_all_video_subject_list_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_all_video/ssc_all_video_subject_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_all_video/ssc_video_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_category_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_shortcut/ssc_video_shortcut_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_shortcut/ssc_video_shortcut_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/ssc_video_ittem_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_video_screen/ssc_video_suggestion/ssc_video_suggestion_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_all_video/ssc_all_video_subject_list_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_all_video/ssc_all_video_subject_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_all_video/ssc_video_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_video_category_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_video_shortcut/ssc_video_shortcut_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_video_shortcut/ssc_video_shortcut_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_video_suggestion/ssc_video_ittem_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_video_suggestion/ssc_video_suggestion_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/suggestion_formula_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/video_course_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/video_screen.dart';
@@ -73,11 +76,14 @@ final class Routes {
   static const String sscVideoSubjectListScreen = '/sscVideoSubjectListScreen';
   static const String sscVideoSubjectItemScreen = '/sscVideoSubjectItemScreen';
 
-  // * #################################### Honours Course Section ####################################
+  // * ################################ Honours Course Section ###############################
   static const String honoursDashboardScreen = '/honoursDashboardScreen';
   static const String honoursGroupDashboardScreen =
       '/honoursGroupDashboardScreen';
   static const String honoursGroupItemScreen = '/honoursGroupItemScreen';
+  static const String honoursMCQDashboardScreen = '/honoursMCQDashboardScreen';
+  static const String honoursSubjectListScreen = '/honoursSubjectListScreen';
+  static const String honoursMCQItemScreen = '/honoursMCQItemScreen';
 }
 
 final class RouteGenerator {
@@ -486,16 +492,64 @@ final class RouteGenerator {
         final argument = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget:  HonoursGroupItemScreen(
+                widget: HonoursGroupItemScreen(
                   type: argument['type'],
                   className: argument['className'],
                 ),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) =>  HonoursGroupItemScreen(
+                builder: (context) => HonoursGroupItemScreen(
                   type: argument['type'],
                   className: argument['className'],
+                ),
+              );
+
+      case Routes.honoursMCQDashboardScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const HonoursMCQDashboardScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const HonoursMCQDashboardScreen(),
+              );
+
+      case Routes.honoursSubjectListScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HonoursSubjectListScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HonoursSubjectListScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                ),
+              );
+
+      case Routes.honoursMCQItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HonoursSingleItemScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                  subjectTitle: argument['subjectTitle'],
+                  itemID: argument['itemID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HonoursSingleItemScreen(
+                  type: argument['type'],
+                  classType: argument['classType'],
+                  subjectTitle: argument['subjectTitle'],
+                  itemID: argument['itemID'],
                 ),
               );
 

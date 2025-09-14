@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class SscPdfSubjectModel {
+class HonoursSubjectModel {
     final bool? success;
     final String? message;
     final List<Datum>? data;
 
-    SscPdfSubjectModel({
+    HonoursSubjectModel({
         this.success,
         this.message,
         this.data,
     });
 
-    factory SscPdfSubjectModel.fromRawJson(String str) => SscPdfSubjectModel.fromJson(json.decode(str));
+    factory HonoursSubjectModel.fromRawJson(String str) => HonoursSubjectModel.fromJson(json.decode(str));
 
     String toRawJson() => json.encode(toJson());
 
-    factory SscPdfSubjectModel.fromJson(Map<String, dynamic> json) => SscPdfSubjectModel(
+    factory HonoursSubjectModel.fromJson(Map<String, dynamic> json) => HonoursSubjectModel(
         success: json["success"],
         message: json["message"],
         data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),

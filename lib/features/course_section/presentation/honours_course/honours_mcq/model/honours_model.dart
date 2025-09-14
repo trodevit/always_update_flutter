@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class SscPdfSubjectModel {
+class HonoursMcqModel {
     final bool? success;
     final String? message;
     final List<Datum>? data;
 
-    SscPdfSubjectModel({
+    HonoursMcqModel({
         this.success,
         this.message,
         this.data,
     });
 
-    factory SscPdfSubjectModel.fromRawJson(String str) => SscPdfSubjectModel.fromJson(json.decode(str));
+    factory HonoursMcqModel.fromRawJson(String str) => HonoursMcqModel.fromJson(json.decode(str));
 
     String toRawJson() => json.encode(toJson());
 
-    factory SscPdfSubjectModel.fromJson(Map<String, dynamic> json) => SscPdfSubjectModel(
+    factory HonoursMcqModel.fromJson(Map<String, dynamic> json) => HonoursMcqModel(
         success: json["success"],
         message: json["message"],
         data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
@@ -30,19 +30,27 @@ class SscPdfSubjectModel {
 
 class Datum {
     final int? id;
-    final String? subject;
+    final String? question;
+    final String? className;
+    final String? group;
+    final int? subject;
+    final String? title;
+    final String? pdf;
+    final String? thumbnail;
     final DateTime? createdAt;
     final DateTime? updatedAt;
-    final String? datumClass;
-    final String? group;
 
     Datum({
         this.id,
+        this.question,
+        this.className,
+        this.group,
         this.subject,
+        this.title,
+        this.pdf,
+        this.thumbnail,
         this.createdAt,
         this.updatedAt,
-        this.datumClass,
-        this.group,
     });
 
     factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
@@ -51,19 +59,27 @@ class Datum {
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
+        question: json["question"],
+        className: json["class_name"],
+        group: json["group"],
         subject: json["subject"],
+        title: json["title"],
+        pdf: json["pdf"],
+        thumbnail: json["thumbnail"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        datumClass: json["class"],
-        group: json["group"],
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
+        "question": question,
+        "class_name": className,
+        "group": group,
         "subject": subject,
+        "title": title,
+        "pdf": pdf,
+        "thumbnail": thumbnail,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
-        "class": datumClass,
-        "group": group,
     };
 }
