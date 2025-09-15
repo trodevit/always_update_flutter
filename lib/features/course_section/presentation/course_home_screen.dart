@@ -103,11 +103,10 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          NavigationService.navigateToWithArgs(
-                              Routes.courseLoginScreen, {
-                            'className': 'HSC',
-                          });
-                          log('Navigating to Course Login Screen');
+                          NavigationService.navigateTo(
+                            Routes.hscDashboardScreen,
+                          );
+                          log('Navigating to HSC Dashboard Screen');
                         },
                         child: Container(
                           height: 100,

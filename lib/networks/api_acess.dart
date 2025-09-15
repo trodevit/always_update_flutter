@@ -17,6 +17,14 @@ import 'package:always_update/features/course_section/presentation/honours_cours
 import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/data/get_honours_subject_list_rx.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/model/honours_model.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/model/honours_subject_model.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/data/hsc_dashboard_data/get_hsc_dashboard_rx.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/model/hsc_year_model.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_group_sugg/data/hsc_group_sugg_rx.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_group_sugg/model/hsc_group_sugg_model.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/data/get_hsc_single_rx.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/data/get_hsc_subject_rx.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/model/hsc_mcq_single_item.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/model/hsc_mcq_subject_list_model.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/data/get_ssc_subject_video_rx.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/data/get_video_item_rx.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/model/ssc_video_item_model.dart';
@@ -115,4 +123,25 @@ HonoursSubjectRX honoursSubjectRX = HonoursSubjectRX(
 GetHonoursSingleItemRX honoursSingleItemRX = GetHonoursSingleItemRX(
   empty: HonoursMcqModel(),
   dataFetcher: BehaviorSubject<HonoursMcqModel>(),
+);
+
+// * ############################ HSC Video Course Section #########################
+GetHscYearRX getHscYearRX = GetHscYearRX(
+  empty: HscYearModel(),
+  dataFetcher: BehaviorSubject<HscYearModel>(),
+);
+
+GetHscGroupSuggRX getHscGroupSuggRX = GetHscGroupSuggRX(
+  empty: HscGroupSuggModel(),
+  dataFetcher: BehaviorSubject<HscGroupSuggModel>(),
+);
+
+HscSubjectRX getHscSubjectRX = HscSubjectRX(
+  empty: HscMcqSubListModel(),
+  dataFetcher: BehaviorSubject<HscMcqSubListModel>(),
+);
+
+HscMcqSingleItemRX hscMcqSingleItemRX = HscMcqSingleItemRX(
+  empty: HscMcqSingelltemModel(),
+  dataFetcher: BehaviorSubject<HscMcqSingelltemModel>(),
 );

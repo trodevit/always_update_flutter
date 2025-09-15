@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable
+import 'dart:developer';
+
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_icons.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
-import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/model/honours_subject_model.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/model/hsc_mcq_subject_list_model.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/networks/api_acess.dart';
@@ -11,34 +13,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class HonoursSubjectListScreen extends StatefulWidget {
-  final dynamic type;
+class HscSubjectListScreen extends StatefulWidget {
+  final dynamic yearID;
   final dynamic classType;
 
-  const HonoursSubjectListScreen({super.key, this.type, this.classType});
+  const HscSubjectListScreen({super.key, this.yearID, this.classType});
 
   @override
-  State<HonoursSubjectListScreen> createState() =>
-      _HonoursSubjectListScreenState();
+  State<HscSubjectListScreen> createState() => _HscSubjectListScreenState();
 }
 
-class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
+class _HscSubjectListScreenState extends State<HscSubjectListScreen> {
   @override
   void initState() {
     super.initState();
-    honoursSubjectRX.honoursSubjectRX();
+    getHscSubjectRX.hscSubjectRX();
   }
 
   @override
   Widget build(BuildContext context) {
+    log("============> ${widget.yearID} <============");
+    log("============> ${widget.classType} <============");
+
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'অনার্স সাবজেক্ট লিস্ট ${widget.classType}',
+        title: 'এইচএসসি সাবজেক্ট লিস্ট',
       ),
       body: SafeArea(
-        child: StreamBuilder<HonoursSubjectModel>(
-          stream: honoursSubjectRX.getHonoursSubjectRX,
+        child: StreamBuilder<HscMcqSubListModel>(
+          stream: getHscSubjectRX.getHscSubjectRX,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -66,8 +70,13 @@ class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
             if (filteredSubjects.isEmpty) {
               return Center(
                 child: Text(
-                  'এই "$filter" গ্রুপের জন্য কোনো ডেটা পাওয়া যায়নি',
+                  'কোনো ডেটা পাওয়া যায়নি',
                   textAlign: TextAlign.center,
+                  style: TextFontStyle.hindisiliguri10w400.copyWith(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               );
             }
@@ -82,9 +91,9 @@ class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
                   return GestureDetector(
                     onTap: () {
                       NavigationService.navigateToWithArgs(
-                        Routes.honoursMCQItemScreen,
+                        Routes.hscMCQItemScreen,
                         {
-                          'type': widget.type,
+                          'yearID': widget.yearID,
                           'classType': widget.classType,
                           'itemID': item.id,
                           'subjectTitle': item.subject,

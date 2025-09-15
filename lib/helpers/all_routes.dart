@@ -12,6 +12,13 @@ import 'package:always_update/features/course_section/presentation/honours_cours
 import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/honours_mcq_subjectlist_screen.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/honours_msc_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/honourse_mcq_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_course_features_screen.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_dashboard_screen.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_group_sugg/hsc_group_sugg_item_screen.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_group_sugg/hsc_group_sugg_screen.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_mcq_dashboard.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_mcq_single_item.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_subject_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
@@ -84,6 +91,15 @@ final class Routes {
   static const String honoursMCQDashboardScreen = '/honoursMCQDashboardScreen';
   static const String honoursSubjectListScreen = '/honoursSubjectListScreen';
   static const String honoursMCQItemScreen = '/honoursMCQItemScreen';
+
+  // * ################################# HSC Course Section #################################
+  static const String hscDashboardScreen = '/hscDashboardScreen';
+  static const String hscCourseFeaturesScreen = '/hscCourseFeaturesScreen';
+  static const String hscGroupSuggScreen = '/hscGroupSuggScreen';
+  static const String hscGroupSuggItemScreen = '/hscGroupSuggItemScreen';
+  static const String hscSubjectListScreen = '/hscSubjectListScreen';
+  static const String hscMcqDashboardScreen = '/hscMcqDashboardScreen';
+  static const String hscMCQItemScreen = '/hscMCQItemScreen';
 }
 
 final class RouteGenerator {
@@ -550,6 +566,118 @@ final class RouteGenerator {
                   classType: argument['classType'],
                   subjectTitle: argument['subjectTitle'],
                   itemID: argument['itemID'],
+                ),
+              );
+      // * ######################################################################################
+      // * ################################# HSC Course Section #################################
+      // * ######################################################################################
+      case Routes.hscDashboardScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const HscDashboardScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const HscDashboardScreen(),
+              );
+
+      case Routes.hscCourseFeaturesScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscCourseFeaturesScreen(
+                  yearID: argument['yearID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscCourseFeaturesScreen(
+                  yearID: argument['yearID'],
+                ),
+              );
+
+      case Routes.hscGroupSuggScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscGroupSuggScreen(
+                  yearID: argument['yearID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscGroupSuggScreen(
+                  yearID: argument['yearID'],
+                ),
+              );
+
+      case Routes.hscGroupSuggItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscGroupSuggItemScreen(
+                  yearID: argument['yearID'],
+                  className: argument['className'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscGroupSuggItemScreen(
+                  yearID: argument['yearID'],
+                  className: argument['className'],
+                ),
+              );
+
+      case Routes.hscMcqDashboardScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscMcqDashboardScreen(
+                  yearID: argument['yearID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscMcqDashboardScreen(
+                  yearID: argument['yearID'],
+                ),
+              );
+
+      case Routes.hscSubjectListScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscSubjectListScreen(
+                  yearID: argument['yearID'],
+                  classType: argument['classType'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscSubjectListScreen(
+                  yearID: argument['yearID'],
+                  classType: argument['classType'],
+                ),
+              );
+
+      case Routes.hscMCQItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscMcqSingleItemScreen(
+                  type: argument['yearID'],
+                  classType: argument['classType'],
+                  itemID: argument['itemID'],
+                  subjectTitle: argument['subjectTitle'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscMcqSingleItemScreen(
+                  type: argument['yearID'],
+                  classType: argument['classType'],
+                  itemID: argument['itemID'],
+                  subjectTitle: argument['subjectTitle'],
                 ),
               );
 

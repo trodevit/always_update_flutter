@@ -72,4 +72,13 @@ final class Endpoints {
   static String getHonoursPDFSubjectSingleItem(
           dynamic type, className, subjectId) =>
       "/api/class/honors/$type/question/$className/$subjectId";
+
+  // * ############################ HSC Video Course Section #########################
+  static String getHscYear() => "/api/hsc/class";
+  static String getHscGroupSugg(dynamic className, dynamic yearID) =>
+      "/api/hsc/pdf/$className/$yearID";
+  static String getHscSubject() => "/api/hsc/subjects";
+  static String getHscPDFSubjectSingleItem(
+          dynamic type, className, subjectId) =>
+      "/api/hsc/allpdf/$className/mcq/$subjectId/$type";
 }
