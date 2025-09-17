@@ -369,36 +369,41 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     UIHelper.horizontalSpace(10.w),
-                    Container(
-                      height: 90.h,
-                      width: 110.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: AppColors.activeColor,
-                          width: 2,
+                    GestureDetector(
+                      onTap: () {
+                        NavigationService.navigateTo(Routes.resultScreen);
+                      },
+                      child: Container(
+                        height: 90.h,
+                        width: 110.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: AppColors.activeColor,
+                            width: 2,
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.resultIcon,
-                            height: 40,
-                            width: 40,
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            'রেজাল্ট',
-                            textAlign: TextAlign.center,
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.resultIcon,
+                              height: 40,
+                              width: 40,
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 5),
+                            Text(
+                              'রেজাল্ট',
+                              textAlign: TextAlign.center,
+                              style: TextFontStyle.hindisiliguri10w400.copyWith(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

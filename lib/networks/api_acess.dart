@@ -25,6 +25,8 @@ import 'package:always_update/features/course_section/presentation/hsc_course/pr
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/data/get_hsc_subject_rx.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/model/hsc_mcq_single_item.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/model/hsc_mcq_subject_list_model.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_shortcut_tech/data/get_hsc_shortcut_rx.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_shortcut_tech/model/get_hsc_shortcut_model.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/data/get_ssc_subject_video_rx.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/data/get_video_item_rx.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/model/ssc_video_item_model.dart';
@@ -144,4 +146,9 @@ HscSubjectRX getHscSubjectRX = HscSubjectRX(
 HscMcqSingleItemRX hscMcqSingleItemRX = HscMcqSingleItemRX(
   empty: HscMcqSingelltemModel(),
   dataFetcher: BehaviorSubject<HscMcqSingelltemModel>(),
+);
+
+GetHscShortcutRX hscShortcutRXObj = GetHscShortcutRX(
+  empty: HscShortcutModel(),
+  dataFetcher: BehaviorSubject<HscShortcutModel>(),
 );

@@ -19,6 +19,8 @@ import 'package:always_update/features/course_section/presentation/hsc_course/pr
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_mcq_dashboard.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_mcq_single_item.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_subject_list_screen.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_shortcut_tech/hsc_shortcut_dashboard_screen.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_shortcut_tech/hsc_shortcut_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_category_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_all_pdf/ssc_allpdf_single_item_screen.dart';
@@ -39,6 +41,7 @@ import 'package:always_update/features/course_section/presentation/sub_screen/su
 import 'package:always_update/features/course_section/presentation/sub_screen/video_course_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/video_screen.dart';
 import 'package:always_update/features/pdf_view_screen.dart';
+import 'package:always_update/features/result_section/result_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 final class Routes {
@@ -100,6 +103,14 @@ final class Routes {
   static const String hscSubjectListScreen = '/hscSubjectListScreen';
   static const String hscMcqDashboardScreen = '/hscMcqDashboardScreen';
   static const String hscMCQItemScreen = '/hscMCQItemScreen';
+  // * ######################################################################################
+  // * HSC Shortcut Item Screen
+  static const String hscShortcutDashboardScreen =
+      '/hscShortcutDashboardScreen';
+  static const String hscShortcutItemScreen = '/hscShortcutItemScreen';
+
+  // * ######################### Result Section #########################
+  static const String resultScreen = '/resultScreen';
 }
 
 final class RouteGenerator {
@@ -109,6 +120,17 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      // * Result Screen
+      case Routes.resultScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: ResultScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => ResultScreen(),
+              );
+
       // * Class Screen
       case Routes.classScreen:
         final argument = settings.arguments as Map;
@@ -678,6 +700,42 @@ final class RouteGenerator {
                   classType: argument['classType'],
                   itemID: argument['itemID'],
                   subjectTitle: argument['subjectTitle'],
+                ),
+              );
+
+      // * ############################## HSC Shortcut Section ##############################
+      case Routes.hscShortcutDashboardScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscShortcutDashboardScreen(
+                  yearID: argument['yearID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscShortcutDashboardScreen(
+                  yearID: argument['yearID'],
+                ),
+              );
+
+      // * ############################## HSC Shortcut Section ##############################
+      case Routes.hscShortcutItemScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscShortcutItemScreen(
+                  yearID: argument['yearID'],
+                  type: argument['type'],
+                  className: argument['className'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscShortcutItemScreen(
+                  yearID: argument['yearID'],
+                  type: argument['type'],
+                  className: argument['className'],
                 ),
               );
 

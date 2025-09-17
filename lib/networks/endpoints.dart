@@ -81,4 +81,7 @@ final class Endpoints {
   static String getHscPDFSubjectSingleItem(
           dynamic type, className, subjectId) =>
       "/api/hsc/allpdf/$className/mcq/$subjectId/$type";
+
+  static String getHscShortcutItem(dynamic type, yearID) =>
+      "/api/hsc/shortcut/$type/$yearID";
 }

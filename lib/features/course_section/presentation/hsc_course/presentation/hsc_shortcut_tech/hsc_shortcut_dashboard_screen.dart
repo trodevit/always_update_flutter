@@ -11,22 +11,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class HscCourseFeaturesScreen extends StatefulWidget {
+class HscShortcutDashboardScreen extends StatefulWidget {
   dynamic yearID;
-  HscCourseFeaturesScreen({super.key, this.yearID});
+  HscShortcutDashboardScreen({super.key, this.yearID});
 
   @override
-  State<HscCourseFeaturesScreen> createState() =>
-      _HscCourseFeaturesScreenState();
+  State<HscShortcutDashboardScreen> createState() =>
+      _HscShortcutDashboardScreenState();
 }
 
-class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
+class _HscShortcutDashboardScreenState
+    extends State<HscShortcutDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এইচএসসি কোর্স',
+        title: 'এইচএসসি শর্টকাট কোর্স',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -40,8 +41,10 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateToWithArgs(
-                        Routes.hscGroupSuggScreen, {
+                        Routes.hscShortcutItemScreen, {
                       'yearID': widget.yearID,
+                      'type': 'grammar',
+                      'className': 'এইচএসসি',
                     });
                   },
                   child: Container(
@@ -65,7 +68,7 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                             height: 40,
                           ),
                           Text(
-                            'গ্রুপ ভিত্তিক সাজেশন',
+                            'গ্রামার সেকশন',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
@@ -81,11 +84,11 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 // * HSC MCQ
                 GestureDetector(
                   onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
                     NavigationService.navigateToWithArgs(
-                        Routes.hscMcqDashboardScreen, {
+                        Routes.hscShortcutItemScreen, {
                       'yearID': widget.yearID,
+                      'type': 'written',
+                      'className': 'এইচএসসি',
                     });
                   },
                   child: Container(
@@ -109,7 +112,7 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                             height: 40,
                           ),
                           Text(
-                            'এমসিকিউ প্রশ্নোত্তর',
+                            'রিটেন সেকশন',
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
                               color: AppColors.c000000,
                               fontSize: 16.sp,
@@ -122,47 +125,6 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                   ),
                 ),
                 UIHelper.verticalSpace(20.h),
-                // * HSC Video Section
-                GestureDetector(
-                  onTap: () {
-                    NavigationService.navigateToWithArgs(
-                        Routes.hscShortcutDashboardScreen, {
-                      'yearID': widget.yearID,
-                    });
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: Colors.grey.shade800,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.courseIcon,
-                            width: 40,
-                            height: 40,
-                          ),
-                          Text(
-                            'শর্টকাট টেকনিক',
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: AppColors.c000000,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
