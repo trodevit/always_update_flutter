@@ -34,7 +34,7 @@ class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'অনার্স সাবজেক্ট লিস্ট ${widget.classType}',
+        title: 'অনার্স সাবজেক্ট লিস্ট',
       ),
       body: SafeArea(
         child: StreamBuilder<HonoursSubjectModel>(

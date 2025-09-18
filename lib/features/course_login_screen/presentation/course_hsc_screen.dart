@@ -8,7 +8,9 @@ import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/assets_helper/app_lottie.dart';
 import 'package:always_update/common_widgets/custom_button.dart';
 import 'package:always_update/common_widgets/custom_textField.dart';
+import 'package:always_update/constants/app_constants.dart';
 import 'package:always_update/helpers/all_routes.dart';
+import 'package:always_update/helpers/di.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -17,18 +19,16 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class CourseLoginScreen extends StatefulWidget {
-  dynamic className;
-  CourseLoginScreen({
+class CourseHSCLoginScreen extends StatefulWidget {
+  const CourseHSCLoginScreen({
     super.key,
-    required this.className,
   });
 
   @override
-  State<CourseLoginScreen> createState() => _CourseLoginScreenState();
+  State<CourseHSCLoginScreen> createState() => _CourseHSCLoginScreenState();
 }
 
-class _CourseLoginScreenState extends State<CourseLoginScreen> {
+class _CourseHSCLoginScreenState extends State<CourseHSCLoginScreen> {
   String _deviceId = 'Unknown';
   String _deviceName = 'Unknown';
 
@@ -77,7 +77,6 @@ class _CourseLoginScreenState extends State<CourseLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('=============> Class Name: ${widget.className}');
     log('=============> Device ID: $_deviceId');
     log('=============> Device Name: $_deviceName');
 
@@ -219,12 +218,15 @@ class _CourseLoginScreenState extends State<CourseLoginScreen> {
                                     });
 
                                     if (success) {
-                                      NavigationService.navigateToWithArgs(
-                                          Routes.courseDashboardScreen, {
-                                        'className': widget.className,
-                                        'email': _emailController.text,
-                                        'deviceID': _deviceId,
-                                      });
+                                      if (appData.read(kKeyHSC) == 1) {
+                                        NavigationService.navigateToWithArgs(
+                                            Routes.hscDashboardScreen, {
+                                          'email': _emailController.text,
+                                          'password': _passwordController.text,
+                                          'deviceID': _deviceId,
+                                        });
+                                      }
+
                                       Get.snackbar(
                                         "Success",
                                         "Login successful ✔",

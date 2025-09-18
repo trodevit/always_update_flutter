@@ -8,7 +8,7 @@ import 'package:always_update/features/course_section/data/data/ssc_data/ssc_mod
 import 'package:always_update/features/course_section/data/data/ssc_data/ssc_pdf_single_item_model.dart';
 import 'package:always_update/features/course_section/data/data/ssc_data/ssc_pdf_subject_model.dart';
 import 'package:always_update/features/course_section/data/data/ssc_data/ssc_shortcut/ssc_shortcut_rx.dart';
-import 'package:always_update/features/course_section/data/post_course_login_rx.dart';
+import 'package:always_update/features/course_login_screen/data/post_course_login_rx.dart';
 import 'package:always_update/features/course_section/model/course_login_model.dart';
 import 'package:always_update/features/course_section/model/course_model.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_group/data/honours_group_rx.dart';

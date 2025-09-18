@@ -34,8 +34,11 @@ class _HonoursDashboardScreenState extends State<HonoursDashboardScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
+                    // NavigationService.navigateTo(
+                    //   Routes.honoursGroupDashboardScreen,
+                    // );
                     NavigationService.navigateTo(
-                      Routes.honoursGroupDashboardScreen,
+                      Routes.honoursGroupLoginScreen,
                     );
                   },
                   child: Container(
@@ -76,8 +79,11 @@ class _HonoursDashboardScreenState extends State<HonoursDashboardScreen> {
                   onTap: () {
                     // Get.to(() =>
                     //     SscCategoryScreen()); // Pass the widget directly
+                    // NavigationService.navigateTo(
+                    //   Routes.honoursMCQDashboardScreen,
+                    // );
                     NavigationService.navigateTo(
-                      Routes.honoursMCQDashboardScreen,
+                      Routes.honoursMCQLoginScreen,
                     );
                   },
                   child: Container(

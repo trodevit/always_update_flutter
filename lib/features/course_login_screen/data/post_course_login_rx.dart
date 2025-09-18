@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
 import 'dart:developer';
-import 'package:always_update/features/course_section/data/post_course_login_api.dart';
+import 'package:always_update/features/course_login_screen/data/post_course_login_api.dart';
 import 'package:always_update/features/course_section/model/course_login_model.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
@@ -42,6 +42,9 @@ final class PostCourseLoginRX extends RxResponseInt<CourseLoginModel> {
     // Extract the token from the response
     String deviceId = data.user!.deviceId!;
     dynamic id = data.user!.id!;
+    dynamic ssc = data.user!.ssc!;
+    dynamic hsc = data.user!.hsc!;
+    dynamic honours = data.user!.honors!;
 
     log("===============> Send Device ID:- $deviceId");
 
@@ -49,6 +52,12 @@ final class PostCourseLoginRX extends RxResponseInt<CourseLoginModel> {
     await appData.write(kDeviceId, deviceId);
     await appData.write(kKeyIsLoggedIn, true);
     await appData.write(kKeyUserID, id);
+
+    // * save course
+    await appData.write(kKeySSC, ssc);
+    await appData.write(kKeySSC, hsc);
+    await appData.write(kKeySSC, honours);
+
     // await appData.write(kKeyIsSubscribe, isSubscribe);
 
     // Update DioSingleton with the new token

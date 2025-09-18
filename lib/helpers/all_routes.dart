@@ -5,7 +5,9 @@ import 'package:always_update/features/class_section/presentation/class_screen.d
 import 'package:always_update/features/class_section/presentation/class_topic_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_home_screen.dart';
-import 'package:always_update/features/course_section/presentation/course_login_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/course_honours_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/course_hsc_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/course_login_screen.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_group/honours_group_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_group/honours_group_item_screen.dart';
@@ -40,6 +42,8 @@ import 'package:always_update/features/course_section/presentation/ssc_course/ss
 import 'package:always_update/features/course_section/presentation/sub_screen/suggestion_formula_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/video_course_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/video_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/honours_login_screen/honours_group_login_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/honours_login_screen/honours_mcq_login_screen.dart';
 import 'package:always_update/features/pdf_view_screen.dart';
 import 'package:always_update/features/result_section/result_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,7 +58,13 @@ final class Routes {
   static const String classTopicScreen = '/classTopicScreen';
   static const String pdfViewScreen = '/pdfViewScreen';
   static const String courseHomeScreen = '/courseHomeScreen';
+  // * ################## Login Screen Section ##################
   static const String courseLoginScreen = '/courseLoginScreen';
+  static const String hscLoginScreen = '/hscLoginScreen';
+  static const String honoursLoginScreen = '/honoursLoginScreen';
+  static const String honoursMCQLoginScreen = '/honoursMCQLoginScreen';
+  static const String honoursGroupLoginScreen = '/honoursGroupLoginScreen';
+  // * ##########################################################
   static const String courseDashboardScreen = '/courseDashboardScreen';
   static const String videoCourseListScreen = '/videoCourseListScreen';
   static const String videoCourseScreen = '/videoCourseScreen';
@@ -189,20 +199,64 @@ final class RouteGenerator {
                 builder: (context) => CourseHomeScreen(),
               );
 
+// * ######################### SSC Login Section #########################
       case Routes.courseLoginScreen:
-        final argument = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: CourseLoginScreen(
-                  className: argument['className'],
-                ),
+                widget: CourseLoginScreen(),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) => CourseLoginScreen(
-                  className: argument['className'],
-                ),
+                builder: (context) => CourseLoginScreen(),
               );
+
+      // * ######################### HSC Login Section #########################
+      case Routes.hscLoginScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: CourseHSCLoginScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => CourseHSCLoginScreen(),
+              );
+
+      // * #########################################################################
+      // * ######################### Honours Login Section #########################
+      // * #########################################################################
+
+      case Routes.honoursLoginScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: CourseHonoursLoginScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => CourseHonoursLoginScreen(),
+              );
+
+      case Routes.honoursMCQLoginScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HonoursMCQLoginScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HonoursMCQLoginScreen(),
+              );
+
+      case Routes.honoursGroupLoginScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HonoursGroupLoginScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HonoursGroupLoginScreen(),
+              );
+
+      // * ###########################################################################
+      // * ###########################################################################
 
       case Routes.courseDashboardScreen:
         final argument = settings.arguments as Map;
