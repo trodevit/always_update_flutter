@@ -1,16 +1,17 @@
-// ignore_for_file: deprecated_member_use, must_be_immutable, unused_element
+// ignore_for_file: deprecated_member_use, must_be_immutable, unused_element, prefer_interpolation_to_compose_strings
 import 'dart:developer';
+import 'package:always_update/features/pdf_view_screen.dart';
+import 'package:always_update/helpers/ui_helpers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/common_widgets/custom_button.dart';
 import 'package:always_update/features/class_section/model/subject_model.dart';
-import 'package:always_update/helpers/all_routes.dart';
-import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class ClassTopicScreen extends StatefulWidget {
@@ -168,147 +169,138 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                             return GestureDetector(
                               onTap: () {},
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 5.0, vertical: 5.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(12),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 5,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
+                                    color: AppColors.cFFFFFF,
+                                    borderRadius: BorderRadius.circular(6.r),
+                                    border:
+                                        Border.all(color: AppColors.boxShadow),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Image.network(
-                                              imageUrls + imageUrl!,
-                                              width: 80,
-                                              height: 80,
-                                              fit: BoxFit.cover,
+                                  child: Column(
+                                    children: [
+                                      // Thumbnail
+                                      if ((suggestion.image ?? '').isNotEmpty)
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(6.r),
+                                            topRight: Radius.circular(6.r),
+                                          ),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                imageUrls + suggestion.image!,
+                                            width: double.infinity,
+                                            height:
+                                                200, // Adjust height as needed
+                                            fit: BoxFit.cover,
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                Center(
+                                              child: CircularProgressIndicator(
+                                                value:
+                                                    downloadProgress.progress,
+                                              ),
                                             ),
-                                            SizedBox(width: 10),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  formattedDate(suggestion
-                                                      .createdAt
-                                                      .toString()),
-                                                  style: TextFontStyle
-                                                      .hindisiliguri10w400
-                                                      .copyWith(
-                                                    color: Colors.black,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text(
-                                          suggestion.title ?? '',
-                                          style: TextFontStyle
-                                              .hindisiliguri10w400
-                                              .copyWith(
-                                            color: Colors.black,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          overflow: TextOverflow.visible,
-                                          maxLines: null,
-                                          softWrap: true,
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text(
-                                          suggestion.description ?? '',
-                                          style: TextFontStyle
-                                              .hindisiliguri10w400
-                                              .copyWith(
-                                            color: Colors.black,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Container(
+                                              width: double.infinity,
+                                              height: 200,
+                                              color: Colors.grey[300],
+                                              child: Icon(Icons.error,
+                                                  color: Colors.grey),
+                                            ),
                                           ),
                                         ),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                      // Content
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
                                           children: [
-                                            if (suggestion.check == 'notice')
-                                              customButton(
-                                                minWidth: 150,
-                                                height: 50,
-                                                color: AppColors.primaruDarki,
-                                                borderColor:
-                                                    AppColors.primaruDarki,
-                                                borderRadius: 10,
-                                                name: 'ওয়েবসাইট দেখুন',
-                                                textStyle: TextFontStyle
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                suggestion.title ?? '',
+                                                style: TextFontStyle
                                                     .hindisiliguri10w400
                                                     .copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.c000000,
+                                                  fontSize: 18.sp,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                onCallBack: () async {
-                                                  // URL লঞ্চ করার জন্য সরাসরি ফাংশন কল
-                                                  if (await canLaunchUrl(
-                                                      Uri.parse(suggestion
-                                                              .officalUrl ??
-                                                          ''))) {
-                                                    await launchUrl(Uri.parse(
-                                                        suggestion.officalUrl ??
-                                                            ''));
-                                                  } else {
-                                                    throw 'Could not launch ${suggestion.officalUrl}';
-                                                  }
-                                                },
-                                                context: context,
                                               ),
-                                            customButton(
-                                              minWidth: 150,
-                                              height: 50,
-                                              color: AppColors.primaryColor,
-                                              borderColor:
-                                                  AppColors.primaryColor,
-                                              borderRadius: 10,
-                                              name: 'পিডিএফ দেখুন',
-                                              textStyle: TextFontStyle
-                                                  .hindisiliguri10w400
-                                                  .copyWith(
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "প্রকাশিত তারিখ: " +
+                                                    formattedDate(suggestion
+                                                        .createdAt
+                                                        .toString()),
+                                                style: TextFontStyle
+                                                    .hindisiliguri10w400
+                                                    .copyWith(
+                                                  color: AppColors.c000000,
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                              onCallBack: () {
-                                                NavigationService
-                                                    .navigateToWithArgs(
-                                                  Routes.pdfViewScreen,
-                                                  {
-                                                    'pdfURL': suggestion.pdf,
+                                            ),
+                                            UIHelper.verticalSpace(20.h),
+
+                                            // Actions
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                customButton(
+                                                  minWidth: 120.w,
+                                                  name: 'পিডিএফ দেখুন',
+                                                  textStyle: TextFontStyle
+                                                      .hindisiliguri10w400
+                                                      .copyWith(
+                                                    color: AppColors.cFFF5DA,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  onCallBack: () {
+                                                    final pdf =
+                                                        suggestion.pdf ?? '';
+                                                    log('PDF: $pdf');
+                                                    if (pdf.isEmpty) {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        const SnackBar(
+                                                          content: Text(
+                                                              'পিডিএফ লিঙ্ক পাওয়া যায়নি'),
+                                                        ),
+                                                      );
+                                                      return;
+                                                    }
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (_) =>
+                                                            PDFViewScreen(
+                                                                pdfURL: pdf),
+                                                      ),
+                                                    );
                                                   },
-                                                );
-                                              },
-                                              context: context,
+                                                  context: context,
+                                                  color: AppColors.c02BF65,
+                                                  borderColor:
+                                                      AppColors.c02BF65,
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),

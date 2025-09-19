@@ -1,5 +1,7 @@
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
+import 'package:always_update/features/privacy_policy_screen.dart';
+import 'package:always_update/features/terms_condition_screen.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/toast.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:always_update/assets_helper/app_fonts.dart';
@@ -520,7 +523,105 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                )
+                ),
+                UIHelper.verticalSpace(20.h),
+                Text(
+                  'আমাদের সম্পর্কে',
+                  style: TextFontStyle.hindisiliguri10w400.copyWith(
+                    color: Colors.black,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                UIHelper.verticalSpace(10.h),
+                GestureDetector(
+                  onTap: () {
+                    // NavigationService.navigateTo(Routes.aboutUsScreen);
+                    Get.to(() => PrivacyPolicyScreen());
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: AppColors.activeColor,
+                        width: 2,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'প্রাইভেসি পলিসি',
+                            style: TextFontStyle.hindisiliguri10w400.copyWith(
+                              color: Colors.black,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 18.sp,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                UIHelper.verticalSpace(10.h),
+                GestureDetector(
+                  onTap: () {
+                    // NavigationService.navigateTo(Routes.aboutUsScreen);
+                    Get.to(() => TermsAndConditionsScreen());
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: AppColors.activeColor,
+                        width: 2,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'টার্মস অ্যান্ড কন্ডিশন',
+                            style: TextFontStyle.hindisiliguri10w400.copyWith(
+                              color: Colors.black,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 18.sp,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                UIHelper.verticalSpace(20.h),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'This app is developed by Trodev IT',
+                    style: TextFontStyle.headLine22w400Poppins.copyWith(
+                      color: Colors.grey[600],
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

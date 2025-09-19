@@ -30,7 +30,7 @@ final class Endpoints {
 
   // * subject by data
   static String getSubject(dynamic className, topic) =>
-      "/api/class/$className/$topic";
+      "/api/$className/$topic";
 
   // * video course list
   static String getCourse(dynamic className, topic, email, device_id) =>

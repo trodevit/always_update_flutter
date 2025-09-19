@@ -195,7 +195,7 @@
 //   }
 // }
 
-// ignore_for_file: must_be_immutable, unused_element, deprecated_member_use
+// ignore_for_file: must_be_immutable, unused_element, deprecated_member_use, unused_element_parameter
 
 import 'dart:developer';
 import 'package:always_update/assets_helper/app_colors.dart';
@@ -208,6 +208,7 @@ import 'package:always_update/features/pdf_view_screen.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -279,7 +280,8 @@ class _SscShortcutItemScreenState extends State<SscShortcutItemScreen> {
               itemBuilder: (context, index) {
                 final item = sscData[index];
 
-                return Padding(
+                return 
+                Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Container(
                     width: double.infinity,
@@ -297,28 +299,25 @@ class _SscShortcutItemScreenState extends State<SscShortcutItemScreen> {
                               topLeft: Radius.circular(6.r),
                               topRight: Radius.circular(6.r),
                             ),
-                            child: Image.network(
-                              imageUrls + item.thumbnail!,
+                            child: CachedNetworkImage(
+                              imageUrl: imageUrls + item.thumbnail!,
                               width: double.infinity,
-                              height: 200,
+                              height: 200, // Adjust height as needed
                               fit: BoxFit.cover,
-                              // নরমাল গ্রেসফুল লোডিং
-                              loadingBuilder: (ctx, child, progress) {
-                                if (progress == null) return child;
-                                return const AspectRatio(
-                                  aspectRatio: 16 / 9,
-                                  child: _SkeletonBox(),
-                                );
-                              },
-                              errorBuilder: (ctx, error, stack) {
-                                return const AspectRatio(
-                                  aspectRatio: 16 / 9,
-                                  child: _SkeletonBox(label: 'ছবি লোড ব্যর্থ'),
-                                );
-                              },
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Center(
+                                child: CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                width: double.infinity,
+                                height: 200,
+                                color: Colors.grey[300],
+                                child: Icon(Icons.error, color: Colors.grey),
+                              ),
                             ),
                           ),
-
                         // Content
                         Padding(
                           padding: const EdgeInsets.all(8.0),
