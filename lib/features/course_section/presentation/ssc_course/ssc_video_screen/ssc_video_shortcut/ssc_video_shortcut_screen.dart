@@ -1,13 +1,12 @@
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
-import 'package:always_update/assets_helper/app_icons.dart';
+import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SscVideoShortcutScreen extends StatefulWidget {
   const SscVideoShortcutScreen({super.key});
@@ -32,8 +31,6 @@ class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
                     NavigationService.navigateToWithArgs(
                         Routes.sscVideoShortcutItemScreen, {
                       'type': 'grammar',
@@ -41,6 +38,7 @@ class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
                     });
                   },
                   child: Container(
+                    height: 80.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -49,35 +47,32 @@ class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
                         color: Colors.grey.shade800,
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.ebookIcon,
-                            width: 40,
-                            height: 40,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        UIHelper.horizontalSpace(10.w),
+                        Image.asset(
+                          AppImages.grammerImage,
+                          width: 45.w,
+                          height: 45.h,
+                        ),
+                        UIHelper.horizontalSpace(15.w),
+                        Text(
+                          'গ্রামার সেকশন',
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: AppColors.c000000,
+                            fontSize: 20.sp,
                           ),
-                          Text(
-                            'গ্রামার সেকশন',
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: AppColors.c000000,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                 ),
                 UIHelper.verticalSpace(20.h),
+
                 GestureDetector(
                   onTap: () {
-                    // Get.to(() =>
-                    //     SscCategoryScreen()); // Pass the widget directly
                     NavigationService.navigateToWithArgs(
                         Routes.sscVideoShortcutItemScreen, {
                       'type': 'written',
@@ -85,6 +80,7 @@ class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
                     });
                   },
                   child: Container(
+                    height: 80.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -93,30 +89,118 @@ class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
                         color: Colors.grey.shade800,
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.courseIcon,
-                            width: 40,
-                            height: 40,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        UIHelper.horizontalSpace(10.w),
+                        Image.asset(
+                          AppImages.writtenImage,
+                          width: 45.w,
+                          height: 45.h,
+                        ),
+                        UIHelper.horizontalSpace(15.w),
+                        Text(
+                          'রিটেন সেকশন',
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: AppColors.c000000,
+                            fontSize: 20.sp,
                           ),
-                          Text(
-                            'রিটেন সেকশন',
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: AppColors.c000000,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                 ),
+                UIHelper.verticalSpace(20.h),
+
+                // * old code
+                // GestureDetector(
+                //   onTap: () {
+                //     // Get.to(() =>
+                //     //     SscCategoryScreen()); // Pass the widget directly
+                //     NavigationService.navigateToWithArgs(
+                //         Routes.sscVideoShortcutItemScreen, {
+                //       'type': 'grammar',
+                //       'className': 'গ্রামার সেকশন',
+                //     });
+                //   },
+                //   child: Container(
+                //     width: double.infinity,
+                //     decoration: BoxDecoration(
+                //       color: Colors.white,
+                //       borderRadius: BorderRadius.circular(8),
+                //       border: Border.all(
+                //         color: Colors.grey.shade800,
+                //       ),
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(16),
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           SvgPicture.asset(
+                //             AppIcons.ebookIcon,
+                //             width: 40,
+                //             height: 40,
+                //           ),
+                //           Text(
+                //             'গ্রামার সেকশন',
+                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
+                //               color: AppColors.c000000,
+                //               fontSize: 16.sp,
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // UIHelper.verticalSpace(20.h),
+                // GestureDetector(
+                //   onTap: () {
+                //     // Get.to(() =>
+                //     //     SscCategoryScreen()); // Pass the widget directly
+                //     NavigationService.navigateToWithArgs(
+                //         Routes.sscVideoShortcutItemScreen, {
+                //       'type': 'written',
+                //       'className': 'রিটেন সেকশন',
+                //     });
+                //   },
+                //   child: Container(
+                //     width: double.infinity,
+                //     decoration: BoxDecoration(
+                //       color: Colors.white,
+                //       borderRadius: BorderRadius.circular(8),
+                //       border: Border.all(
+                //         color: Colors.grey.shade800,
+                //       ),
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(16),
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           SvgPicture.asset(
+                //             AppIcons.courseIcon,
+                //             width: 40,
+                //             height: 40,
+                //           ),
+                //           Text(
+                //             'রিটেন সেকশন',
+                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
+                //               color: AppColors.c000000,
+                //               fontSize: 16.sp,
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

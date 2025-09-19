@@ -16,9 +16,11 @@ class AppImages {
 
   // * PDF Images
   static const String pdfMcqImages = '$imageRoute/pdfMcqImages.png';
-  static const String pdfShortQuestionImages = '$imageRoute/pdfShortQuestionImages.png';
+  static const String pdfShortQuestionImages =
+      '$imageRoute/pdfShortQuestionImages.png';
 
   // * Grammer & Written Images
   static const String grammerImage = '$imageRoute/grammerImage.png';
   static const String writtenImage = '$imageRoute/writtenImage.png';
+  static const String videoImage = '$imageRoute/videoImage.png';
 }
