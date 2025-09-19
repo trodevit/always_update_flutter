@@ -17,16 +17,16 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class HonoursMCQLoginScreen extends StatefulWidget {
-  const HonoursMCQLoginScreen({
+class SscVideoLoginScreen extends StatefulWidget {
+  const SscVideoLoginScreen({
     super.key,
   });
 
   @override
-  State<HonoursMCQLoginScreen> createState() => _HonoursMCQLoginScreenState();
+  State<SscVideoLoginScreen> createState() => _SscVideoLoginScreenState();
 }
 
-class _HonoursMCQLoginScreenState extends State<HonoursMCQLoginScreen> {
+class _SscVideoLoginScreenState extends State<SscVideoLoginScreen> {
   String _deviceId = 'Unknown';
   String _deviceName = 'Unknown';
 
@@ -117,7 +117,7 @@ class _HonoursMCQLoginScreenState extends State<HonoursMCQLoginScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'আপনাকে আমাদের অনার্স এমসিকিউ কোর্স দেখতে হলে আপনাকে লগইন করতে হবে।',
+                      'আপনাকে আমাদের এসএসসি ভিডিও কোর্স দেখতে হলে আপনাকে লগইন করতে হবে।',
                       style: TextFontStyle.hindisiliguri10w400.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.white,
@@ -199,7 +199,7 @@ class _HonoursMCQLoginScreenState extends State<HonoursMCQLoginScreen> {
                               : customButton(
                                   name: 'Sign In',
                                   onCallBack: () async {
-                                    log('Sign In button clicked');
+                                    print('Sign In button clicked');
                                     setState(() {
                                       isLoading = true;
                                     });
@@ -210,21 +210,19 @@ class _HonoursMCQLoginScreenState extends State<HonoursMCQLoginScreen> {
                                       device_id: _deviceId,
                                     );
 
-                                    log('Login success: $success');
+                                    print('Login success: $success');
                                     setState(() {
                                       isLoading = false;
                                     });
 
                                     if (success) {
                                       if (courseLoginRX
-                                              .dataFetcher.value.user?.honors ==
+                                              .dataFetcher.value.user?.ssc ==
                                           1) {
-                                        NavigationService.navigateToWithArgs(
-                                            Routes.honoursMCQDashboardScreen, {
-                                          'email': _emailController.text,
-                                          'password': _passwordController.text,
-                                          'deviceID': _deviceId,
-                                        });
+                                        NavigationService.navigateTo(
+                                          Routes.sscVideoCategoryScreen,
+                                        );
+
                                         Get.snackbar(
                                           "Success",
                                           "Login successful ✔",
@@ -236,16 +234,17 @@ class _HonoursMCQLoginScreenState extends State<HonoursMCQLoginScreen> {
                                       } else {
                                         Get.snackbar(
                                           "Failed",
-                                          "You don't have honours access ❌",
+                                          "Login unsuccessful ❌",
                                           snackPosition: SnackPosition.BOTTOM,
-                                          backgroundColor: Colors.redAccent,
+                                          backgroundColor:
+                                              AppColors.ratingColor,
                                           colorText: Colors.white,
                                           duration: Duration(seconds: 5),
                                         );
                                       }
                                     } else {
                                       Get.snackbar(
-                                        "Error",
+                                        "Failed",
                                         "Login unsuccessful ❌",
                                         snackPosition: SnackPosition.TOP,
                                         backgroundColor: Colors.redAccent,

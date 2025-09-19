@@ -38,7 +38,7 @@ final class PostCourseLoginAPI {
             ),
           ),
         );
-        ToastUtil.showShortToast('User Login Successfully');
+        // ToastUtil.showShortToast('User Login Successfully');
         return data;
       } else {
         throw DataSource.DEFAULT.getFailure();

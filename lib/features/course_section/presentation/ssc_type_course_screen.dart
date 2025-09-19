@@ -33,7 +33,7 @@ class _SscTypeCourseScreenState extends State<SscTypeCourseScreen> {
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateTo(
-                      Routes.courseLoginScreen,
+                      Routes.sscPdfLoginScreen,
                     );
                   },
                   child: Container(
@@ -74,8 +74,11 @@ class _SscTypeCourseScreenState extends State<SscTypeCourseScreen> {
                   onTap: () {
                     // Get.to(() =>
                     //     SscCategoryScreen()); // Pass the widget directly
+                    // NavigationService.navigateTo(
+                    //   Routes.sscVideoCategoryScreen,
+                    // );
                     NavigationService.navigateTo(
-                      Routes.sscVideoCategoryScreen,
+                      Routes.sscVideoLoginScreen,
                     );
                   },
                   child: Container(

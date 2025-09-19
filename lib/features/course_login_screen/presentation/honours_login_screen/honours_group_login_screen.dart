@@ -8,11 +8,8 @@ import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/assets_helper/app_lottie.dart';
 import 'package:always_update/common_widgets/custom_button.dart';
 import 'package:always_update/common_widgets/custom_textField.dart';
-import 'package:always_update/constants/app_constants.dart';
 import 'package:always_update/helpers/all_routes.dart';
-import 'package:always_update/helpers/di.dart';
 import 'package:always_update/helpers/navigation_service.dart';
-import 'package:always_update/helpers/toast.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -220,32 +217,31 @@ class _HonoursGroupLoginScreenState extends State<HonoursGroupLoginScreen> {
                                     });
 
                                     if (success) {
-                                      setState(() {
-                                        appData.write(kKeyHonours, 1);
-                                      });
+                                      if (courseLoginRX
+                                              .dataFetcher.value.user?.honors ==
+                                          1) {
+                                        NavigationService.navigateTo(
+                                          Routes.honoursGroupDashboardScreen,
+                                        );
 
-                                      if (appData.read(kKeyHonours) == 1) {
-                                        NavigationService.navigateToWithArgs(
-                                            Routes.honoursGroupDashboardScreen,
-                                            {
-                                              'email': _emailController.text,
-                                              'password':
-                                                  _passwordController.text,
-                                              'deviceID': _deviceId,
-                                            });
-
-                                        ToastUtil.showShortToast(
-                                            "Honours Group Login Successfully");
+                                        Get.snackbar(
+                                          "Success",
+                                          "Login successful ✔",
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: AppColors.c02BF65,
+                                          colorText: Colors.white,
+                                          duration: Duration(seconds: 5),
+                                        );
+                                      } else {
+                                        Get.snackbar(
+                                          "Failed",
+                                          "Login unsuccessful ❌",
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.redAccent,
+                                          colorText: Colors.white,
+                                          duration: Duration(seconds: 5),
+                                        );
                                       }
-
-                                      // Get.snackbar(
-                                      //   "Success",
-                                      //   "Login successful ✔",
-                                      //   snackPosition: SnackPosition.TOP,
-                                      //   backgroundColor: AppColors.c02BF65,
-                                      //   colorText: Colors.white,
-                                      //   duration: Duration(seconds: 5),
-                                      // );
                                     } else {
                                       Get.snackbar(
                                         "Erros",

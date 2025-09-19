@@ -3,6 +3,8 @@
 import 'dart:io';
 import 'package:always_update/features/class_section/presentation/class_screen.dart';
 import 'package:always_update/features/class_section/presentation/class_topic_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/ssc_login_screen/ssc_pdf_login_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/ssc_login_screen/ssc_video_login_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_home_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/course_honours_screen.dart';
@@ -58,12 +60,7 @@ final class Routes {
   static const String classTopicScreen = '/classTopicScreen';
   static const String pdfViewScreen = '/pdfViewScreen';
   static const String courseHomeScreen = '/courseHomeScreen';
-  // * ################## Login Screen Section ##################
-  static const String courseLoginScreen = '/courseLoginScreen';
-  static const String hscLoginScreen = '/hscLoginScreen';
-  static const String honoursLoginScreen = '/honoursLoginScreen';
-  static const String honoursMCQLoginScreen = '/honoursMCQLoginScreen';
-  static const String honoursGroupLoginScreen = '/honoursGroupLoginScreen';
+
   // * ##########################################################
   static const String courseDashboardScreen = '/courseDashboardScreen';
   static const String videoCourseListScreen = '/videoCourseListScreen';
@@ -121,6 +118,17 @@ final class Routes {
 
   // * ######################### Result Section #########################
   static const String resultScreen = '/resultScreen';
+
+  // * ################## Login Screen Section ##################
+  static const String courseLoginScreen = '/courseLoginScreen';
+  static const String hscLoginScreen = '/hscLoginScreen';
+  static const String honoursLoginScreen = '/honoursLoginScreen';
+  static const String honoursMCQLoginScreen = '/honoursMCQLoginScreen';
+  static const String honoursGroupLoginScreen = '/honoursGroupLoginScreen';
+
+  // * ############################# SSC Course Login Section #############################
+  static const String sscPdfLoginScreen = '/sscPdfLoginScreen';
+  static const String sscVideoLoginScreen = '/sscVideoLoginScreen';
 }
 
 final class RouteGenerator {
@@ -130,6 +138,27 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      // * ################## SSC Course Login Section ##################
+      // * SSC PDF Login Screen
+      case Routes.sscPdfLoginScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SscPDFLoginScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => SscPDFLoginScreen(),
+              );
+
+      case Routes.sscVideoLoginScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SscVideoLoginScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => SscVideoLoginScreen(),
+              );
       // * Result Screen
       case Routes.resultScreen:
         return Platform.isAndroid
