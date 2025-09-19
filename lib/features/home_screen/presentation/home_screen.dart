@@ -6,6 +6,7 @@ import 'package:always_update/helpers/toast.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -422,42 +423,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 UIHelper.verticalSpace(10),
                 GestureDetector(
                   onTap: () {
-                    NavigationService.navigateTo(Routes.courseHomeScreen);
+                    NavigationService.navigateTo(
+                      Routes.courseHomeScreen,
+                    );
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    width: double.infinity,
+                    height: 90.h,
+                    width: 110.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: AppColors.c02BF65,
+                        color: AppColors.activeColor,
                         width: 2,
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(
-                                8.0,
-                              ),
-                              child: SvgPicture.asset(AppIcons.courseIcon),
-                            ),
-                            Text(
-                              'আমাদের কোর্স সমূহ',
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
+                        SvgPicture.asset(
+                          AppIcons.courseIcon,
+                          height: 40,
+                          width: 40,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: SvgPicture.asset(AppIcons.arrowNext),
+                        SizedBox(height: 5),
+                        Text(
+                          'আমার কোর্স',
+                          textAlign: TextAlign.center,
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ],
                     ),
@@ -484,14 +481,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'ডিভাইস আইডি: $_deviceId',
-                        style: TextFontStyle.hindisiliguri10w400.copyWith(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                      SizedBox(height: 8),
+                      // Device ID row with copy icon
                       Text(
                         'ডিভাইস নাম: $_deviceName',
                         style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -499,9 +489,38 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 16,
                         ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'ডিভাইস আইডি: $_deviceId',
+                              style: TextFontStyle.hindisiliguri10w400.copyWith(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                              overflow:
+                                  TextOverflow.ellipsis, // long হলে কেটে দেবে
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.copy,
+                                size: 20, color: Colors.grey[700]),
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: _deviceId));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Device ID কপি হয়েছে'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),

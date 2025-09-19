@@ -21,4 +21,6 @@ class AppIcons {
 
   static const String emailIcon = '$iconsRoute/emailIcon.svg';
   static const String lockIcon = '$iconsRoute/lockIcon.svg';
+  static const String groupCourseIcon = '$iconsRoute/groupCourseIcon.svg';
+  static const String groupShortCutIcon = '$iconsRoute/groupShortCutIcon.svg';
 }

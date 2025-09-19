@@ -1,22 +1,15 @@
 // ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
 import 'dart:developer';
-
 import 'package:always_update/features/course_login_screen/data/post_course_login_api.dart';
 import 'package:always_update/features/course_section/model/course_login_model.dart';
-import 'package:always_update/helpers/all_routes.dart';
-import 'package:always_update/helpers/navigation_service.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../../../constants/app_constants.dart';
 import '../../../../helpers/di.dart';
 import '../../../../helpers/toast.dart';
 import '../../../../networks/dio/dio.dart';
 import '../../../../networks/rx_base.dart';
 
-/// Login RX
-/// - অ্যাক্সেস (honours/ssc/hsc) চেক না হলে logged-in flag সেট হবে না, navigate-ও হবে না
-/// - অ্যাক্সেস থাকলেই persist + navigate
 final class PostCourseLoginRX extends RxResponseInt<CourseLoginModel> {
   final api = PostCourseLoginAPI.instance;
 
@@ -56,10 +49,15 @@ final class PostCourseLoginRX extends RxResponseInt<CourseLoginModel> {
     final int ssc = _user?.ssc ?? 0;
     final int hsc = _user?.hsc ?? 0;
 
-    // ✅ Has access: persist + dio update
+    // * ✅ Has access: persist + dio update
     await appData.write(kDeviceId, deviceId);
     await appData.write(kKeyUserID, id);
     await appData.write(kKeyIsLoggedIn, true);
+
+    // * Read kore rakha hocche
+    await appData.write(kKeySSC, ssc);
+    await appData.write(kKeyHSC, hsc);
+    await appData.write(kKeyHonours, honours);
 
     DioSingleton.instance.update(deviceId);
 

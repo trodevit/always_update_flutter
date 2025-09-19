@@ -2,6 +2,7 @@
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_icons.dart';
+import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/features/course_section/data/data/ssc_data/ssc_pdf_subject_model.dart';
 import 'package:always_update/helpers/all_routes.dart';
@@ -100,8 +101,8 @@ class _SscAllPdfSubjectItemScreenState
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: SvgPicture.asset(
-                                  AppIcons.courseIcon,
+                                child: Image.asset(
+                                  AppImages.groupArtsImage,
                                   height: 32.h,
                                   width: 32.w,
                                 ),
@@ -118,9 +119,12 @@ class _SscAllPdfSubjectItemScreenState
                             ],
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: SvgPicture.asset(AppIcons.arrowNext),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0,
+                            ),
+                            child: SvgPicture.asset(
+                              AppIcons.arrowNext,
+                            ),
                           ),
                         ],
                       ),

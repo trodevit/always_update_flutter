@@ -9,6 +9,7 @@ import 'package:always_update/features/pdf_view_screen.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -95,11 +96,25 @@ class _HonoursSingleItemScreenState extends State<HonoursSingleItemScreen> {
                               topRight:
                                   Radius.circular(6.r), // Top-right corner
                             ),
-                            child: Image.network(
-                              imageUrls + allPDFData[index].thumbnail!,
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  imageUrls + allPDFData[index].thumbnail!,
                               width: double.infinity,
                               height: 200, // Adjust height as needed
                               fit: BoxFit.cover,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Center(
+                                child: CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                width: double.infinity,
+                                height: 200,
+                                color: Colors.grey[
+                                    300], // Optional: grey background for error
+                                child: Icon(Icons.error, color: Colors.grey),
+                              ),
                             ),
                           ),
                           Padding(

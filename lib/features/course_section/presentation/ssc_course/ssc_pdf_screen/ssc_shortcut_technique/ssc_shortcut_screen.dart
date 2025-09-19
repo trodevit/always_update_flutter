@@ -1,12 +1,12 @@
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
-import 'package:always_update/assets_helper/app_icons.dart';
+import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
-import 'package:always_update/helpers/toast.dart';
+import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SscShortcutScreen extends StatefulWidget {
   const SscShortcutScreen({super.key});
@@ -31,95 +31,178 @@ class _SscShortcutScreenState extends State<SscShortcutScreen> {
             ),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          // Get.to(() => SscShortcutItemScreen(type: 'grammar'));
-                          NavigationService.navigateToWithArgs(
-                              Routes.sscShortCutTechniqueScreen,
-                              {'type': "grammar"});
-                          ToastUtil.showShortToast(
-                              'Navigate to SSC Short Cut Technique - Grammar');
-                        },
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: Colors.grey.shade800,
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                AppIcons.courseIcon,
-                                width: 40,
-                                height: 40,
-                              ),
-                              Text(
-                                'গ্রামার পিডিএফ',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: AppColors.c000000,
-                                  fontSize: 16,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                GestureDetector(
+                  onTap: () {
+                    NavigationService.navigateToWithArgs(
+                      Routes.sscShortCutTechniqueScreen,
+                      {
+                        'type': "grammar",
+                      },
+                    );
+                  },
+                  child: Container(
+                    height: 80.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Colors.grey.shade800,
                       ),
                     ),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () async {
-                          NavigationService.navigateToWithArgs(
-                              Routes.sscShortCutTechniqueScreen,
-                              {'type': "written"});
-                          ToastUtil.showShortToast(
-                              'Navigate to SSC Short Cut Technique - Written');
-                        },
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: Colors.grey.shade800,
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                AppIcons.courseIcon,
-                                width: 40,
-                                height: 40,
-                              ),
-                              Text(
-                                'রিটেন পিডিএফ',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: AppColors.c000000,
-                                  fontSize: 16,
-                                ),
-                              )
-                            ],
-                          ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        UIHelper.horizontalSpace(10.w),
+                        Image.asset(
+                          AppImages.grammerImage,
+                          width: 45.w,
+                          height: 45.h,
                         ),
-                      ),
+                        UIHelper.horizontalSpace(15.w),
+                        Text(
+                          'গ্রামার পিডিএফ',
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: AppColors.c000000,
+                            fontSize: 20.sp,
+                          ),
+                        )
+                      ],
                     ),
-                  ],
+                  ),
                 ),
+                UIHelper.verticalSpace(20.h),
+                GestureDetector(
+                  onTap: () {
+                    NavigationService.navigateToWithArgs(
+                      Routes.sscShortCutTechniqueScreen,
+                      {
+                        'type': "written",
+                      },
+                    );
+                  },
+                  child: Container(
+                    height: 80.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Colors.grey.shade800,
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        UIHelper.horizontalSpace(10.w),
+                        Image.asset(
+                          AppImages.writtenImage,
+                          width: 45.w,
+                          height: 45.h,
+                        ),
+                        UIHelper.horizontalSpace(15.w),
+                        Text(
+                          'রিটেন পিডিএফ',
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: AppColors.c000000,
+                            fontSize: 20.sp,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Expanded(
+                //       child: GestureDetector(
+                //         onTap: () {
+                //           // Get.to(() => SscShortcutItemScreen(type: 'grammar'));
+                //           NavigationService.navigateToWithArgs(
+                //               Routes.sscShortCutTechniqueScreen,
+                //               {'type': "grammar"});
+                //           ToastUtil.showShortToast(
+                //               'Navigate to SSC Short Cut Technique - Grammar');
+                //         },
+                //         child: Container(
+                //           height: 100,
+                //           decoration: BoxDecoration(
+                //             color: Colors.white,
+                //             borderRadius: BorderRadius.circular(8),
+                //             border: Border.all(
+                //               color: Colors.grey.shade800,
+                //             ),
+                //           ),
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               SvgPicture.asset(
+                //                 AppIcons.courseIcon,
+                //                 width: 40,
+                //                 height: 40,
+                //               ),
+                //               Text(
+                //                 'গ্রামার পিডিএফ',
+                //                 style:
+                //                     TextFontStyle.hindisiliguri10w400.copyWith(
+                //                   color: AppColors.c000000,
+                //                   fontSize: 16,
+                //                 ),
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: 16,
+                //     ),
+                //     Expanded(
+                //       child: GestureDetector(
+                //         onTap: () async {
+                //           NavigationService.navigateToWithArgs(
+                //               Routes.sscShortCutTechniqueScreen,
+                //               {'type': "written"});
+                //           ToastUtil.showShortToast(
+                //               'Navigate to SSC Short Cut Technique - Written');
+                //         },
+                //         child: Container(
+                //           height: 100,
+                //           decoration: BoxDecoration(
+                //             color: Colors.white,
+                //             borderRadius: BorderRadius.circular(8),
+                //             border: Border.all(
+                //               color: Colors.grey.shade800,
+                //             ),
+                //           ),
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               SvgPicture.asset(
+                //                 AppIcons.courseIcon,
+                //                 width: 40,
+                //                 height: 40,
+                //               ),
+                //               Text(
+                //                 'রিটেন পিডিএফ',
+                //                 style:
+                //                     TextFontStyle.hindisiliguri10w400.copyWith(
+                //                   color: AppColors.c000000,
+                //                   fontSize: 16,
+                //                 ),
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),

@@ -5,5 +5,20 @@ class AppImages {
   /*all assets here*/
   static const String appLogo = '$imageRoute/playstore.png';
   static const String appLogos = '$imageRoute/appLogos.png';
+  static const String groupShortCutImage = '$imageRoute/groupShortCutImage.png';
+  static const String pdfCourseImage = '$imageRoute/pdfCourseImage.png';
+  static const String groupSuggImage = '$imageRoute/groupSuggImage.png';
 
+  // * Group Subject Images
+  static const String groupScienceImage = '$imageRoute/groupScienceImage.png';
+  static const String groupBusinessImage = '$imageRoute/groupBusinessImage.png';
+  static const String groupArtsImage = '$imageRoute/groupArtsImage.png';
+
+  // * PDF Images
+  static const String pdfMcqImages = '$imageRoute/pdfMcqImages.png';
+  static const String pdfShortQuestionImages = '$imageRoute/pdfShortQuestionImages.png';
+
+  // * Grammer & Written Images
+  static const String grammerImage = '$imageRoute/grammerImage.png';
+  static const String writtenImage = '$imageRoute/writtenImage.png';
 }

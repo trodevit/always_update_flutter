@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:always_update/features/class_section/presentation/class_screen.dart';
 import 'package:always_update/features/class_section/presentation/class_topic_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/hsc_login_screen/hsc_login_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/ssc_login_screen/ssc_pdf_login_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/ssc_login_screen/ssc_video_login_screen.dart';
 import 'package:always_update/features/course_section/presentation/course_dashboard_screen.dart';
@@ -32,7 +33,7 @@ import 'package:always_update/features/course_section/presentation/ssc_course/ss
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_category_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_group_suggestion/ssc_group_subject_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_pdf_screen/ssc_shortcut_technique/ssc_shortcut_item_screen.dart';
-import 'package:always_update/features/course_section/presentation/ssc_type_course_screen.dart';
+import 'package:always_update/features/course_section/presentation/ssc_course/ssc_type_course_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_all_video/ssc_all_video_subject_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_all_video/ssc_all_video_subject_screen.dart';
 import 'package:always_update/features/course_section/presentation/ssc_course/ssc_video_screen/ssc_all_video/ssc_video_item_screen.dart';
@@ -241,13 +242,18 @@ final class RouteGenerator {
 
       // * ######################### HSC Login Section #########################
       case Routes.hscLoginScreen:
+        final args = settings.arguments as Map?;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: CourseHSCLoginScreen(),
+                widget: HscLoginScreen(
+                  yearID: args?['yearID'],
+                ),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) => CourseHSCLoginScreen(),
+                builder: (context) => HscLoginScreen(
+                  yearID: args?['yearID'],
+                ),
               );
 
       // * #########################################################################

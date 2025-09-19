@@ -2,6 +2,7 @@
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_icons.dart';
+import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/features/course_section/presentation/honours_course/honours_mcq/model/honours_subject_model.dart';
 import 'package:always_update/helpers/all_routes.dart';
@@ -68,6 +69,11 @@ class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
                 child: Text(
                   'এই "$filter" গ্রুপের জন্য কোনো ডেটা পাওয়া যায়নি',
                   textAlign: TextAlign.center,
+                  style: TextFontStyle.hindisiliguri10w400.copyWith(
+                    color: AppColors.c000000,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               );
             }
@@ -108,8 +114,8 @@ class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: SvgPicture.asset(
-                                  AppIcons.courseIcon,
+                                child: Image.asset(
+                                  AppImages.groupArtsImage,
                                   height: 32.h,
                                   width: 32.w,
                                 ),

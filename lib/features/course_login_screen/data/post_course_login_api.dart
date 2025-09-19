@@ -2,7 +2,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:always_update/features/course_section/model/course_login_model.dart';
-import 'package:always_update/helpers/toast.dart';
 import 'package:always_update/networks/exception_handler/data_source.dart';
 import 'package:dio/dio.dart';
 import '/networks/endpoints.dart';

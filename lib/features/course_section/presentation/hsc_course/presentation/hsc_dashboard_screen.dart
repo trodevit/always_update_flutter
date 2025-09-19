@@ -59,7 +59,7 @@ class _HscDashboardScreenState extends State<HscDashboardScreen> {
                       return GestureDetector(
                         onTap: () {
                           NavigationService.navigateToWithArgs(
-                              Routes.hscCourseFeaturesScreen, {
+                              Routes.hscLoginScreen, {
                             'yearID': hscYearData[index].id,
                           });
                         },
