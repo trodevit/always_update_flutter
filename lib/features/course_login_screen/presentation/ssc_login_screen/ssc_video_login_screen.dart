@@ -234,7 +234,7 @@ class _SscVideoLoginScreenState extends State<SscVideoLoginScreen> {
                                       } else {
                                         Get.snackbar(
                                           "Failed",
-                                          "Login unsuccessful ❌",
+                                          "You don't have SSC access ❌",
                                           snackPosition: SnackPosition.BOTTOM,
                                           backgroundColor:
                                               AppColors.ratingColor,

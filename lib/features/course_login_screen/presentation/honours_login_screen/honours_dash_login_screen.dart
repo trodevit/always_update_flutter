@@ -23,8 +23,7 @@ class HonoursDashLoginScreen extends StatefulWidget {
   });
 
   @override
-  State<HonoursDashLoginScreen> createState() =>
-      _HonoursDashLoginScreenState();
+  State<HonoursDashLoginScreen> createState() => _HonoursDashLoginScreenState();
 }
 
 class _HonoursDashLoginScreenState extends State<HonoursDashLoginScreen> {
@@ -235,7 +234,7 @@ class _HonoursDashLoginScreenState extends State<HonoursDashLoginScreen> {
                                       } else {
                                         Get.snackbar(
                                           "Failed",
-                                          "Login unsuccessful ❌",
+                                          "You don't have Honourse access ❌",
                                           snackPosition: SnackPosition.BOTTOM,
                                           backgroundColor: Colors.redAccent,
                                           colorText: Colors.white,

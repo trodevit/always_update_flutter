@@ -238,7 +238,7 @@ class _HscLoginScreenState extends State<HscLoginScreen> {
                                       } else {
                                         Get.snackbar(
                                           "Failed",
-                                          "You don't have ssc access ❌",
+                                          "You don't have HSC access ❌",
                                           snackPosition: SnackPosition.BOTTOM,
                                           backgroundColor: Colors.redAccent,
                                           colorText: Colors.white,

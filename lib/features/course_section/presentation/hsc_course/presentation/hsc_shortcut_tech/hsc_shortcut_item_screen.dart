@@ -43,7 +43,7 @@ class _HscShortcutItemScreenState extends State<HscShortcutItemScreen> {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: "${widget.className} শর্টকাট কোর্স",
+        title: "${widget.className}",
       ),
       body: StreamBuilder<HscShortcutModel>(
         stream: hscShortcutRXObj.getHscShortcutRx,

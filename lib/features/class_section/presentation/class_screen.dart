@@ -8,6 +8,7 @@ import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ClassSecreen extends StatefulWidget {
@@ -79,8 +80,8 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 130,
-                        width: 180,
+                        height: 90.h,
+                        width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.c15803D,
                           borderRadius: BorderRadius.circular(12),
@@ -130,8 +131,8 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 130,
-                        width: 180,
+                        height: 90.h,
+                        width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.c1E40AF,
                           borderRadius: BorderRadius.circular(12),
@@ -187,8 +188,8 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 130,
-                        width: 180,
+                        height: 90.h,
+                        width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.cDB2777,
                           borderRadius: BorderRadius.circular(12),
@@ -238,8 +239,8 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 130,
-                        width: 180,
+                        height: 90.h,
+                        width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.cEA580C,
                           borderRadius: BorderRadius.circular(12),

@@ -236,7 +236,7 @@ class CourseHomeScreen extends StatefulWidget {
 }
 
 class _CourseHomeScreenState extends State<CourseHomeScreen> {
-  final String _phoneNumber = "+8801615257555";
+  final String _phoneNumber = "+8801743182139";
 
   Future<void> _openWhatsApp() async {
     final Uri native = Uri.parse("whatsapp://send?phone=$_phoneNumber");
@@ -309,7 +309,7 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                                     '- এই নাম্বারে যোগাযোগ করুনঃ ',
                               ),
                               TextSpan(
-                                text: "+8801615257555",
+                                text: "8801743182139",
                                 style: const TextStyle(
                                   decoration: TextDecoration.underline,
                                   fontWeight: FontWeight.bold,

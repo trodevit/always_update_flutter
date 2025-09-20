@@ -26,7 +26,7 @@ class _HscShortcutDashboardScreenState
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এইচএসসি শর্টকাট কোর্স',
+        title: 'এইচএসসি শর্টকাট টেকনিক',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -42,49 +42,7 @@ class _HscShortcutDashboardScreenState
                         Routes.hscShortcutItemScreen, {
                       'yearID': widget.yearID,
                       'type': 'grammar',
-                      'className': 'এইচএসসি',
-                    });
-                  },
-                  child: Container(
-                    height: 80.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: Colors.grey.shade800,
-                      ),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        UIHelper.horizontalSpace(10.w),
-                        Image.asset(
-                          AppImages.grammerImage,
-                          width: 45.w,
-                          height: 45.h,
-                        ),
-                        UIHelper.horizontalSpace(15.w),
-                        Text(
-                          'গ্রামার সেকশন',
-                          style: TextFontStyle.hindisiliguri10w400.copyWith(
-                            color: AppColors.c000000,
-                            fontSize: 20.sp,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                UIHelper.verticalSpace(20.h),
-                GestureDetector(
-                  onTap: () {
-                    NavigationService.navigateToWithArgs(
-                        Routes.hscShortcutItemScreen, {
-                      'yearID': widget.yearID,
-                      'type': 'written',
-                      'className': 'এইচএসসি',
+                      'className': 'গ্রামার অংশ',
                     });
                   },
                   child: Container(
@@ -109,7 +67,49 @@ class _HscShortcutDashboardScreenState
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'রিটেন সেকশন',
+                          'গ্রামার অংশ',
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: AppColors.c000000,
+                            fontSize: 20.sp,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                UIHelper.verticalSpace(20.h),
+                GestureDetector(
+                  onTap: () {
+                    NavigationService.navigateToWithArgs(
+                        Routes.hscShortcutItemScreen, {
+                      'yearID': widget.yearID,
+                      'type': 'written',
+                      'className': 'লিখিত অংশ',
+                    });
+                  },
+                  child: Container(
+                    height: 80.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Colors.grey.shade800,
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        UIHelper.horizontalSpace(10.w),
+                        Image.asset(
+                          AppImages.grammerImage,
+                          width: 45.w,
+                          height: 45.h,
+                        ),
+                        UIHelper.horizontalSpace(15.w),
+                        Text(
+                          'লিখিত অংশ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,

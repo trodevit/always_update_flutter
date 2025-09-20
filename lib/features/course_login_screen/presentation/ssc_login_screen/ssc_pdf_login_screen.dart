@@ -234,7 +234,7 @@ class _SscPDFLoginScreenState extends State<SscPDFLoginScreen> {
                                       } else {
                                         Get.snackbar(
                                           "Failed",
-                                          "You don't have ssc access ❌",
+                                          "You don't have SSC access ❌",
                                           snackPosition: SnackPosition.BOTTOM,
                                           backgroundColor: Colors.redAccent,
                                           colorText: Colors.white,
