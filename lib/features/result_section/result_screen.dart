@@ -285,7 +285,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            AppIcons.hscIcon,
+                            AppIcons.honoursIcon,
                             width: 40,
                             height: 40,
                           ),
@@ -364,7 +364,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            AppIcons.honoursIcon,
+                            AppIcons.hscIcon,
                             width: 40,
                             height: 40,
                           ),

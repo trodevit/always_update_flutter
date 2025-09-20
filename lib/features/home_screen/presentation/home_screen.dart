@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:always_update/ad_helper.dart';
 import 'package:always_update/assets_helper/app_colors.dart';
+import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/features/privacy_policy_screen.dart';
 import 'package:always_update/features/terms_condition_screen.dart';
@@ -13,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:always_update/assets_helper/app_fonts.dart';
@@ -20,7 +25,6 @@ import 'package:always_update/assets_helper/app_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -32,12 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
   String _deviceName = 'Unknown';
 
   final List<String> _images = [
-    'https://picsum.photos/id/1018/600/300',
-    'https://picsum.photos/id/1015/600/300',
-    'https://picsum.photos/id/1020/600/300',
-    'https://picsum.photos/id/1024/600/300',
-    'https://picsum.photos/id/1035/600/300',
+    AppImages.oneImage,
+    AppImages.twoImage,
+    AppImages.threeImage,
+    AppImages.fourImage,
+    AppImages.fiveImage,
   ];
+
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
@@ -45,6 +51,23 @@ class _HomeScreenState extends State<HomeScreen> {
     _getDeviceInfo();
     getClassApiRXObj.classNameRX();
     _sendDeviceInfo();
+
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          ad.dispose();
+          log('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    ).load();
   }
 
   Future<void> _getDeviceInfo() async {
@@ -146,9 +169,16 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (_bannerAd != null)
+                  Container(
+                    width: _bannerAd!.size.width.toDouble(),
+                    height: _bannerAd!.size.height.toDouble(),
+                    child: AdWidget(ad: _bannerAd!),
+                  ),
+
                 // === IMAGE SLIDER ===
                 SizedBox(
-                  height: 200,
+                  height: 215.h,
                   child: PageView.builder(
                     controller: _pageController,
                     itemCount: _images.length,
@@ -162,9 +192,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
+                          child: Image.asset(
                             _images[index],
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             width: double.infinity,
                           ),
                         ),
@@ -186,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // * === শিক্ষা বিভাগ ===
                 Text(
-                  'শিক্ষা বিভাগ',
+                  'আমাদের আলোচিত বিষয়সমূহ',
                   style: TextFontStyle.hindisiliguri10w400.copyWith(
                     color: Colors.black,
                     fontSize: 20,
@@ -265,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              AppIcons.hscIcon,
+                              AppIcons.honoursIcon,
                               height: 40,
                               width: 40,
                             ),
@@ -329,6 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 UIHelper.verticalSpace(15.h),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -354,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              AppIcons.honoursIcon,
+                              AppIcons.hscIcon,
                               height: 40,
                               width: 40,
                             ),
@@ -372,7 +403,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    UIHelper.horizontalSpace(10.w),
                     GestureDetector(
                       onTap: () {
                         NavigationService.navigateTo(Routes.resultScreen);
@@ -410,58 +440,46 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-
-                // * === COURSE SECTION ===
-                SizedBox(height: 20),
-                Text(
-                  'কোর্স বিভাগ',
-                  style: TextFontStyle.hindisiliguri10w400.copyWith(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                UIHelper.verticalSpace(10),
-                GestureDetector(
-                  onTap: () {
-                    NavigationService.navigateTo(
-                      Routes.courseHomeScreen,
-                    );
-                  },
-                  child: Container(
-                    height: 90.h,
-                    width: 110.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppColors.activeColor,
-                        width: 2,
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          AppIcons.courseIcon,
-                          height: 40,
-                          width: 40,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          'আমার কোর্স',
-                          textAlign: TextAlign.center,
-                          style: TextFontStyle.hindisiliguri10w400.copyWith(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
+                    GestureDetector(
+                      onTap: () {
+                        NavigationService.navigateTo(
+                          Routes.courseHomeScreen,
+                        );
+                      },
+                      child: Container(
+                        height: 90.h,
+                        width: 110.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: AppColors.activeColor,
+                            width: 2,
                           ),
                         ),
-                      ],
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.courseIcon,
+                              height: 40,
+                              width: 40,
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'আমার কোর্স',
+                              textAlign: TextAlign.center,
+                              style: TextFontStyle.hindisiliguri10w400.copyWith(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
 
                 // * === DEVICE INFO SECTION ===
@@ -484,7 +502,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Device ID row with copy icon
                       Text(
                         'ডিভাইস নাম: $_deviceName',
                         style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -497,7 +514,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Expanded(
                             child: Text(
-                              'ডিভাইস আইডি: $_deviceId',
+                              'আইডি: $_deviceId',
                               style: TextFontStyle.hindisiliguri10w400.copyWith(
                                 color: Colors.black,
                                 fontSize: 16,

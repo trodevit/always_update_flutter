@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:always_update/features/class_section/presentation/class_screen.dart';
 import 'package:always_update/features/class_section/presentation/class_topic_screen.dart';
+import 'package:always_update/features/course_login_screen/presentation/honours_login_screen/honours_dash_login_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/hsc_login_screen/hsc_login_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/ssc_login_screen/ssc_pdf_login_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/ssc_login_screen/ssc_video_login_screen.dart';
@@ -45,8 +46,6 @@ import 'package:always_update/features/course_section/presentation/ssc_course/ss
 import 'package:always_update/features/course_section/presentation/sub_screen/suggestion_formula_screen.dart';
 import 'package:always_update/features/course_section/presentation/sub_screen/video_course_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/video_screen.dart';
-import 'package:always_update/features/course_login_screen/presentation/honours_login_screen/honours_group_login_screen.dart';
-import 'package:always_update/features/course_login_screen/presentation/honours_login_screen/honours_mcq_login_screen.dart';
 import 'package:always_update/features/pdf_view_screen.dart';
 import 'package:always_update/features/result_section/result_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -263,32 +262,22 @@ final class RouteGenerator {
       case Routes.honoursLoginScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: CourseHonoursLoginScreen(),
+                widget: HonoursDashLoginScreen(),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) => CourseHonoursLoginScreen(),
+                builder: (context) => HonoursDashLoginScreen(),
               );
 
-      case Routes.honoursMCQLoginScreen:
-        return Platform.isAndroid
-            ? _FadedTransitionRoute(
-                widget: HonoursMCQLoginScreen(),
-                settings: settings,
-              )
-            : CupertinoPageRoute(
-                builder: (context) => HonoursMCQLoginScreen(),
-              );
-
-      case Routes.honoursGroupLoginScreen:
-        return Platform.isAndroid
-            ? _FadedTransitionRoute(
-                widget: HonoursGroupLoginScreen(),
-                settings: settings,
-              )
-            : CupertinoPageRoute(
-                builder: (context) => HonoursGroupLoginScreen(),
-              );
+      // case Routes.honoursGroupLoginScreen:
+      //   return Platform.isAndroid
+      //       ? _FadedTransitionRoute(
+      //           widget: HonoursGroupLoginScreen(),
+      //           settings: settings,
+      //         )
+      //       : CupertinoPageRoute(
+      //           builder: (context) => HonoursGroupLoginScreen(),
+      //         );
 
       // * ###########################################################################
       // * ###########################################################################
@@ -407,12 +396,14 @@ final class RouteGenerator {
             ? _FadedTransitionRoute(
                 widget: SscShortcutItemScreen(
                   type: argument['type'],
+                  className: argument['className'],
                 ),
                 settings: settings,
               )
             : CupertinoPageRoute(
                 builder: (context) => SscShortcutItemScreen(
                   type: argument['type'],
+                  className: argument['className'],
                 ),
               );
 

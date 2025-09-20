@@ -142,7 +142,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 Text(
                   'If you have any questions or concerns about our privacy practices, feel free to contact us at:\n\n'
                   'Email: trodevit@gmail.com\n'
-                  'Phone: +8801615257555\n',
+                  'Phone: +880 1743-182139\n',
                   style: TextFontStyle.textStyle18w400Poppins.copyWith(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,

@@ -359,7 +359,7 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                   Expanded(
                     child: _CourseCard(
                       title: 'এইচএসসি কোর্স',
-                      iconAsset: AppIcons.hscIcon,
+                      iconAsset: AppIcons.honoursIcon,
                       onTap: () {
                         NavigationService.navigateTo(
                           Routes.hscDashboardScreen,
@@ -372,12 +372,12 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                   Expanded(
                     child: _CourseCard(
                       title: 'অনার্স কোর্স',
-                      iconAsset: AppIcons.honoursIcon,
+                      iconAsset: AppIcons.hscIcon,
                       onTap: () {
                         NavigationService.navigateTo(
-                          Routes.honoursDashboardScreen,
+                          Routes.honoursLoginScreen,
                         );
-                        log('Navigating to Honours Dashboard Screen');
+                        log('Navigating to Honours Login Screen');
                       },
                     ),
                   ),

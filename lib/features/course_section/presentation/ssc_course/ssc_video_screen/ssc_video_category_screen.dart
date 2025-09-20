@@ -59,7 +59,7 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'গ্রুপ সাজেশন',
+                          'গ্রুপভিত্তিক সাজেশন',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,
@@ -137,7 +137,46 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'ভিডিও সেকশন',
+                          'ভিডিও ক্লাস',
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: AppColors.c000000,
+                            fontSize: 20.sp,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                UIHelper.verticalSpace(20.h),
+                GestureDetector(
+                  onTap: () {
+                    NavigationService.navigateTo(
+                      Routes.sscPDFScreen,
+                    );
+                  },
+                  child: Container(
+                    height: 80.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Colors.grey.shade800,
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        UIHelper.horizontalSpace(10.w),
+                        Image.asset(
+                          AppImages.pdfCourseImage,
+                          width: 45.w,
+                          height: 45.h,
+                        ),
+                        UIHelper.horizontalSpace(15.w),
+                        Text(
+                          'সকল পিডিএফ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,

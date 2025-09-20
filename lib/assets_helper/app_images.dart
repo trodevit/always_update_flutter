@@ -23,4 +23,11 @@ class AppImages {
   static const String grammerImage = '$imageRoute/grammerImage.png';
   static const String writtenImage = '$imageRoute/writtenImage.png';
   static const String videoImage = '$imageRoute/videoImage.png';
+
+  // * Slider Images
+  static const String oneImage = '$imageRoute/oneImage.png';
+  static const String twoImage = '$imageRoute/twoImage.png';
+  static const String threeImage = '$imageRoute/threeImage.png';
+  static const String fourImage = '$imageRoute/fourImage.png';
+  static const String fiveImage = '$imageRoute/fiveImage.png';
 }

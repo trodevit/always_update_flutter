@@ -213,8 +213,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SscShortcutItemScreen extends StatefulWidget {
-  dynamic type;
-  SscShortcutItemScreen({super.key, this.type});
+  dynamic type, className;
+  SscShortcutItemScreen({super.key, this.type, this.className});
 
   @override
   State<SscShortcutItemScreen> createState() => _SscShortcutItemScreenState();
@@ -233,7 +233,7 @@ class _SscShortcutItemScreenState extends State<SscShortcutItemScreen> {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'শর্টকাট টেকনিক',
+        title: widget.className ?? 'শর্টকাট টেকনিক',
       ),
       body: StreamBuilder<SscGroupSubjectModel>(
         // initialData না দিলে প্রথম ফ্রেমেই লোডিং দেখাবে

@@ -13,6 +13,7 @@ import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:readmore/readmore.dart';
 
 class ClassTopicScreen extends StatefulWidget {
   dynamic type, className;
@@ -232,6 +233,7 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                                                 ),
                                               ),
                                             ),
+                                            UIHelper.verticalSpace(5.h),
                                             Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
@@ -248,55 +250,81 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                                                 ),
                                               ),
                                             ),
-                                            UIHelper.verticalSpace(20.h),
+                                            UIHelper.verticalSpace(10.h),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: ReadMoreText(
+                                                "বিস্তারিতঃ- \n${suggestion.description ?? ""}",
+                                                trimLines: 3,
+                                                trimMode: TrimMode.Line,
+                                                trimCollapsedText: ' রিড মোর',
+                                                trimExpandedText: ' কম দেখুন',
+                                                style: TextFontStyle
+                                                    .hindisiliguri10w400
+                                                    .copyWith(
+                                                  color: AppColors.c000000,
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                moreStyle: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                                lessStyle: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                            ),
 
                                             // Actions
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                customButton(
-                                                  minWidth: 120.w,
-                                                  name: 'পিডিএফ দেখুন',
-                                                  textStyle: TextFontStyle
-                                                      .hindisiliguri10w400
-                                                      .copyWith(
-                                                    color: AppColors.cFFF5DA,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  onCallBack: () {
-                                                    final pdf =
-                                                        suggestion.pdf ?? '';
-                                                    log('PDF: $pdf');
-                                                    if (pdf.isEmpty) {
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        const SnackBar(
-                                                          content: Text(
-                                                              'পিডিএফ লিঙ্ক পাওয়া যায়নি'),
+
+                                            if (widget.type == 'suggestion')
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  customButton(
+                                                    minWidth: 120.w,
+                                                    name: 'পিডিএফ দেখুন',
+                                                    textStyle: TextFontStyle
+                                                        .hindisiliguri10w400
+                                                        .copyWith(
+                                                      color: AppColors.cFFF5DA,
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                    onCallBack: () {
+                                                      final pdf =
+                                                          suggestion.pdf ?? '';
+                                                      log('PDF: $pdf');
+                                                      if (pdf.isEmpty) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          const SnackBar(
+                                                            content: Text(
+                                                                'পিডিএফ লিঙ্ক পাওয়া যায়নি'),
+                                                          ),
+                                                        );
+                                                        return;
+                                                      }
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (_) =>
+                                                              PDFViewScreen(
+                                                                  pdfURL: pdf),
                                                         ),
                                                       );
-                                                      return;
-                                                    }
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            PDFViewScreen(
-                                                                pdfURL: pdf),
-                                                      ),
-                                                    );
-                                                  },
-                                                  context: context,
-                                                  color: AppColors.c02BF65,
-                                                  borderColor:
-                                                      AppColors.c02BF65,
-                                                ),
-                                              ],
-                                            ),
+                                                    },
+                                                    context: context,
+                                                    color: AppColors.c02BF65,
+                                                    borderColor:
+                                                        AppColors.c02BF65,
+                                                  ),
+                                                ],
+                                              ),
                                           ],
                                         ),
                                       ),

@@ -62,7 +62,7 @@ class _SscCategoryScreenState extends State<SscCategoryScreen> {
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'গ্রুপ সাজেশন',
+                          'গ্রুপভিত্তিক সাজেশন',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,
@@ -140,7 +140,7 @@ class _SscCategoryScreenState extends State<SscCategoryScreen> {
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'পিডিএফ নোটস',
+                          'সকল পিডিএফ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,

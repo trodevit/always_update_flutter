@@ -22,7 +22,7 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'সকল পিডিএফ নোটস',
+        title: 'সকল পিডিএফ',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -103,7 +103,7 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'সংক্ষিপ্ত প্রশ্নোত্তর',
+                          'জ্ঞানমূলক প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,
@@ -144,7 +144,7 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'অনুধাবন প্রশ্নোত্তর',
+                          'সংক্ষিপ্ত প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,

@@ -34,7 +34,7 @@ class _HonoursDashboardScreenState extends State<HonoursDashboardScreen> {
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateTo(
-                      Routes.honoursGroupLoginScreen,
+                      Routes.honoursGroupDashboardScreen,
                     );
                   },
                   child: Container(
@@ -73,7 +73,7 @@ class _HonoursDashboardScreenState extends State<HonoursDashboardScreen> {
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateTo(
-                      Routes.honoursGroupLoginScreen,
+                      Routes.honoursMCQDashboardScreen,
                     );
                   },
                   child: Container(
