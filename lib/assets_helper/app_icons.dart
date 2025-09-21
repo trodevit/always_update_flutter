@@ -23,4 +23,10 @@ class AppIcons {
   static const String lockIcon = '$iconsRoute/lockIcon.svg';
   static const String groupCourseIcon = '$iconsRoute/groupCourseIcon.svg';
   static const String groupShortCutIcon = '$iconsRoute/groupShortCutIcon.svg';
+
+  // * Home Icons
+  static const String myCourse = '$iconsRoute/myCourse.svg';
+  static const String honoursLogo = '$iconsRoute/honoursLogo.svg';
+  static const String sscLogo = '$iconsRoute/sscLogo.svg';
+  static const String hscLogo = '$iconsRoute/hscLogo.svg';
 }

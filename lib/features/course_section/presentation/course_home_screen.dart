@@ -1,219 +1,3 @@
-// import 'dart:developer';
-// import 'package:always_update/assets_helper/app_colors.dart';
-// import 'package:always_update/assets_helper/app_fonts.dart';
-// import 'package:always_update/assets_helper/app_icons.dart';
-// import 'package:always_update/common_widgets/custom_appbar.dart';
-// import 'package:always_update/helpers/all_routes.dart';
-// import 'package:always_update/helpers/navigation_service.dart';
-// import 'package:always_update/helpers/ui_helpers.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_svg/svg.dart';
-
-// class CourseHomeScreen extends StatefulWidget {
-//   const CourseHomeScreen({super.key});
-
-//   @override
-//   State<CourseHomeScreen> createState() => _CourseHomeScreenState();
-// }
-
-// class _CourseHomeScreenState extends State<CourseHomeScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: AppColors.cFFFFFF,
-//       appBar: CustomAppBar(
-//         title: 'আমার কোর্স',
-//       ),
-//       body: SafeArea(
-//         child: SingleChildScrollView(
-//           child: Padding(
-//             padding: EdgeInsets.all(
-//               16,
-//             ),
-//             child: Column(
-//               children: [
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     color: AppColors.boxShadow,
-//                     borderRadius: BorderRadius.circular(8),
-//                     border: Border.all(
-//                       color: AppColors.boxShadow,
-//                     ),
-//                   ),
-//                   child: Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: Column(
-//                       children: [
-//                         Text(
-//                           'আপনি যদি আমাদের এই প্রিমিয়াম কোর্সগুলোর মধ্যে থেকে কিছু শিখতে চান, তাহলে আমাদের কোর্সে এনরোল করুন, কোর্স কিনতে আমাদের সাথে যোগাযোগ করুন whatsapp নাম্বারে।',
-//                           style: TextFontStyle.hindisiliguri10w400.copyWith(
-//                             color: AppColors.cFFFFFF,
-//                             fontSize: 14.sp,
-//                           ),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                         UIHelper.verticalSpace(10.h),
-//                         Align(
-//                           alignment: Alignment.centerLeft,
-//                           child: Text(
-//                             'কোর্স নিতে যা যা প্রয়োজন\n'
-//                             '- ডিভাইস আইডি দিন (হোম স্ক্রিন থেকে কপি করুন)\n'
-//                             '- নাম, মোবাইল নাম্বার, ইমেইল\n'
-//                             '- এই নাম্বারে যোগাযোগ করুনঃ+ 8801755555555',
-//                             style: TextFontStyle.hindisiliguri10w400.copyWith(
-//                               color: AppColors.cFFFFFF,
-//                               fontSize: 13.sp,
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 16,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Expanded(
-//                       child: GestureDetector(
-//                         onTap: () {
-//                           // Get.to(() =>
-//                           //     SscCategoryScreen()); // Pass the widget directly
-//                           NavigationService.navigateTo(
-//                             Routes.sscTypeCategoryScreen,
-//                           );
-//                         },
-//                         child: Container(
-//                           height: 100,
-//                           decoration: BoxDecoration(
-//                             color: Colors.white,
-//                             borderRadius: BorderRadius.circular(8),
-//                             border: Border.all(
-//                               color: Colors.grey.shade800,
-//                             ),
-//                           ),
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.center,
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               SvgPicture.asset(
-//                                 AppIcons.courseIcon,
-//                                 width: 40,
-//                                 height: 40,
-//                               ),
-//                               Text(
-//                                 'এসএসসি কোর্স',
-//                                 style:
-//                                     TextFontStyle.hindisiliguri10w400.copyWith(
-//                                   color: AppColors.c000000,
-//                                   fontSize: 16,
-//                                 ),
-//                               )
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       width: 16,
-//                     ),
-//                     Expanded(
-//                       child: GestureDetector(
-//                         onTap: () {
-//                           NavigationService.navigateTo(
-//                             Routes.hscDashboardScreen,
-//                           );
-//                           log('Navigating to HSC Dashboard Screen');
-//                         },
-//                         child: Container(
-//                           height: 100,
-//                           decoration: BoxDecoration(
-//                             color: Colors.white,
-//                             borderRadius: BorderRadius.circular(8),
-//                             border: Border.all(
-//                               color: Colors.grey.shade800,
-//                             ),
-//                           ),
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.center,
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               SvgPicture.asset(
-//                                 AppIcons.courseIcon,
-//                                 width: 40,
-//                                 height: 40,
-//                               ),
-//                               Text(
-//                                 'এইচএসসি কোর্স',
-//                                 style:
-//                                     TextFontStyle.hindisiliguri10w400.copyWith(
-//                                   color: AppColors.c000000,
-//                                   fontSize: 16,
-//                                 ),
-//                               )
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       width: 16,
-//                     ),
-//                     Expanded(
-//                       child: GestureDetector(
-//                         onTap: () {
-//                           NavigationService.navigateTo(
-//                             Routes.honoursDashboardScreen,
-//                           );
-//                           log('Navigating to Honours Dashboard Screen');
-//                         },
-//                         child: Container(
-//                           height: 100,
-//                           decoration: BoxDecoration(
-//                             color: Colors.white,
-//                             borderRadius: BorderRadius.circular(8),
-//                             border: Border.all(
-//                               color: Colors.grey.shade800,
-//                             ),
-//                           ),
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.center,
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               SvgPicture.asset(
-//                                 AppIcons.courseIcon,
-//                                 width: 40,
-//                                 height: 40,
-//                               ),
-//                               Text(
-//                                 'অনার্স কোর্স',
-//                                 style:
-//                                     TextFontStyle.hindisiliguri10w400.copyWith(
-//                                   color: AppColors.c000000,
-//                                   fontSize: 16,
-//                                 ),
-//                               )
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'dart:developer';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
@@ -309,6 +93,7 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                         style: TextFontStyle.hindisiliguri10w400.copyWith(
                           color: AppColors.cFFFFFF,
                           fontSize: 14.sp,
+                          fontWeight: FontWeight.w800,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -316,7 +101,7 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
 
                       // Requirements + Phone + WhatsApp icon (clickable)
                       Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.center,
                         child: RichText(
                           text: TextSpan(
                             style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -324,29 +109,29 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                               fontSize: 13.sp,
                             ),
                             children: [
-                              const TextSpan(
-                                text: 'কোর্স নিতে যা যা প্রয়োজন\n'
-                                    '- ডিভাইস আইডি দিন (হোম স্ক্রিন থেকে কপি করুন)\n'
-                                    '- নাম, মোবাইল নাম্বার, ইমেইল\n'
-                                    '- এই নাম্বারে যোগাযোগ করুনঃ ',
-                              ),
                               TextSpan(
                                 text: "8801743182139",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   decoration: TextDecoration.underline,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
+                                  fontSize: 16.sp,
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = _openWhatsApp,
                               ),
-                              const WidgetSpan(child: SizedBox(width: 6)),
+                              const WidgetSpan(
+                                child: SizedBox(
+                                  width: 6,
+                                ),
+                              ),
                               TextSpan(
-                                text: "8801743182139",
-                                style: const TextStyle(
+                                text: "\n8801775738149",
+                                style: TextStyle(
                                   decoration: TextDecoration.underline,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
+                                  fontSize: 16.sp,
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = _openSecondWhatsApp,
@@ -368,7 +153,7 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                   Expanded(
                     child: _CourseCard(
                       title: 'এসএসসি কোর্স',
-                      iconAsset: AppIcons.sscIcon,
+                      iconAsset: AppIcons.sscLogo,
                       onTap: () {
                         NavigationService.navigateTo(
                           Routes.sscTypeCategoryScreen,
@@ -380,7 +165,7 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                   Expanded(
                     child: _CourseCard(
                       title: 'এইচএসসি কোর্স',
-                      iconAsset: AppIcons.honoursIcon,
+                      iconAsset: AppIcons.hscLogo,
                       onTap: () {
                         NavigationService.navigateTo(
                           Routes.hscDashboardScreen,
@@ -393,7 +178,7 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                   Expanded(
                     child: _CourseCard(
                       title: 'অনার্স কোর্স',
-                      iconAsset: AppIcons.hscIcon,
+                      iconAsset: AppIcons.honoursLogo,
                       onTap: () {
                         NavigationService.navigateTo(
                           Routes.honoursLoginScreen,
@@ -430,7 +215,7 @@ class _CourseCard extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
-        height: 100,
+        height: 100.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -439,14 +224,15 @@ class _CourseCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(iconAsset, width: 40, height: 40),
+            SvgPicture.asset(iconAsset, width: 45.w, height: 45.h),
             const SizedBox(height: 6),
             Text(
               title,
               textAlign: TextAlign.center,
               style: TextFontStyle.hindisiliguri10w400.copyWith(
                 color: AppColors.c000000,
-                fontSize: 16,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],

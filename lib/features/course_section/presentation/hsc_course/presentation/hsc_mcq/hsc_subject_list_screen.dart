@@ -123,7 +123,7 @@ class _HscSubjectListScreenState extends State<HscSubjectListScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(
-                                  AppImages.groupArtsImage,
+                                  AppImages.sscImage,
                                   height: 32.h,
                                   width: 32.w,
                                 ),

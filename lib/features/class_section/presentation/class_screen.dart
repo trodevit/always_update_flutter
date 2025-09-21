@@ -66,221 +66,336 @@ class _ClassSecreenState extends State<ClassSecreen> {
             ),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classTopicScreen,
-                          {
-                            'type': 'suggestion',
-                            'className': widget.className,
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 110.h,
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                          color: AppColors.c15803D,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SvgPicture.asset(
-                                AppIcons.sscIcon,
-                                color: AppColors.white,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'সাজেশন',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
+                if (widget.className != 'collegeadmission')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.classTopicScreen,
+                            {
+                              'type': 'suggestion',
+                              'className': widget.className,
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 110.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.c15803D,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AppIcons.sscIcon,
+                                  color: AppColors.white,
                                 ),
-                              ),
-                              Text(
-                                'সকল বিষয়ের গুরুত্বপূর্ণ সাজেশন',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
+                                SizedBox(height: 8),
+                                Text(
+                                  'সাজেশন',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'সকল বিষয়ের গুরুত্বপূর্ণ সাজেশন',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classTopicScreen,
-                          {
-                            'type': 'result',
-                            'className': widget.className,
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 110.h,
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                          color: AppColors.c1E40AF,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SvgPicture.asset(
-                                AppIcons.trophyIcon,
-                                color: AppColors.white,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'রেজাল্ট',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
+                      GestureDetector(
+                        onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.classTopicScreen,
+                            {
+                              'type': 'result',
+                              'className': widget.className,
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 110.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.c1E40AF,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AppIcons.trophyIcon,
+                                  color: AppColors.white,
                                 ),
-                              ),
-                              Text(
-                                'রেজাল্ট বিষয়ক সকল তথ্য',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
+                                SizedBox(height: 8),
+                                Text(
+                                  'রেজাল্ট',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'রেজাল্ট বিষয়ক সকল তথ্য',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classTopicScreen,
-                          {
-                            'type': 'scholarship',
-                            'className': widget.className,
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 110.h,
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                          color: AppColors.cDB2777,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SvgPicture.asset(
-                                AppIcons.takaIcon,
-                                color: AppColors.white,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'উপবৃত্তি',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
+                    ],
+                  ),
+                if (widget.className != 'collegeadmission')
+                  SizedBox(height: 20),
+                if (widget.className != 'collegeadmission')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.classTopicScreen,
+                            {
+                              'type': 'scholarship',
+                              'className': widget.className,
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 110.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.cDB2777,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AppIcons.takaIcon,
+                                  color: AppColors.white,
                                 ),
-                              ),
-                              Text(
-                                'সকল উপবৃত্তির তথ্য',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
+                                SizedBox(height: 8),
+                                Text(
+                                  'উপবৃত্তি',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'সকল উপবৃত্তির তথ্য',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classTopicScreen,
-                          {
-                            'type': 'notice',
-                            'className': widget.className,
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 110.h,
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                          color: AppColors.cEA580C,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SvgPicture.asset(
-                                AppIcons.noticeIcon,
-                                color: AppColors.white,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'নোটিশ',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
+                      GestureDetector(
+                        onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.classTopicScreen,
+                            {
+                              'type': 'notice',
+                              'className': widget.className,
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 110.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.cEA580C,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AppIcons.noticeIcon,
+                                  color: AppColors.white,
                                 ),
-                              ),
-                              Text(
-                                'গুরুত্বপূর্ণ সকল নোটিশ',
-                                style:
-                                    TextFontStyle.hindisiliguri10w400.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
+                                SizedBox(height: 8),
+                                Text(
+                                  'নোটিশ',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'গুরুত্বপূর্ণ সকল নোটিশ',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+
+                if (widget.className == 'collegeadmission')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.classTopicScreen,
+                            {
+                              'type': 'result',
+                              'className': widget.className,
+                              'shortText': 'রেজাল্ট বিষয়ক সকল তথ্য',
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 110.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.c1E40AF,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AppIcons.trophyIcon,
+                                  color: AppColors.white,
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'রেজাল্ট',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  'রেজাল্ট বিষয়ক সকল তথ্য',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          NavigationService.navigateToWithArgs(
+                            Routes.classTopicScreen,
+                            {
+                              'type': 'notice',
+                              'className': widget.className,
+                              'shortText': 'গুরুত্বপূর্ণ সকল নোটিশ',
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 110.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.cEA580C,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AppIcons.noticeIcon,
+                                  color: AppColors.white,
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'নোটিশ',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  'গুরুত্বপূর্ণ সকল নোটিশ',
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: Colors.white,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
                 // SizedBox(height: 20),
                 // Align(
                 //   alignment: Alignment.centerLeft,

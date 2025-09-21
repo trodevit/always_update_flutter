@@ -1,9 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
 import 'dart:developer';
 import 'package:always_update/features/home_screen/model/device_id_model.dart';
-import 'package:always_update/helpers/toast.dart';
 import 'package:always_update/networks/exception_handler/data_source.dart';
 import 'package:dio/dio.dart';
 import '/networks/endpoints.dart';
@@ -37,7 +35,7 @@ final class PostLoginApi {
             ),
           ),
         );
-        ToastUtil.showShortToast('Device Info Sent Successfully');
+        log('Device Info Sent Successfully');
         return data;
       } else {
         throw DataSource.DEFAULT.getFailure();

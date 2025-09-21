@@ -108,7 +108,7 @@ class _HscLoginScreenState extends State<HscLoginScreen> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(100.r),
                       child: Image.asset(
-                        AppImages.appLogo,
+                        AppImages.playstoreLogo,
                         height: 100.h,
                         width: 100.w,
                         fit: BoxFit.fill,

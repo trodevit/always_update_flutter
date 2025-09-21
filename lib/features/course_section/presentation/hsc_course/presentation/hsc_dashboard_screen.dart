@@ -75,7 +75,7 @@ class _HscDashboardScreenState extends State<HscDashboardScreen> {
                             child: Row(
                               children: [
                                 SvgPicture.asset(
-                                  AppIcons.honoursIcon,
+                                  AppIcons.hscLogo,
                                   width: 40.w,
                                   height: 40.h,
                                 ),

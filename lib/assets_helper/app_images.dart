@@ -31,4 +31,11 @@ class AppImages {
   static const String threeImage = '$imageRoute/threeImage.png';
   static const String fourImage = '$imageRoute/fourImage.png';
   static const String fiveImage = '$imageRoute/fiveImage.png';
+
+  // * home screen images
+  static const String sscImage = '$imageRoute/sscIcon.png';
+  static const String hscImage = '$imageRoute/hscIcon.png';
+  static const String honoursImage = '$imageRoute/honoursIcon.png';
+  static const String videoIcon = '$imageRoute/videoImage.png';
+  static const String playstoreLogo = '$imageRoute/playstoreLogo.jpg';
 }

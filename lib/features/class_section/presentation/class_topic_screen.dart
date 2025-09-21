@@ -97,13 +97,13 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
       final key = (type ?? '').toString().toLowerCase().trim();
       switch (key) {
         case 'suggestion':
-          return 'সাজেশন';
+          return 'সকল বিষয়ের গুরুত্বপূর্ণ সাজেশন';
         case 'result':
-          return 'রেজাল্ট';
+          return 'রেজাল্ট বিষয়ক সকল তথ্য';
         case 'scholarship':
-          return 'বৃত্তি';
+          return 'সকল উপবৃত্তির তথ্য';
         case 'notice':
-          return 'নোটিশ';
+          return 'গুরুত্বপূর্ণ সকল নোটিশ';
         default:
           // fallback: jeta asche oita-i dekhabe
           return (type ?? '').toString();
@@ -113,7 +113,7 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'সকল ${_bnTitle(widget.type)} এর তালিকা',
+        title: _bnTitle(widget.type),
       ),
       body: SafeArea(
         child: Column(
@@ -257,21 +257,32 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                                                 "বিস্তারিতঃ- \n${suggestion.description ?? ""}",
                                                 trimLines: 3,
                                                 trimMode: TrimMode.Line,
-                                                trimCollapsedText: ' রিড মোর',
-                                                trimExpandedText: ' কম দেখুন',
+                                                trimCollapsedText:
+                                                    '  Read More',
+                                                trimExpandedText:
+                                                    '   Show Less',
                                                 style: TextFontStyle
                                                     .hindisiliguri10w400
                                                     .copyWith(
-                                                  color: AppColors.c000000,
+                                                  color: AppColors
+                                                      .c000000, // মূল টেক্সট Black
                                                   fontSize: 12.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
-                                                moreStyle: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                                lessStyle: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w600),
+                                                moreStyle: TextFontStyle
+                                                    .headLine24w800Poppins
+                                                    .copyWith(
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.blue,
+                                                  fontSize: 10.sp,
+                                                ),
+                                                lessStyle: TextFontStyle
+                                                    .headLine24w800Poppins
+                                                    .copyWith(
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.blue,
+                                                  fontSize: 10.sp,
+                                                ),
                                               ),
                                             ),
 

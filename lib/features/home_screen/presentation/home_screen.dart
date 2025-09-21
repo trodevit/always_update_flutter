@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:always_update/ad_helper.dart';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_images.dart';
@@ -8,7 +7,6 @@ import 'package:always_update/features/privacy_policy_screen.dart';
 import 'package:always_update/features/terms_condition_screen.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
-import 'package:always_update/helpers/toast.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:flutter/material.dart';
@@ -110,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
         deviceId: _deviceId,
         deviceName: _deviceName,
       );
-      ToastUtil.showShortToast('Device info sent successfully');
+      log('Device info sent successfully');
     } catch (e) {
-      ToastUtil.showShortToast('Error sending device info: $e');
+      log('Error sending device info: $e');
     }
   }
 
@@ -159,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
-        title: 'Always Update',
+        title: 'অধ্যয়ন সহায়িকা',
         leadingIconUnVisible: true,
       ),
       body: SafeArea(
@@ -252,10 +250,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SvgPicture.asset(
-                              AppIcons.sscIcon,
-                              height: 40,
-                              width: 40,
+                            Image.asset(
+                              AppImages.sscImage,
+                              height: 45.h,
+                              width: 45.w,
                             ),
                             SizedBox(height: 5),
                             Text(
@@ -294,10 +292,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SvgPicture.asset(
-                              AppIcons.honoursIcon,
-                              height: 40,
-                              width: 40,
+                            Image.asset(
+                              AppImages.hscImage,
+                              height: 45.h,
+                              width: 45.w,
                             ),
                             SizedBox(height: 5),
                             Text(
@@ -338,10 +336,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             SvgPicture.asset(
                               AppIcons.collegeAdmissionIcon,
-                              height: 40,
-                              width: 40,
+                              height: 40.h,
+                              width: 40.w,
                             ),
-                            SizedBox(height: 5),
+                            SizedBox(height: 10.h),
                             Text(
                               'কলেজ ভর্তি',
                               textAlign: TextAlign.center,
@@ -385,9 +383,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              AppIcons.hscIcon,
-                              height: 40,
-                              width: 40,
+                              AppIcons.honoursLogo,
+                              height: 40.h,
+                              width: 40.w,
                             ),
                             SizedBox(height: 5),
                             Text(
@@ -426,9 +424,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 40,
                               width: 40,
                             ),
-                            SizedBox(height: 5),
+                            SizedBox(height: 10.h),
                             Text(
-                              'রেজাল্ট',
+                              'রেজাল্ট দেখুন',
                               textAlign: TextAlign.center,
                               style: TextFontStyle.hindisiliguri10w400.copyWith(
                                 color: Colors.black,
@@ -461,9 +459,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              AppIcons.courseIcon,
-                              height: 40,
-                              width: 40,
+                              AppIcons.myCourse,
+                              height: 40.h,
+                              width: 40.w,
                             ),
                             SizedBox(height: 5),
                             Text(
