@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_images.dart';
@@ -9,22 +10,21 @@ import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HscCourseFeaturesScreen extends StatefulWidget {
+class HscAllpdfScreen extends StatefulWidget {
   dynamic yearID;
-  HscCourseFeaturesScreen({super.key, this.yearID});
+  HscAllpdfScreen({super.key, this.yearID});
 
   @override
-  State<HscCourseFeaturesScreen> createState() =>
-      _HscCourseFeaturesScreenState();
+  State<HscAllpdfScreen> createState() => _HscAllpdfScreenState();
 }
 
-class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
+class _HscAllpdfScreenState extends State<HscAllpdfScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এইচএসসি কোর্স',
+        title: 'এইচএসসি সকল পিডিএফ',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -37,8 +37,9 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateToWithArgs(
-                        Routes.hscGroupSuggScreen, {
+                        Routes.hscPDFDashboardScreen, {
                       'yearID': widget.yearID,
+                      'courseType': 'mcq',
                     });
                   },
                   child: Container(
@@ -57,13 +58,13 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.groupArtsImage,
+                          AppImages.pdfMcqImages,
                           width: 45.w,
                           height: 45.h,
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'গ্রুপ ভিত্তিক সাজেশন',
+                          'MCQ বোর্ড প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,
@@ -73,14 +74,13 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                     ),
                   ),
                 ),
-
                 UIHelper.verticalSpace(20.h),
-
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateToWithArgs(
-                        Routes.hscShortcutDashboardScreen, {
+                        Routes.hscPDFDashboardScreen, {
                       'yearID': widget.yearID,
+                      'courseType': 'short_question',
                     });
                   },
                   child: Container(
@@ -99,13 +99,13 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.groupShortCutImage,
+                          AppImages.groupBusinessImage,
                           width: 45.w,
                           height: 45.h,
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'শর্টকাট টেকনিক',
+                          'জ্ঞানমূলক প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,
@@ -115,14 +115,13 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                     ),
                   ),
                 ),
-
                 UIHelper.verticalSpace(20.h),
-
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateToWithArgs(
-                        Routes.hscAllpdfScreen, {
+                        Routes.hscPDFDashboardScreen, {
                       'yearID': widget.yearID,
+                      'courseType': 'big_question',
                     });
                   },
                   child: Container(
@@ -147,7 +146,7 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
-                          'সকল পিডিএফ',
+                          'অনুধাবনমূলক প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,
@@ -163,8 +162,9 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 // GestureDetector(
                 //   onTap: () {
                 //     NavigationService.navigateToWithArgs(
-                //         Routes.hscGroupSuggScreen, {
+                //         Routes.hscSubjectListScreen, {
                 //       'yearID': widget.yearID,
+                //       'classType': 'science',
                 //     });
                 //   },
                 //   child: Container(
@@ -188,7 +188,7 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 //             height: 40,
                 //           ),
                 //           Text(
-                //             'গ্রুপ ভিত্তিক সাজেশন',
+                //             'বিজ্ঞান বিভাগ',
                 //             style: TextFontStyle.hindisiliguri10w400.copyWith(
                 //               color: AppColors.c000000,
                 //               fontSize: 16.sp,
@@ -204,11 +204,10 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 // // * HSC MCQ
                 // GestureDetector(
                 //   onTap: () {
-                //     // Get.to(() =>
-                //     //     SscCategoryScreen()); // Pass the widget directly
                 //     NavigationService.navigateToWithArgs(
-                //         Routes.hscMcqDashboardScreen, {
+                //         Routes.hscSubjectListScreen, {
                 //       'yearID': widget.yearID,
+                //       'classType': 'commerce',
                 //     });
                 //   },
                 //   child: Container(
@@ -232,7 +231,7 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 //             height: 40,
                 //           ),
                 //           Text(
-                //             'এমসিকিউ প্রশ্নোত্তর',
+                //             'মানবিক বিভাগ',
                 //             style: TextFontStyle.hindisiliguri10w400.copyWith(
                 //               color: AppColors.c000000,
                 //               fontSize: 16.sp,
@@ -250,8 +249,9 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 // GestureDetector(
                 //   onTap: () {
                 //     NavigationService.navigateToWithArgs(
-                //         Routes.hscShortcutDashboardScreen, {
+                //         Routes.hscSubjectListScreen, {
                 //       'yearID': widget.yearID,
+                //       'classType': 'arts',
                 //     });
                 //   },
                 //   child: Container(
@@ -275,7 +275,7 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                 //             height: 40,
                 //           ),
                 //           Text(
-                //             'শর্টকাট টেকনিক',
+                //             'ব্যবসায় বিভাগ',
                 //             style: TextFontStyle.hindisiliguri10w400.copyWith(
                 //               color: AppColors.c000000,
                 //               fontSize: 16.sp,

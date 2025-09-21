@@ -7,8 +7,7 @@ import '/networks/endpoints.dart';
 import '/networks/dio/dio.dart';
 
 class HscMcqSingleItemAPI {
-  static final HscMcqSingleItemAPI _singleton =
-      HscMcqSingleItemAPI._internal();
+  static final HscMcqSingleItemAPI _singleton = HscMcqSingleItemAPI._internal();
 
   HscMcqSingleItemAPI._internal();
 
@@ -18,12 +17,13 @@ class HscMcqSingleItemAPI {
     dynamic type, // * hsc year
     classType, // * science, humanities, business_studies
     subjectId, // * subject id
+    courseType, // * course type
   }) async {
     try {
-      Response response =
-          await getHttp(Endpoints.getHscPDFSubjectSingleItem(
+      Response response = await getHttp(Endpoints.getHscPDFSubjectSingleItem(
         type,
         classType,
+        courseType,
         subjectId,
       ));
 

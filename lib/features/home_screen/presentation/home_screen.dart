@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
-        title: 'অধ্যয়ন সহায়িকা',
+        title: 'Always Update',
         leadingIconUnVisible: true,
       ),
       body: SafeArea(
@@ -216,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // * === শিক্ষা বিভাগ ===
                 Text(
-                  'আমাদের আলোচিত বিষয়সমূহ',
+                  'আমাদের সেবাসমূহ',
                   style: TextFontStyle.hindisiliguri10w400.copyWith(
                     color: Colors.black,
                     fontSize: 20,
@@ -503,7 +503,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ডিভাইস নাম: $_deviceName',
+                        'ডিভাইস: $_deviceName',
                         style: TextFontStyle.hindisiliguri10w400.copyWith(
                           color: Colors.black,
                           fontSize: 16,

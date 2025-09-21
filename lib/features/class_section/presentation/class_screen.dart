@@ -46,7 +46,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
         case 'honours':
           return 'অনার্স';
         case 'collegeadmission':
-          return 'কলেজ অ্যাডমিশন';
+          return 'কলেজ এডমিশন';
         default:
           // fallback: jeta asche oita-i dekhabe
           return (className ?? '').toString();
@@ -80,7 +80,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 90.h,
+                        height: 110.h,
                         width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.c15803D,
@@ -131,7 +131,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 90.h,
+                        height: 110.h,
                         width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.c1E40AF,
@@ -158,7 +158,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                 ),
                               ),
                               Text(
-                                'সকল বিষয়ের গুরুত্বপূর্ণ সাজেশন',
+                                'রেজাল্ট বিষয়ক সকল তথ্য',
                                 style:
                                     TextFontStyle.hindisiliguri10w400.copyWith(
                                   color: Colors.white,
@@ -188,7 +188,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 90.h,
+                        height: 110.h,
                         width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.cDB2777,
@@ -206,7 +206,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                'বৃত্তি',
+                                'উপবৃত্তি',
                                 style:
                                     TextFontStyle.hindisiliguri10w400.copyWith(
                                   color: Colors.white,
@@ -215,7 +215,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                 ),
                               ),
                               Text(
-                                'সকল বৃত্তির তথ্য এবং আবেদন',
+                                'সকল উপবৃত্তির তথ্য',
                                 style:
                                     TextFontStyle.hindisiliguri10w400.copyWith(
                                   color: Colors.white,
@@ -239,7 +239,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                         );
                       },
                       child: Container(
-                        height: 90.h,
+                        height: 110.h,
                         width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColors.cEA580C,
@@ -266,7 +266,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                 ),
                               ),
                               Text(
-                                'গুরুত্বপূর্ণ ঘোষণা এবং তথ্য',
+                                'গুরুত্বপূর্ণ সকল নোটিশ',
                                 style:
                                     TextFontStyle.hindisiliguri10w400.copyWith(
                                   color: Colors.white,
@@ -281,18 +281,18 @@ class _ClassSecreenState extends State<ClassSecreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'সাম্প্রতিক নোটিশ',
-                    style: TextFontStyle.hindisiliguri10w400.copyWith(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+                // SizedBox(height: 20),
+                // Align(
+                //   alignment: Alignment.centerLeft,
+                //   child: Text(
+                //     'সাম্প্রতিক নোটিশ',
+                //     style: TextFontStyle.hindisiliguri10w400.copyWith(
+                //       color: Colors.black,
+                //       fontSize: 18,
+                //       fontWeight: FontWeight.w700,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

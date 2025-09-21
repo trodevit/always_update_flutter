@@ -17,7 +17,7 @@ class TextFontStyle {
   );
 
   static var hindisiliguri10w400 = TextStyle(
-    fontFamily: 'Hind Siliguri',
+    fontFamily: 'Kalpurush',
     fontFamilyFallback: const [
       'Open Sans',
       'Roboto',

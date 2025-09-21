@@ -17,8 +17,10 @@ import 'package:flutter_svg/svg.dart';
 class HscSubjectListScreen extends StatefulWidget {
   final dynamic yearID;
   final dynamic classType;
+  final dynamic courseType;
 
-  const HscSubjectListScreen({super.key, this.yearID, this.classType});
+  const HscSubjectListScreen(
+      {super.key, this.yearID, this.classType, this.courseType});
 
   @override
   State<HscSubjectListScreen> createState() => _HscSubjectListScreenState();
@@ -35,6 +37,7 @@ class _HscSubjectListScreenState extends State<HscSubjectListScreen> {
   Widget build(BuildContext context) {
     log("============> ${widget.yearID} <============");
     log("============> ${widget.classType} <============");
+    log("============> ${widget.courseType} <============");
 
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
@@ -98,6 +101,7 @@ class _HscSubjectListScreenState extends State<HscSubjectListScreen> {
                           'classType': widget.classType,
                           'itemID': item.id,
                           'subjectTitle': item.subject,
+                          'courseType': widget.courseType,
                         },
                       );
                     },

@@ -22,7 +22,8 @@ import 'package:always_update/features/course_section/presentation/hsc_course/pr
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_dashboard_screen.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_group_sugg/hsc_group_sugg_item_screen.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_group_sugg/hsc_group_sugg_screen.dart';
-import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_mcq_dashboard.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_all_pdf_dashboard.dart';
+import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_allpdf_screen.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_mcq_single_item.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_mcq/hsc_subject_list_screen.dart';
 import 'package:always_update/features/course_section/presentation/hsc_course/presentation/hsc_shortcut_tech/hsc_shortcut_dashboard_screen.dart';
@@ -108,7 +109,7 @@ final class Routes {
   static const String hscGroupSuggScreen = '/hscGroupSuggScreen';
   static const String hscGroupSuggItemScreen = '/hscGroupSuggItemScreen';
   static const String hscSubjectListScreen = '/hscSubjectListScreen';
-  static const String hscMcqDashboardScreen = '/hscMcqDashboardScreen';
+  static const String hscPDFDashboardScreen = '/hscPDFDashboardScreen';
   static const String hscMCQItemScreen = '/hscMCQItemScreen';
   // * ######################################################################################
   // * HSC Shortcut Item Screen
@@ -129,6 +130,9 @@ final class Routes {
   // * ############################# SSC Course Login Section #############################
   static const String sscPdfLoginScreen = '/sscPdfLoginScreen';
   static const String sscVideoLoginScreen = '/sscVideoLoginScreen';
+
+  // * #################### HSC Update For All PDF ########################################
+  static const String hscAllpdfScreen = '/hscAllpdfScreen';
 }
 
 final class RouteGenerator {
@@ -730,18 +734,20 @@ final class RouteGenerator {
                 ),
               );
 
-      case Routes.hscMcqDashboardScreen:
+      case Routes.hscPDFDashboardScreen:
         final argument = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: HscMcqDashboardScreen(
+                widget: HscPDFDashboardScreen(
                   yearID: argument['yearID'],
+                  courseType: argument['courseType'],
                 ),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) => HscMcqDashboardScreen(
+                builder: (context) => HscPDFDashboardScreen(
                   yearID: argument['yearID'],
+                  courseType: argument['courseType'],
                 ),
               );
 
@@ -752,6 +758,7 @@ final class RouteGenerator {
                 widget: HscSubjectListScreen(
                   yearID: argument['yearID'],
                   classType: argument['classType'],
+                  courseType: argument['courseType'],
                 ),
                 settings: settings,
               )
@@ -759,6 +766,7 @@ final class RouteGenerator {
                 builder: (context) => HscSubjectListScreen(
                   yearID: argument['yearID'],
                   classType: argument['classType'],
+                  courseType: argument['courseType'],
                 ),
               );
 
@@ -771,6 +779,7 @@ final class RouteGenerator {
                   classType: argument['classType'],
                   itemID: argument['itemID'],
                   subjectTitle: argument['subjectTitle'],
+                  courseType: argument['courseType'],
                 ),
                 settings: settings,
               )
@@ -780,6 +789,7 @@ final class RouteGenerator {
                   classType: argument['classType'],
                   itemID: argument['itemID'],
                   subjectTitle: argument['subjectTitle'],
+                  courseType: argument['courseType'],
                 ),
               );
 
@@ -816,6 +826,21 @@ final class RouteGenerator {
                   yearID: argument['yearID'],
                   type: argument['type'],
                   className: argument['className'],
+                ),
+              );
+
+      case Routes.hscAllpdfScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HscAllpdfScreen(
+                  yearID: argument['yearID'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => HscAllpdfScreen(
+                  yearID: argument['yearID'],
                 ),
               );
 

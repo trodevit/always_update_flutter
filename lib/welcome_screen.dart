@@ -2,6 +2,7 @@ import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -20,10 +21,14 @@ final class WelcomeScreen extends StatelessWidget {
             SizedBox(
               height: 40,
             ),
-            Image.asset(
-              AppImages.appLogos,
-              height: 150,
-              width: 150,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100.r),
+              child: Image.asset(
+                AppImages.appLogo,
+                height: 100.h,
+                width: 100.w,
+                fit: BoxFit.fill,
+              ),
             ),
             const SizedBox(
               height: 20,

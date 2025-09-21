@@ -5,6 +5,7 @@ class AppImages {
   /*all assets here*/
   static const String appLogo = '$imageRoute/playstore.png';
   static const String appLogos = '$imageRoute/appLogos.png';
+  static const String appJpgLogo = '$imageRoute/appLogo.jpg';
   static const String groupShortCutImage = '$imageRoute/groupShortCutImage.png';
   static const String pdfCourseImage = '$imageRoute/pdfCourseImage.png';
   static const String groupSuggImage = '$imageRoute/groupSuggImage.png';

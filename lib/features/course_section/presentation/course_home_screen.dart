@@ -237,10 +237,32 @@ class CourseHomeScreen extends StatefulWidget {
 
 class _CourseHomeScreenState extends State<CourseHomeScreen> {
   final String _phoneNumber = "+8801743182139";
+  final String _phoneSecondNumber = "+8801775738149";
 
   Future<void> _openWhatsApp() async {
     final Uri native = Uri.parse("whatsapp://send?phone=$_phoneNumber");
     final Uri web = Uri.parse("https://wa.me/$_phoneNumber");
+    final Uri playStore =
+        Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp");
+
+    try {
+      if (await canLaunchUrl(native)) {
+        await launchUrl(native);
+      } else if (await canLaunchUrl(web)) {
+        await launchUrl(web, mode: LaunchMode.externalApplication);
+      } else {
+        await launchUrl(playStore, mode: LaunchMode.externalApplication);
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("WhatsApp চালু করা যায়নি")),
+      );
+    }
+  }
+
+  Future<void> _openSecondWhatsApp() async {
+    final Uri native = Uri.parse("whatsapp://send?phone=$_phoneSecondNumber");
+    final Uri web = Uri.parse("https://wa.me/$_phoneSecondNumber");
     final Uri playStore =
         Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp");
 
@@ -282,8 +304,8 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'আপনি যদি আমাদের এই প্রিমিয়াম কোর্সগুলোর মধ্যে থেকে কিছু শিখতে চান, '
-                        'তাহলে আমাদের কোর্সে এনরোল করুন, কোর্স কিনতে আমাদের সাথে যোগাযোগ করুন WhatsApp নাম্বারে।',
+                        'আপনি যদি আমাদের এই প্রিমিয়াম কোর্সগুলোতে ভর্তি হতে চান, '
+                        'তাহলে আমাদের কোর্সে এনরোল করুন। কোর্স কিনতে আমাদের সাথে যোগাযোগ করুন নিচের WhatsApp নাম্বারে।',
                         style: TextFontStyle.hindisiliguri10w400.copyWith(
                           color: AppColors.cFFFFFF,
                           fontSize: 14.sp,
@@ -319,16 +341,15 @@ class _CourseHomeScreenState extends State<CourseHomeScreen> {
                                   ..onTap = _openWhatsApp,
                               ),
                               const WidgetSpan(child: SizedBox(width: 6)),
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: GestureDetector(
-                                  onTap: _openWhatsApp,
-                                  child: Icon(
-                                    Icons.message,
-                                    size: 18,
-                                    color: Colors.amber,
-                                  ),
+                              TextSpan(
+                                text: "8801743182139",
+                                style: const TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
                                 ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = _openSecondWhatsApp,
                               ),
                             ],
                           ),

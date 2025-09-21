@@ -10,21 +10,25 @@ import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HscMcqDashboardScreen extends StatefulWidget {
-  dynamic yearID;
-  HscMcqDashboardScreen({super.key, this.yearID});
+class HscPDFDashboardScreen extends StatefulWidget {
+  dynamic yearID, courseType;
+  HscPDFDashboardScreen({
+    super.key,
+    this.yearID,
+    this.courseType,
+  });
 
   @override
-  State<HscMcqDashboardScreen> createState() => _HscMcqDashboardScreenState();
+  State<HscPDFDashboardScreen> createState() => _HscPDFDashboardScreenState();
 }
 
-class _HscMcqDashboardScreenState extends State<HscMcqDashboardScreen> {
+class _HscPDFDashboardScreenState extends State<HscPDFDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
-        title: 'এইচএসসি এমসিকিউ প্রশ্নোত্তর',
+        title: 'বিভাগ নির্বাচন করুন',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -40,6 +44,7 @@ class _HscMcqDashboardScreenState extends State<HscMcqDashboardScreen> {
                         Routes.hscSubjectListScreen, {
                       'yearID': widget.yearID,
                       'classType': 'science',
+                      'courseType': widget.courseType,
                     });
                   },
                   child: Container(
@@ -81,6 +86,7 @@ class _HscMcqDashboardScreenState extends State<HscMcqDashboardScreen> {
                         Routes.hscSubjectListScreen, {
                       'yearID': widget.yearID,
                       'classType': 'commerce',
+                      'courseType': widget.courseType,
                     });
                   },
                   child: Container(
@@ -122,6 +128,7 @@ class _HscMcqDashboardScreenState extends State<HscMcqDashboardScreen> {
                         Routes.hscSubjectListScreen, {
                       'yearID': widget.yearID,
                       'classType': 'arts',
+                      'courseType': widget.courseType,
                     });
                   },
                   child: Container(

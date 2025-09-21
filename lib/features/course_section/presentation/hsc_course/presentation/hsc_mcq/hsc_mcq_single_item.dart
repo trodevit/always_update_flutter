@@ -13,13 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HscMcqSingleItemScreen extends StatefulWidget {
-  dynamic type, classType, itemID, subjectTitle;
+  dynamic type, classType, itemID, subjectTitle, courseType;
   HscMcqSingleItemScreen({
     super.key,
     this.type,
     this.classType,
     this.itemID,
     this.subjectTitle,
+    this.courseType,
   });
 
   @override
@@ -34,6 +35,7 @@ class _HscMcqSingleItemScreenState extends State<HscMcqSingleItemScreen> {
       type: widget.type,
       classType: widget.classType,
       subjectId: widget.itemID,
+      courseType: widget.courseType,
     );
   }
 

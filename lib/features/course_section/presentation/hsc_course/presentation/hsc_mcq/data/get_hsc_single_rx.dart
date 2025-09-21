@@ -12,11 +12,13 @@ final class HscMcqSingleItemRX extends RxResponseInt<HscMcqSingelltemModel> {
   ValueStream<HscMcqSingelltemModel> get getHscSingleItemRx =>
       dataFetcher.stream;
 
-  Future<void> getHscSingleItemRX({dynamic type, classType, subjectId}) async {
+  Future<void> getHscSingleItemRX(
+      {dynamic type, classType, courseType, subjectId}) async {
     try {
       final hscSingleItemData = await api.hscPDFSubjectSingleInfo(
         type: type,
         classType: classType,
+        courseType: courseType,
         subjectId: subjectId,
       );
       handleSuccessWithReturn(hscSingleItemData);

@@ -13,6 +13,7 @@ import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -102,10 +103,14 @@ class _SscVideoLoginScreenState extends State<SscVideoLoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      AppImages.appLogo,
-                      height: 100,
-                      width: 100,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100.r),
+                      child: Image.asset(
+                        AppImages.appLogo,
+                        height: 100.h,
+                        width: 100.w,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -117,11 +122,11 @@ class _SscVideoLoginScreenState extends State<SscVideoLoginScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'আপনাকে আমাদের এসএসসি ভিডিও কোর্স দেখতে হলে আপনাকে লগইন করতে হবে।',
+                      'আমাদের এসএসসি ভিডিও কোর্স দেখতে হলে আপনাকে লগইন করতে হবে।',
                       style: TextFontStyle.hindisiliguri10w400.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.white,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                       ),
                       textAlign: TextAlign.center,
                     ),
