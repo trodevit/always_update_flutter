@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:always_update/ad_helper.dart';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
@@ -15,7 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:always_update/assets_helper/app_fonts.dart';
@@ -41,31 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
     AppImages.fiveImage,
   ];
 
-  BannerAd? _bannerAd;
-
   @override
   void initState() {
     super.initState();
     _getDeviceInfo();
     getClassApiRXObj.classNameRX();
     _sendDeviceInfo();
-
-    BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          ad.dispose();
-          log('Ad load failed (code=${error.code} message=${error.message})');
-        },
-      ),
-    ).load();
   }
 
   Future<void> _getDeviceInfo() async {
@@ -167,12 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (_bannerAd != null)
-                  Container(
-                    width: _bannerAd!.size.width.toDouble(),
-                    height: _bannerAd!.size.height.toDouble(),
-                    child: AdWidget(ad: _bannerAd!),
-                  ),
 
                 // === IMAGE SLIDER ===
                 SizedBox(
