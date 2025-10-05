@@ -124,7 +124,7 @@ class _HscLoginScreenState extends State<HscLoginScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'আমাদের এইচএসসি কোর্স দেখতে হলে আপনাকে লগইন করতে হবে।',
+                      'আমাদের এইচএসসি কোর্স দেখতে হলে \nআপনাকে লগইন করতে হবে।',
                       style: TextFontStyle.hindisiliguri10w400.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.white,

@@ -103,16 +103,16 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 Text(
-                                  'সকল বিষয়ের গুরুত্বপূর্ণ সাজেশন',
+                                  'সাজেশন বিষয়ক তথ্য',
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 10.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -154,7 +154,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -163,7 +163,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 10.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -213,7 +213,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -222,7 +222,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 10.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -264,7 +264,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -273,7 +273,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                                   style: TextFontStyle.hindisiliguri10w400
                                       .copyWith(
                                     color: Colors.white,
-                                    fontSize: 10.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),

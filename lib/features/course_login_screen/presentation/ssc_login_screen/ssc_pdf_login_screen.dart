@@ -122,7 +122,7 @@ class _SscPDFLoginScreenState extends State<SscPDFLoginScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'আমাদের এসএসসি পিডিএফ কোর্স দেখতে হলে আপনাকে লগইন করতে হবে।',
+                      'আমাদের এসএসসি পিডিএফ কোর্স দেখতে হলে \nআপনাকে লগইন করতে হবে।',
                       style: TextFontStyle.hindisiliguri10w400.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.white,

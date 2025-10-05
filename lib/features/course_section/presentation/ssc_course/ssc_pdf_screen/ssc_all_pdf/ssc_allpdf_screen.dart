@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
+import 'package:always_update/assets_helper/app_icons.dart';
 import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/helpers/all_routes.dart';
@@ -8,6 +9,7 @@ import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SscAllPdfScreen extends StatefulWidget {
   const SscAllPdfScreen({super.key});
@@ -137,12 +139,12 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         UIHelper.horizontalSpace(10.w),
-                        Image.asset(
-                          AppImages.groupSuggImage,
-                          width: 45.w,
-                          height: 45.h,
+                        SvgPicture.asset(
+                          AppIcons.shortquestNew,
+                          width: 60.w,
+                          height: 60.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(10.w),
                         Text(
                           'সংক্ষিপ্ত প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(

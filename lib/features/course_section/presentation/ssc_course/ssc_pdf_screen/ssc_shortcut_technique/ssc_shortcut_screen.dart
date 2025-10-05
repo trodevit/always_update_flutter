@@ -1,12 +1,13 @@
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
-import 'package:always_update/assets_helper/app_images.dart';
+import 'package:always_update/assets_helper/app_icons.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SscShortcutScreen extends StatefulWidget {
   const SscShortcutScreen({super.key});
@@ -56,12 +57,12 @@ class _SscShortcutScreenState extends State<SscShortcutScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         UIHelper.horizontalSpace(10.w),
-                        Image.asset(
-                          AppImages.writtenImage,
-                          width: 45.w,
-                          height: 45.h,
+                        SvgPicture.asset(
+                          AppIcons.grammerNew,
+                          width: 60.w,
+                          height: 60.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(10.w),
                         Text(
                           'গ্রামার অংশ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -99,12 +100,12 @@ class _SscShortcutScreenState extends State<SscShortcutScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         UIHelper.horizontalSpace(10.w),
-                        Image.asset(
-                          AppImages.grammerImage,
-                          width: 45.w,
-                          height: 45.h,
+                        SvgPicture.asset(
+                          AppIcons.writtenNew,
+                          width: 60.w,
+                          height: 60.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(10.w),
                         Text(
                           'লিখিত অংশ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(

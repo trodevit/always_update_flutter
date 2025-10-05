@@ -29,4 +29,10 @@ class AppIcons {
   static const String honoursLogo = '$iconsRoute/honoursLogo.svg';
   static const String sscLogo = '$iconsRoute/sscLogo.svg';
   static const String hscLogo = '$iconsRoute/hscLogo.svg';
+
+  // * client new icons
+  static const String groupNew = '$iconsRoute/groupNew.svg';
+  static const String grammerNew = '$iconsRoute/grammerNew.svg';
+  static const String writtenNew = '$iconsRoute/writtenNew.svg';
+  static const String shortquestNew = '$iconsRoute/shortquestNew.svg';
 }

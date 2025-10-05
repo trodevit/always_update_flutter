@@ -37,7 +37,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 // * SSC Result
                 GestureDetector(
                   onTap: () {
-                    _launchUrl("https://www.educationboardresults.gov.bd/");
+                    _launchUrl("https://www.eboardresults.com/v2/home");
                   },
                   child: Container(
                     width: double.infinity,
@@ -76,7 +76,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 // * HSC Result
                 GestureDetector(
                   onTap: () {
-                    _launchUrl("https://www.educationboardresults.gov.bd/");
+                    _launchUrl("https://www.eboardresults.com/v2/home");
                   },
                   child: Container(
                     width: double.infinity,

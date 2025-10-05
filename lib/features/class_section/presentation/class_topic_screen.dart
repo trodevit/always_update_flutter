@@ -97,7 +97,7 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
       final key = (type ?? '').toString().toLowerCase().trim();
       switch (key) {
         case 'suggestion':
-          return 'সকল বিষয়ের গুরুত্বপূর্ণ সাজেশন';
+          return 'সাজেশন বিষয়ক তথ্য';
         case 'result':
           return 'রেজাল্ট বিষয়ক সকল তথ্য';
         case 'scholarship':
