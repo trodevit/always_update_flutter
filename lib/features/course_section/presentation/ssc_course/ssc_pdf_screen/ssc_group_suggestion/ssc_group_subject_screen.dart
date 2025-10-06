@@ -140,11 +140,11 @@ class _SscGroupSubjectScreenState extends State<SscGroupSubjectScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.groupArtsImage,
-                          width: 45.w,
-                          height: 45.h,
+                          AppImages.manobikImage,
+                          width: 55.w,
+                          height: 55.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(5.w),
                         Text(
                           'মানবিক বিভাগ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(

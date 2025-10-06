@@ -55,13 +55,13 @@ class _HscCourseFeaturesScreenState extends State<HscCourseFeaturesScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        UIHelper.horizontalSpace(10.w),
+                        UIHelper.horizontalSpace(5.w),
                         Image.asset(
-                          AppImages.groupArtsImage,
-                          width: 45.w,
-                          height: 45.h,
+                          AppImages.groupNewImage,
+                          width: 55.w,
+                          height: 55.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(7.w),
                         Text(
                           'গ্রুপ ভিত্তিক সাজেশন',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(

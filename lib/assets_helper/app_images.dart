@@ -38,4 +38,12 @@ class AppImages {
   static const String honoursImage = '$imageRoute/honoursIcon.png';
   static const String videoIcon = '$imageRoute/videoImage.png';
   static const String playstoreLogo = '$imageRoute/playstoreLogo.jpg';
+
+  // * client images
+  static const String grammerNewImage = '$imageRoute/grammerNewImage.png';
+  static const String manobikImage = '$imageRoute/manobikImage.png';
+  static const String writtenNewImage = '$imageRoute/writtenNewImage.png';
+  static const String groupNewImage = '$imageRoute/groupNewImage.png';
+  static const String shortquestNewImage = '$imageRoute/shortquestNewImage.png';
+  static const String onudhabonImage = '$imageRoute/onudhabonImage.png';
 }

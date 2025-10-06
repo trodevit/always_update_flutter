@@ -53,9 +53,9 @@ class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.writtenImage,
-                          width: 45.w,
-                          height: 45.h,
+                          AppImages.grammerNewImage,
+                          width: 55.w,
+                          height: 55.h,
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
@@ -95,9 +95,9 @@ class _SscVideoShortcutScreenState extends State<SscVideoShortcutScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.grammerImage,
-                          width: 45.w,
-                          height: 45.h,
+                          AppImages.writtenNewImage,
+                          width: 55.w,
+                          height: 55.h,
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(

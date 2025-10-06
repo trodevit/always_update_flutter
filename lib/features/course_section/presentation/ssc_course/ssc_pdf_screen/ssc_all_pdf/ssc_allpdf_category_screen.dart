@@ -77,49 +77,7 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                     ),
                   ),
                 ),
-                UIHelper.verticalSpace(16.h),
-                GestureDetector(
-                  onTap: () {
-                    NavigationService.navigateToWithArgs(
-                      Routes.sscAllPdfSubjectItemScreen,
-                      {'type': widget.type, 'classType': 'arts'},
-                    );
-                    ToastUtil.showShortToast(
-                      'Navigating to ${widget.type} -> Arts -> ALL PDF List',
-                    );
-                  },
-                  child: Container(
-                    height: 80.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: Colors.grey.shade800,
-                      ),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        UIHelper.horizontalSpace(10.w),
-                        Image.asset(
-                          AppImages.groupBusinessImage,
-                          width: 45.w,
-                          height: 45.h,
-                        ),
-                        UIHelper.horizontalSpace(15.w),
-                        Text(
-                          'মানবিক বিভাগ',
-                          style: TextFontStyle.hindisiliguri10w400.copyWith(
-                            color: AppColors.c000000,
-                            fontSize: 20.sp,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+
                 UIHelper.verticalSpace(16.h),
                 GestureDetector(
                   onTap: () {
@@ -147,13 +105,56 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.groupArtsImage,
+                          AppImages.groupBusinessImage,
                           width: 45.w,
                           height: 45.h,
                         ),
                         UIHelper.horizontalSpace(15.w),
                         Text(
                           'ব্যবসায় বিভাগ',
+                          style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: AppColors.c000000,
+                            fontSize: 20.sp,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                UIHelper.verticalSpace(16.h),
+                GestureDetector(
+                  onTap: () {
+                    NavigationService.navigateToWithArgs(
+                      Routes.sscAllPdfSubjectItemScreen,
+                      {'type': widget.type, 'classType': 'arts'},
+                    );
+                    ToastUtil.showShortToast(
+                      'Navigating to ${widget.type} -> Arts -> ALL PDF List',
+                    );
+                  },
+                  child: Container(
+                    height: 80.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Colors.grey.shade800,
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        UIHelper.horizontalSpace(5.w),
+                        Image.asset(
+                          AppImages.manobikImage,
+                          width: 55.w,
+                          height: 55.h,
+                        ),
+                        UIHelper.horizontalSpace(7.w),
+                        Text(
+                          'মানবিক বিভাগ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
                             color: AppColors.c000000,
                             fontSize: 20.sp,

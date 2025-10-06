@@ -53,11 +53,11 @@ class _SscVideoCategoryScreenState extends State<SscVideoCategoryScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.groupSuggImage,
-                          width: 45.w,
-                          height: 45.h,
+                          AppImages.groupNewImage,
+                          width: 55.w,
+                          height: 55.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(5.w),
                         Text(
                           'গ্রুপভিত্তিক সাজেশন',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(

@@ -59,10 +59,10 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
                           AppImages.pdfMcqImages,
-                          width: 45.w,
-                          height: 45.h,
+                          width: 35.w,
+                          height: 35.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(17.w),
                         Text(
                           'MCQ বোর্ড প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -97,13 +97,13 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        UIHelper.horizontalSpace(10.w),
+                        UIHelper.horizontalSpace(15.w),
                         Image.asset(
                           AppImages.pdfShortQuestionImages,
-                          width: 45.w,
-                          height: 45.h,
+                          width: 35.w,
+                          height: 35.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(17.w),
                         Text(
                           'জ্ঞানমূলক প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -138,13 +138,13 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        UIHelper.horizontalSpace(10.w),
+                        UIHelper.horizontalSpace(0.w),
                         SvgPicture.asset(
-                          AppIcons.shortquestNew,
+                          AppIcons.shortquesNew,
                           width: 60.w,
                           height: 60.h,
                         ),
-                        UIHelper.horizontalSpace(10.w),
+                        UIHelper.horizontalSpace(5.w),
                         Text(
                           'সংক্ষিপ্ত প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(

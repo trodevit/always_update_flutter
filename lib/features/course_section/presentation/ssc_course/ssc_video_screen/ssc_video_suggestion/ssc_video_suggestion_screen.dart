@@ -144,11 +144,11 @@ class _SscGroupSuggestionScreenState extends State<SscGroupSuggestionScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.groupArtsImage,
-                          width: 45.w,
-                          height: 45.h,
+                          AppImages.manobikImage,
+                          width: 55.w,
+                          height: 545.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(5.w),
                         Text(
                           'মানবিক বিভাগ',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(

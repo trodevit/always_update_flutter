@@ -34,5 +34,5 @@ class AppIcons {
   static const String groupNew = '$iconsRoute/groupNew.svg';
   static const String grammerNew = '$iconsRoute/grammerNew.svg';
   static const String writtenNew = '$iconsRoute/writtenNew.svg';
-  static const String shortquestNew = '$iconsRoute/shortquestNew.svg';
+  static const String shortquesNew = '$iconsRoute/shortquesNew.svg';
 }

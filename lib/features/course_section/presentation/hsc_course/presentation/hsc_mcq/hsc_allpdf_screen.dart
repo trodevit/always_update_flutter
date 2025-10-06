@@ -99,7 +99,7 @@ class _HscAllpdfScreenState extends State<HscAllpdfScreen> {
                       children: [
                         UIHelper.horizontalSpace(10.w),
                         Image.asset(
-                          AppImages.groupBusinessImage,
+                          AppImages.pdfShortQuestionImages,
                           width: 45.w,
                           height: 45.h,
                         ),
@@ -138,13 +138,13 @@ class _HscAllpdfScreenState extends State<HscAllpdfScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        UIHelper.horizontalSpace(10.w),
+                        UIHelper.horizontalSpace(5.w),
                         Image.asset(
-                          AppImages.pdfCourseImage,
-                          width: 45.w,
-                          height: 45.h,
+                          AppImages.onudhabonImage,
+                          width: 60.w,
+                          height: 60.h,
                         ),
-                        UIHelper.horizontalSpace(15.w),
+                        UIHelper.horizontalSpace(5.w),
                         Text(
                           'অনুধাবনমূলক প্রশ্নোত্তর',
                           style: TextFontStyle.hindisiliguri10w400.copyWith(
