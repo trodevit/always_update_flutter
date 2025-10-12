@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:always_update/common_widgets/custom_appbar.dart';
+import 'package:always_update/features/ad_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
@@ -6,6 +9,7 @@ import 'package:always_update/assets_helper/app_icons.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -16,6 +20,34 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    // _loadBannerAd();
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => log('Ad opened.'),
+        onAdClosed: (Ad ad) => log('Ad closed.'),
+        onAdImpression: (Ad ad) => log('Ad impression.'),
+      ),
+    ).load();
+  }
+
   Future<void> _launchUrl(String url) async {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
@@ -190,7 +222,18 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                   ),
                 ),
-                UIHelper.verticalSpace(20.h),
+                UIHelper.verticalSpace(100.h),
+
+                if (_bannerAd != null)
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: _bannerAd!.size.width.toDouble(),
+                      height: _bannerAd!.size.height.toDouble(),
+                      child: AdWidget(ad: _bannerAd!),
+                    ),
+                  ),
+                UIHelper.verticalSpace(5.h),
               ],
             ),
           ),

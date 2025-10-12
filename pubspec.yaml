@@ -68,6 +68,7 @@ dependencies:
   cached_network_image: ^3.4.1
   easy_url_launcher: ^0.0.7
   readmore: ^3.0.0
+  google_mobile_ads: ^6.0.0
 
 dev_dependencies:
   flutter_test:

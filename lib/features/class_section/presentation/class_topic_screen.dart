@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, must_be_immutable, unused_element, prefer_interpolation_to_compose_strings
 import 'dart:developer';
+import 'package:always_update/features/ad_helper.dart';
 import 'package:always_update/features/pdf_view_screen.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,6 +13,7 @@ import 'package:always_update/features/class_section/model/subject_model.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
 
@@ -54,6 +56,7 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
   ];
 
   List<Map<String, String>> filteredSuggestions = [];
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
@@ -62,7 +65,29 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
       className: widget.className,
       topic: widget.type,
     );
-    filteredSuggestions = List.from(allSuggestions); // Initial full list
+    filteredSuggestions = List.from(allSuggestions);
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => log('Ad opened.'),
+        onAdClosed: (Ad ad) => log('Ad closed.'),
+        onAdImpression: (Ad ad) => log('Ad impression.'),
+      ),
+    ).load();
+
+    // Initial full list
   }
 
   void _filterList(String query) {
@@ -349,6 +374,16 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                       },
                     ),
             ),
+            if (_bannerAd != null)
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+              ),
+            UIHelper.verticalSpace(5.h),
           ],
         ),
       ),

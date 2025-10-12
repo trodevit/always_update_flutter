@@ -14,9 +14,11 @@ import 'helpers/helper_methods.dart';
 import 'helpers/navigation_service.dart';
 import 'helpers/register_provider.dart';
 import 'networks/dio/dio.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await GetStorage.init();
   diSetup();
   DioSingleton.instance.create();

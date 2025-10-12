@@ -7,7 +7,6 @@ import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../../constants/app_constants.dart';
 import '../../../../helpers/di.dart';
-import '../../../../helpers/toast.dart';
 import '../../../../networks/dio/dio.dart';
 import '../../../../networks/rx_base.dart';
 
@@ -66,10 +65,10 @@ final class PostLoginRX extends RxResponseInt<DeviceIdModel> {
     if (error is DioException) {
       if (error.response!.statusCode == 400) {
         // Show error message from the response
-        ToastUtil.showShortToast(error.response!.data["error"]);
+        log(error.response!.data["error"]);
       } else {
         // Show general message for other status codes
-        ToastUtil.showShortToast(error.response!.data["message"]);
+        log(error.response!.data["message"]);
       }
     }
     // Log the error and add it to the stream
