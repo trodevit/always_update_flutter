@@ -507,7 +507,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
         return 'এইচএসসি';
       case 'honours':
         return 'অনার্স';
-      case 'collegeadmission':
+      case 'college_admission':
         return 'কলেজ এডমিশন';
       default:
         return (className ?? '').toString();
@@ -531,7 +531,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
             padding: EdgeInsets.all(16),
             child: Column(
               children: [
-                if (widget.className != 'collegeadmission')
+                if (widget.className != 'college_admission')
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -551,9 +551,9 @@ class _ClassSecreenState extends State<ClassSecreen> {
                       ),
                     ],
                   ),
-                if (widget.className != 'collegeadmission')
+                if (widget.className != 'college_admission')
                   SizedBox(height: 20),
-                if (widget.className != 'collegeadmission')
+                if (widget.className != 'college_admission')
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -573,7 +573,7 @@ class _ClassSecreenState extends State<ClassSecreen> {
                       ),
                     ],
                   ),
-                if (widget.className == 'collegeadmission')
+                if (widget.className == 'college_admission')
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

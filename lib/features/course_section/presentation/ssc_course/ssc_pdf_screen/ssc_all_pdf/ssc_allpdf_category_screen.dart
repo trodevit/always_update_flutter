@@ -5,7 +5,6 @@ import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
-import 'package:always_update/helpers/toast.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,9 +39,6 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                     NavigationService.navigateToWithArgs(
                       Routes.sscAllPdfSubjectItemScreen,
                       {'type': widget.type, 'classType': 'science'},
-                    );
-                    ToastUtil.showShortToast(
-                      'Navigating to ${widget.type} -> Science -> ALL PDF List',
                     );
                   },
                   child: Container(
@@ -85,9 +81,6 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                       Routes.sscAllPdfSubjectItemScreen,
                       {'type': widget.type, 'classType': 'commerce'},
                     );
-                    ToastUtil.showShortToast(
-                      'Navigating to ${widget.type} -> Commerce -> ALL PDF List',
-                    );
                   },
                   child: Container(
                     height: 80.h,
@@ -127,9 +120,6 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                     NavigationService.navigateToWithArgs(
                       Routes.sscAllPdfSubjectItemScreen,
                       {'type': widget.type, 'classType': 'arts'},
-                    );
-                    ToastUtil.showShortToast(
-                      'Navigating to ${widget.type} -> Arts -> ALL PDF List',
                     );
                   },
                   child: Container(

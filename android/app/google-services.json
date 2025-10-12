@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410131115404",
+    "project_id": "always-update-12b14",
+    "storage_bucket": "always-update-12b14.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410131115404:android:a6bb4e1374ca4c80967aa9",
+        "android_client_info": {
+          "package_name": "com.trodevit.alwaysupdate.always_update"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE2VzEILF0zuAHlOmdf80fu09koAMykhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

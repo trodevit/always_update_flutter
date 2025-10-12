@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
-
-const String url = "https://always-update.zobayerdev.top";
+const String url = "https://admin.alwaysupdate.online";
 const String imageUrls = "$url/";
 
 final class NetworkConstants {

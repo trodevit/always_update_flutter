@@ -2,6 +2,7 @@
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'package:always_update/features/home_screen/presentation/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ import 'helpers/navigation_service.dart';
 import 'helpers/register_provider.dart';
 import 'networks/dio/dio.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +24,9 @@ void main() async {
   await GetStorage.init();
   diSetup();
   DioSingleton.instance.create();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // * run the app
   runApp(const MyApp());

@@ -318,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         NavigationService.navigateToWithArgs(
                           Routes.classScreen,
                           {
-                            'className': 'collegeadmission',
+                            'className': 'college_admission',
                           },
                         );
                       },

@@ -7,6 +7,11 @@
 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- Required to receive push notifications -->
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    
+    <!-- For Android 13+ notification permission -->
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
 
     <application
