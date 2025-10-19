@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final dynamic id;
@@ -20,11 +22,33 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   YoutubePlayerController? _youtubeController;
   bool _isControllerInitialized = false;
   bool _isFullScreen = false;
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
     fetchVideoDetails();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   void rotation() {
@@ -103,43 +127,59 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: OrientationBuilder(builder: (context, orientation) {
-        // Handle orientation changes
-        if (orientation == Orientation.landscape && !_isFullScreen) {
-          _isFullScreen = true;
-          _lockOrientation();
-        } else if (orientation == Orientation.portrait && _isFullScreen) {
-          _isFullScreen = false;
-          _unlockOrientation();
-        }
+      child: OrientationBuilder(
+        builder: (context, orientation) {
+          // Handle orientation changes
+          if (orientation == Orientation.landscape && !_isFullScreen) {
+            _isFullScreen = true;
+            _lockOrientation();
+          } else if (orientation == Orientation.portrait && _isFullScreen) {
+            _isFullScreen = false;
+            _unlockOrientation();
+          }
 
-        return Scaffold(
-          backgroundColor: AppColors.cFFFFFF,
-          appBar: _isFullScreen
-              ? null
-              : CustomAppBar(
-                  title: 'ভিডিও বিস্তারিত',
-                ),
-          body: _isControllerInitialized
-              ? Column(
-                  children: [
-                    Expanded(
-                      child: YoutubePlayerBuilder(
-                        player: YoutubePlayer(controller: _youtubeController!),
-                        builder: (context, player) {
-                          return _isFullScreen
-                              ? player
-                              : _buildPortraitMode(player);
-                        },
-                      ),
-                    )
-                  ],
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
-        );
-      }),
+          return Scaffold(
+            backgroundColor: AppColors.cFFFFFF,
+            appBar: _isFullScreen
+                ? null
+                : CustomAppBar(
+                    title: 'ভিডিও বিস্তারিত',
+                  ),
+            body: _isControllerInitialized
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: YoutubePlayerBuilder(
+                          player:
+                              YoutubePlayer(controller: _youtubeController!),
+                          builder: (context, player) {
+                            return _isFullScreen
+                                ? player
+                                : _buildPortraitMode(player);
+                          },
+                        ),
+                      )
+                    ],
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+            bottomNavigationBar: _bannerAd == null
+                ? SizedBox.shrink()
+                : Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 10.h,
+                    ),
+                    child: Container(
+                      color: Colors.white,
+                      width: _bannerAd!.size.width.toDouble(),
+                      height: _bannerAd!.size.height.toDouble(),
+                      child: AdWidget(ad: _bannerAd!),
+                    ),
+                  ),
+          );
+        },
+      ),
     );
   }
 
