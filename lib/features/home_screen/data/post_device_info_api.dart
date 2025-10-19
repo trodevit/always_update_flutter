@@ -16,13 +16,13 @@ final class PostLoginApi {
 
   Future<DeviceIdModel> deviceSigninApi({
     required String device_id,
-    required dynamic device_name,
+    required dynamic fcmToken,
   }) async {
     try {
       // Create the request data map
       Map data = {
         "device_id": device_id,
-        "device_name": device_name,
+        "fcm_token": fcmToken,
       };
       // Make the POST request
       Response response = (await postHttp(Endpoints.deviceIdLogin(), data));

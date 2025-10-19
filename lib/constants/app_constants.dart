@@ -64,6 +64,7 @@ const String kKeyRussian = 'ru';
 const String kKeyFirstName = 'first_name';
 const String kKeyLastName = 'lst_name';
 const String kKeyDeviceID = 'device_id';
+const String kKeyFCMToken = 'fcm_token';
 const String kKeyUserID = 'user_id';
 const String kKeyShopID = 'shop_id';
 const String kKeycategoriesID = 'categoriesId';
@@ -71,6 +72,7 @@ const String kKeyproductID = 'productId';
 const String kKeyShopSlug = 'shop_slug';
 const String kKeyRestaurantID = 'productId';
 const String kKeyIsExploring = 'exploring';
+const String kKeyUUID = 'uuid';
 
 // * For Course
 const String kKeySSC = 'ssc';

@@ -4,9 +4,12 @@ import 'dart:developer';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_lottie.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
+import 'package:always_update/features/ad_helper.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,11 +27,14 @@ class PDFViewScreen extends StatefulWidget {
 
 class _PDFViewScreenState extends State<PDFViewScreen> {
   String localPath = "";
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
     downloadPdf();
+
+    _loadBannerAd();
   }
 
   Future<void> downloadPdf() async {
@@ -57,6 +63,26 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
     }
   }
 
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
   @override
   Widget build(BuildContext context) {
     log("========================> PDF URL: ${url + widget.pdfURL}");
@@ -81,6 +107,19 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
               pageFling: false,
               defaultPage: 0,
               backgroundColor: Colors.grey.shade100,
+            ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
             ),
     );
   }

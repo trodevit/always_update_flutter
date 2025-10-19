@@ -19,13 +19,13 @@ final class PostLoginRX extends RxResponseInt<DeviceIdModel> {
 
   Future<bool> signIn({
     required String deviceId,
-    required dynamic deviceName,
+    required dynamic fcmToken,
   }) async {
     try {
       // Call the sign-in API
       DeviceIdModel data = await api.deviceSigninApi(
         device_id: deviceId,
-        device_name: deviceName,
+        fcmToken: fcmToken,
       );
       await handleSuccessWithReturn(data);
       return true;

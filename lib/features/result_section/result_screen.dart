@@ -144,6 +144,46 @@ class _ResultScreenState extends State<ResultScreen> {
                   ),
                 ),
                 UIHelper.verticalSpace(20.h),
+                // * Board challenge
+                GestureDetector(
+                  onTap: () {
+                    _launchUrl(
+                        "https://efile.dhakaeducationboard.gov.bd/index.php/result/rsc/hsc/2025");
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Colors.grey.shade800,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            AppIcons.boardChallenge,
+                            width: 40.w,
+                            height: 40.h,
+                          ),
+                          Text(
+                            'বোর্ড চ্যালেঞ্জ রেজাল্ট দেখুন',
+                            style: TextFontStyle.hindisiliguri10w400.copyWith(
+                              color: AppColors.c000000,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                UIHelper.verticalSpace(20.h),
                 // * College Admission Result
                 GestureDetector(
                   onTap: () {
@@ -222,6 +262,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                   ),
                 ),
+
                 UIHelper.verticalSpace(100.h),
 
                 if (_bannerAd != null)

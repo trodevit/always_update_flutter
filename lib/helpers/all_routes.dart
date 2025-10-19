@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:always_update/features/class_section/presentation/class_screen.dart';
+import 'package:always_update/features/class_section/presentation/class_topic_details.dart';
 import 'package:always_update/features/class_section/presentation/class_topic_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/honours_login_screen/honours_dash_login_screen.dart';
 import 'package:always_update/features/course_login_screen/presentation/hsc_login_screen/hsc_login_screen.dart';
@@ -61,6 +62,7 @@ final class Routes {
   static const String classTopicScreen = '/classTopicScreen';
   static const String pdfViewScreen = '/pdfViewScreen';
   static const String courseHomeScreen = '/courseHomeScreen';
+  static const String classTopicDetailsScreen = '/classTopicDetailsScreen';
 
   // * ##########################################################
   static const String courseDashboardScreen = '/courseDashboardScreen';
@@ -142,6 +144,25 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.classTopicDetailsScreen:
+        final argument = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: ClassTopicDetails(
+                  title: argument['title'],
+                  description: argument['description'],
+                  imagePath: argument['imagePath'],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => ClassTopicDetails(
+                  title: argument['title'],
+                  description: argument['description'],
+                  imagePath: argument['imagePath'],
+                ),
+              );
+
       // * ################## SSC Course Login Section ##################
       // * SSC PDF Login Screen
       case Routes.sscPdfLoginScreen:

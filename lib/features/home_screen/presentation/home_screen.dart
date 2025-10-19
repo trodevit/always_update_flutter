@@ -1,11 +1,16 @@
+// ignore_for_file: unnecessary_string_interpolations, unused_local_variable, avoid_print, depend_on_referenced_packages
+
 import 'dart:developer';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
+import 'package:always_update/common_widgets/custom_button.dart';
+import 'package:always_update/constants/app_constants.dart';
 import 'package:always_update/features/ad_helper.dart';
 import 'package:always_update/features/privacy_policy_screen.dart';
 import 'package:always_update/features/terms_condition_screen.dart';
 import 'package:always_update/helpers/all_routes.dart';
+import 'package:always_update/helpers/di.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:always_update/networks/api_acess.dart';
@@ -20,6 +25,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_icons.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
   String _deviceId = 'Unknown';
-  String _deviceName = 'Unknown';
 
   final List<String> _images = [
     AppImages.oneImage,
@@ -45,9 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _getDeviceInfo();
+    _initializeDeviceInfo();
     getClassApiRXObj.classNameRX();
     _sendDeviceInfo();
+
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: AdRequest(),
@@ -66,36 +73,48 @@ class _HomeScreenState extends State<HomeScreen> {
     ).load();
   }
 
-  Future<void> _getDeviceInfo() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-
+  // 🔹 Generate UUID once per install (no Firebase)
+  Future<void> _initializeDeviceInfo() async {
     try {
+      final storage = const FlutterSecureStorage();
+      const key = 'unique_device_id';
+      String? existingId = await storage.read(key: key);
+
+      String deviceId;
+      if (existingId == null) {
+        deviceId = const Uuid().v4();
+        await storage.write(key: key, value: deviceId);
+        log('✅ New UUID created: $deviceId');
+      } else {
+        deviceId = existingId;
+        log('✅ Existing UUID found: $deviceId');
+      }
+
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      String deviceName = "Unknown";
+
       if (Platform.isAndroid) {
         if (await Permission.phone.request().isGranted) {
           AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-          setState(() {
-            _deviceId = androidInfo.id;
-            _deviceName = androidInfo.model;
-          });
+          deviceName = androidInfo.model;
         } else {
-          setState(() {
-            _deviceId = 'Permission Denied';
-            _deviceName = 'Permission Denied';
-          });
+          deviceName = "Permission Denied";
         }
       } else if (Platform.isIOS) {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        setState(() {
-          _deviceId = iosInfo.identifierForVendor ?? 'Unknown';
-          _deviceName = iosInfo.name;
-        });
+        deviceName = iosInfo.name;
       }
-      // * After getting the device info, call the function to send it
-      _sendDeviceInfo();
+
+      setState(() {
+        _deviceId = deviceId;
+        appData.write(kKeyUUID, _deviceId);
+      });
+
+      await _sendDeviceInfo();
     } catch (e) {
+      log('❌ Error getting device info: $e');
       setState(() {
         _deviceId = 'Error: $e';
-        _deviceName = 'Error: $e';
       });
     }
   }
@@ -104,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       await deviceIdloginRX.signIn(
         deviceId: _deviceId,
-        deviceName: _deviceName,
+        fcmToken: appData.read(kKeyFCMToken),
       );
       log('Device info sent successfully');
     } catch (e) {
@@ -130,23 +149,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Function to get icon based on category name (title)
-// Function to get icon based on category name (title)
   SvgPicture getIconForCategory(String title) {
     switch (title.toLowerCase()) {
-      // Convert the title to lowercase for case-insensitive matching
       case 'ssc':
-        return SvgPicture.asset(AppIcons.sscIcon); // SSC icon
+        return SvgPicture.asset(AppIcons.sscIcon);
       case 'hsc':
-        return SvgPicture.asset(AppIcons.hscIcon); // HSC icon
+        return SvgPicture.asset(AppIcons.hscIcon);
       case 'honours':
-        return SvgPicture.asset(AppIcons.honoursIcon); // Honours icon
+        return SvgPicture.asset(AppIcons.honoursIcon);
       case 'college admission':
-        return SvgPicture.asset(
-            AppIcons.hscIcon); // College Admission icon (same as HSC)
+        return SvgPicture.asset(AppIcons.hscIcon);
       default:
-        return SvgPicture.asset(
-            AppIcons.sscIcon); // Default icon if title doesn't match
+        return SvgPicture.asset(AppIcons.sscIcon);
     }
   }
 
@@ -214,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: 20),
 
-                // * === শিক্ষা বিভাগ ===
+                // === Services Section ===
                 Text(
                   'আমাদের সেবাসমূহ',
                   style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -225,135 +239,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: 16),
 
-                // * === GridView with Category Boxes ===
+                // === Education Grid ===
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classScreen,
-                          {
-                            'className': 'ssc',
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 90.h,
-                        width: 110.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: AppColors.activeColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              AppImages.sscImage,
-                              height: 45.h,
-                              width: 45.w,
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'এসএসসি',
-                              textAlign: TextAlign.center,
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    _buildServiceBox(
+                      title: 'এসএসসি',
+                      image: AppImages.sscImage,
+                      route: Routes.classScreen,
+                      args: {'className': 'ssc'},
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classScreen,
-                          {
-                            'className': 'hsc',
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 90.h,
-                        width: 110.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: AppColors.activeColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              AppImages.hscImage,
-                              height: 45.h,
-                              width: 45.w,
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'এইচএসসি',
-                              textAlign: TextAlign.center,
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    _buildServiceBox(
+                      title: 'এইচএসসি',
+                      image: AppImages.hscImage,
+                      route: Routes.classScreen,
+                      args: {'className': 'hsc'},
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classScreen,
-                          {
-                            'className': 'college_admission',
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 90.h,
-                        width: 110.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: AppColors.activeColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              AppIcons.collegeAdmissionIcon,
-                              height: 40.h,
-                              width: 40.w,
-                            ),
-                            SizedBox(height: 10.h),
-                            Text(
-                              'কলেজ ভর্তি',
-                              textAlign: TextAlign.center,
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    _buildServiceBox(
+                      title: 'কলেজ ভর্তি',
+                      svgIcon: AppIcons.collegeAdmissionIcon,
+                      route: Routes.classScreen,
+                      args: {'className': 'college_admission'},
                     ),
                   ],
                 ),
@@ -361,128 +267,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateToWithArgs(
-                          Routes.classScreen,
-                          {
-                            'className': 'honors',
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 90.h,
-                        width: 110.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: AppColors.activeColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              AppIcons.honoursLogo,
-                              height: 40.h,
-                              width: 40.w,
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'অনার্স',
-                              textAlign: TextAlign.center,
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    _buildServiceBox(
+                      title: 'অনার্স',
+                      svgIcon: AppIcons.honoursLogo,
+                      route: Routes.classScreen,
+                      args: {'className': 'honors'},
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateTo(Routes.resultScreen);
-                      },
-                      child: Container(
-                        height: 90.h,
-                        width: 110.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: AppColors.activeColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              AppIcons.resultIcon,
-                              height: 40,
-                              width: 40,
-                            ),
-                            SizedBox(height: 10.h),
-                            Text(
-                              'রেজাল্ট দেখুন',
-                              textAlign: TextAlign.center,
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    _buildServiceBox(
+                      title: 'রেজাল্ট দেখুন',
+                      svgIcon: AppIcons.resultIcon,
+                      route: Routes.resultScreen,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateTo(
-                          Routes.courseHomeScreen,
-                        );
-                      },
-                      child: Container(
-                        height: 90.h,
-                        width: 110.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: AppColors.activeColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              AppIcons.myCourse,
-                              height: 40.h,
-                              width: 40.w,
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'আমার কোর্স',
-                              textAlign: TextAlign.center,
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    _buildServiceBox(
+                      title: 'আমার কোর্স',
+                      svgIcon: AppIcons.myCourse,
+                      route: Routes.courseHomeScreen,
                     ),
                   ],
                 ),
 
-                // * === DEVICE INFO SECTION ===
+                // === DEVICE INFO ===
                 SizedBox(height: 20),
                 Text(
                   'ডিভাইস তথ্য',
@@ -503,45 +307,55 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ডিভাইস: $_deviceName',
+                        'ক্লায়েন্ট আইডিঃ-',
                         style: TextFontStyle.hindisiliguri10w400.copyWith(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        '$_deviceId',
+                        style: TextFontStyle.headLine22w400Poppins.copyWith(
                           color: Colors.black,
-                          fontSize: 16,
+                          fontSize: 14.sp,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'আইডি: $_deviceId',
-                              style: TextFontStyle.hindisiliguri10w400.copyWith(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                              overflow:
-                                  TextOverflow.ellipsis, // long হলে কেটে দেবে
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.copy,
-                                size: 20, color: Colors.grey[700]),
-                            onPressed: () {
-                              Clipboard.setData(ClipboardData(text: _deviceId));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Device ID কপি হয়েছে'),
-                                  duration: Duration(seconds: 2),
+                      UIHelper.verticalSpaceMedium,
+                      customButton(
+                        name: 'কপি করুন',
+                        color: AppColors.primaryColor,
+                        borderColor: AppColors.primaryColor,
+                        textStyle: TextFontStyle.banglaSmallStyle9w400Kalpurush
+                            .copyWith(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        onCallBack: () {
+                          Clipboard.setData(ClipboardData(text: _deviceId));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'ক্লায়েন্ট আইডি কপি হয়েছে',
+                                style:
+                                    TextFontStyle.hindisiliguri10w400.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w700,
                                 ),
-                              );
-                            },
-                          ),
-                        ],
+                              ),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        },
+                        context: context,
                       ),
                     ],
                   ),
                 ),
                 UIHelper.verticalSpace(20.h),
+
+                // === About Section ===
                 Text(
                   'আমাদের সম্পর্কে',
                   style: TextFontStyle.hindisiliguri10w400.copyWith(
@@ -551,82 +365,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 UIHelper.verticalSpace(10.h),
-                GestureDetector(
-                  onTap: () {
-                    // NavigationService.navigateTo(Routes.aboutUsScreen);
-                    Get.to(() => PrivacyPolicyScreen());
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppColors.activeColor,
-                        width: 2,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'প্রাইভেসি পলিসি',
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 18.sp,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                _buildAboutBox(
+                  title: 'প্রাইভেসি পলিসি',
+                  onTap: () => Get.to(() => PrivacyPolicyScreen()),
                 ),
                 UIHelper.verticalSpace(10.h),
-                GestureDetector(
-                  onTap: () {
-                    // NavigationService.navigateTo(Routes.aboutUsScreen);
-                    Get.to(() => TermsAndConditionsScreen());
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppColors.activeColor,
-                        width: 2,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'টার্মস অ্যান্ড কন্ডিশন',
-                            style: TextFontStyle.hindisiliguri10w400.copyWith(
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 18.sp,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                _buildAboutBox(
+                  title: 'টার্মস অ্যান্ড কন্ডিশন',
+                  onTap: () => Get.to(() => TermsAndConditionsScreen()),
                 ),
-
                 UIHelper.verticalSpace(20.h),
                 Align(
                   alignment: Alignment.center,
@@ -641,6 +388,84 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 🔹 Reusable service box widget
+  Widget _buildServiceBox({
+    required String title,
+    String? image,
+    String? svgIcon,
+    required String route,
+    Map<String, dynamic>? args,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        if (args != null) {
+          NavigationService.navigateToWithArgs(route, args);
+        } else {
+          NavigationService.navigateTo(route);
+        }
+      },
+      child: Container(
+        height: 90.h,
+        width: 110.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.activeColor, width: 2),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (image != null)
+              Image.asset(image, height: 45.h, width: 45.w)
+            else if (svgIcon != null)
+              SvgPicture.asset(svgIcon, height: 40.h, width: 40.w),
+            SizedBox(height: 8.h),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextFontStyle.hindisiliguri10w400.copyWith(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 🔹 About box
+  Widget _buildAboutBox({required String title, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.activeColor, width: 2),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: TextFontStyle.hindisiliguri10w400.copyWith(
+                  color: Colors.black,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Icon(Icons.arrow_forward_ios, size: 18.sp, color: Colors.black),
+            ],
           ),
         ),
       ),

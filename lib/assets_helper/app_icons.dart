@@ -35,4 +35,5 @@ class AppIcons {
   static const String grammerNew = '$iconsRoute/grammerNew.svg';
   static const String writtenNew = '$iconsRoute/writtenNew.svg';
   static const String shortquesNew = '$iconsRoute/shortquesNew.svg';
+  static const String boardChallenge = '$iconsRoute/boardChallange.svg';
 }

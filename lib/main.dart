@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:always_update/assets_helper/app_colors.dart';
+import 'package:always_update/helpers/notification_service.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'package:always_update/features/home_screen/presentation/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,9 +25,10 @@ void main() async {
   await GetStorage.init();
   diSetup();
   DioSingleton.instance.create();
-    await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+    await NotificationService().initNotification();
 
   // * run the app
   runApp(const MyApp());

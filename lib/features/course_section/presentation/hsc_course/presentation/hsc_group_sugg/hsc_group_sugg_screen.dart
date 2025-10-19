@@ -80,7 +80,7 @@ class _HscGroupSuggScreenState extends State<HscGroupSuggScreen> {
                     NavigationService.navigateToWithArgs(
                         Routes.hscGroupSuggItemScreen, {
                       'yearID': widget.yearID,
-                      'className': 'arts',
+                      'className': 'commerce',
                     });
                   },
                   child: Container(
@@ -121,7 +121,7 @@ class _HscGroupSuggScreenState extends State<HscGroupSuggScreen> {
                     NavigationService.navigateToWithArgs(
                         Routes.hscGroupSuggItemScreen, {
                       'yearID': widget.yearID,
-                      'className': 'commerce',
+                      'className': 'arts',
                     });
                   },
                   child: Container(

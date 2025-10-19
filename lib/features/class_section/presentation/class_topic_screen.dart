@@ -1,21 +1,21 @@
-// ignore_for_file: deprecated_member_use, must_be_immutable, unused_element, prefer_interpolation_to_compose_strings
+// ignore_for_file: deprecated_member_use, must_be_immutable, unused_element, prefer_interpolation_to_compose_strings, no_leading_underscores_for_local_identifiers
 import 'dart:developer';
 import 'package:always_update/features/ad_helper.dart';
 import 'package:always_update/features/pdf_view_screen.dart';
+import 'package:always_update/helpers/all_routes.dart';
+import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
-import 'package:always_update/common_widgets/custom_button.dart';
 import 'package:always_update/features/class_section/model/subject_model.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:readmore/readmore.dart';
 
 class ClassTopicScreen extends StatefulWidget {
   dynamic type, className;
@@ -191,7 +191,6 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                             final suggestion = subjectData[index];
                             var imageUrl = suggestion.image;
                             log("=========> $imageUrl");
-
                             return GestureDetector(
                               onTap: () {},
                               child: Padding(
@@ -205,63 +204,79 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                                     border:
                                         Border.all(color: AppColors.boxShadow),
                                   ),
-                                  child: Column(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      // Thumbnail
                                       if ((suggestion.image ?? '').isNotEmpty)
                                         ClipRRect(
                                           borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(6.r),
-                                            topRight: Radius.circular(6.r),
+                                            bottomLeft: Radius.circular(6.r),
                                           ),
                                           child: CachedNetworkImage(
                                             imageUrl:
                                                 imageUrls + suggestion.image!,
-                                            width: double.infinity,
-                                            height:
-                                                200, // Adjust height as needed
+                                            width: 140.w,
+                                            height: 140.w,
                                             fit: BoxFit.cover,
                                             progressIndicatorBuilder: (context,
                                                     url, downloadProgress) =>
                                                 Center(
-                                              child: CircularProgressIndicator(
-                                                value:
-                                                    downloadProgress.progress,
+                                              child: SizedBox(
+                                                width: 24,
+                                                height: 24,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                  value:
+                                                      downloadProgress.progress,
+                                                ),
                                               ),
                                             ),
                                             errorWidget:
                                                 (context, url, error) =>
                                                     Container(
-                                              width: double.infinity,
-                                              height: 200,
+                                              width: 130.w,
+                                              height: 90.w,
                                               color: Colors.grey[300],
-                                              child: Icon(Icons.error,
+                                              child: const Icon(Icons.error,
                                                   color: Colors.grey),
                                             ),
                                           ),
                                         ),
-                                      // Content
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
+
+                                      UIHelper.horizontalSpace(10.w),
+
+                                      // Text Section
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 10.w,
+                                              top: 6.h,
+                                              bottom: 6.h),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              // ✅ Title Section
+                                              Text(
                                                 suggestion.title ?? '',
                                                 style: TextFontStyle
                                                     .hindisiliguri10w400
                                                     .copyWith(
                                                   color: AppColors.c000000,
-                                                  fontSize: 18.sp,
+                                                  fontSize: 16.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
+                                                maxLines: 2, // Only 2 lines
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: true,
                                               ),
-                                            ),
-                                            UIHelper.verticalSpace(5.h),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
+                                              UIHelper.verticalSpace(3.h),
+
+                                              // ✅ Date
+                                              Text(
                                                 "প্রকাশিত তারিখ: " +
                                                     formattedDate(suggestion
                                                         .createdAt
@@ -269,68 +284,41 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                                                 style: TextFontStyle
                                                     .hindisiliguri10w400
                                                     .copyWith(
-                                                  color: AppColors.c000000,
+                                                  color: Colors.black87,
                                                   fontSize: 12.sp,
-                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                            ),
-                                            UIHelper.verticalSpace(10.h),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: ReadMoreText(
-                                                "বিস্তারিতঃ- \n${suggestion.description ?? ""}",
-                                                trimLines: 3,
-                                                trimMode: TrimMode.Line,
-                                                trimCollapsedText:
-                                                    '  Read More',
-                                                trimExpandedText:
-                                                    '   Show Less',
-                                                style: TextFontStyle
-                                                    .hindisiliguri10w400
-                                                    .copyWith(
-                                                  color: AppColors
-                                                      .c000000, // মূল টেক্সট Black
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                moreStyle: TextFontStyle
-                                                    .headLine24w800Poppins
-                                                    .copyWith(
-                                                  fontWeight: FontWeight.w800,
-                                                  color: Colors.blue,
-                                                  fontSize: 10.sp,
-                                                ),
-                                                lessStyle: TextFontStyle
-                                                    .headLine24w800Poppins
-                                                    .copyWith(
-                                                  fontWeight: FontWeight.w800,
-                                                  color: Colors.blue,
-                                                  fontSize: 10.sp,
-                                                ),
-                                              ),
-                                            ),
 
-                                            // Actions
-
-                                            if (widget.type == 'suggestion')
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  customButton(
-                                                    minWidth: 120.w,
-                                                    name: 'পিডিএফ দেখুন',
-                                                    textStyle: TextFontStyle
+                                              // ✅ Description
+                                              if ((suggestion.description ?? '')
+                                                  .isNotEmpty)
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 4.h),
+                                                  child: Text(
+                                                    suggestion.description!,
+                                                    style: TextFontStyle
                                                         .hindisiliguri10w400
                                                         .copyWith(
-                                                      color: AppColors.cFFF5DA,
-                                                      fontSize: 14.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      color: Colors.black54,
+                                                      fontSize: 13.sp,
                                                     ),
-                                                    onCallBack: () {
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+
+                                              UIHelper.verticalSpace(5.h),
+
+                                              // ✅ Conditional Button
+                                              Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    if (widget.type ==
+                                                        'suggestion') {
                                                       final pdf =
                                                           suggestion.pdf ?? '';
                                                       log('PDF: $pdf');
@@ -353,15 +341,40 @@ class _ClassTopicScreenState extends State<ClassTopicScreen> {
                                                                   pdfURL: pdf),
                                                         ),
                                                       );
-                                                    },
-                                                    context: context,
-                                                    color: AppColors.c02BF65,
-                                                    borderColor:
-                                                        AppColors.c02BF65,
+                                                    } else {
+                                                      NavigationService
+                                                          .navigateToWithArgs(
+                                                        Routes
+                                                            .classTopicDetailsScreen,
+                                                        {
+                                                          'title':
+                                                              suggestion.title,
+                                                          'description':
+                                                              suggestion
+                                                                  .description,
+                                                          'imagePath':
+                                                              suggestion.image,
+                                                        },
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Text(
+                                                    widget.type == 'suggestion'
+                                                        ? 'পিডিএফ দেখুন'
+                                                        : 'বিস্তারিত পড়ুন',
+                                                    style: TextFontStyle
+                                                        .hindisiliguri10w400
+                                                        .copyWith(
+                                                      color: Colors.blue,
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],

@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'always-update-12b14',
     storageBucket: 'always-update-12b14.firebasestorage.app',
   );
+
 }

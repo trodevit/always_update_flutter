@@ -1,214 +1,163 @@
-// import 'dart:math';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:intl/intl.dart';
-// import 'package:mollie/helpers/di.dart';
-// import 'package:timezone/data/latest.dart' as tz;
-// import 'package:timezone/timezone.dart' as tz;
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+import 'package:always_update/helpers/di.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import '../../constants/app_constants.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:uuid/uuid.dart';
 
-// class NotificationService {
-//   final FlutterLocalNotificationsPlugin notificationsPlugin =
-//       FlutterLocalNotificationsPlugin();
+class NotificationService {
+  final _firebaseMessaging = FirebaseMessaging.instance;
 
-//   NotificationService() {
-//     tz.initializeTimeZones();
-//     _loadStoredData();
-//   }
-// //load intial data
-//   Map<int, bool> reminderStatuses = {};
-//   Map<int, int> reminderNotificationCounts = {};
+  final _androidChannel = const AndroidNotificationChannel(
+    'high_importance_channel',
+    'High Importance Notifications',
+    description: "This is notification description",
+    importance: Importance.defaultImportance,
+  );
 
-//   void _loadStoredData() {
-//     // Load reminderStatuses from GetStorage
-//     Map<String, dynamic> storedStatuses =
-//         appData.read('reminderStatuses') ?? {};
-//     reminderStatuses =
-//         storedStatuses.map((key, value) => MapEntry(int.parse(key), value));
+  final _localNotification = FlutterLocalNotificationsPlugin();
 
-//     // Load reminderNotificationCounts from GetStorage
-//     Map<String, dynamic> storedCounts =
-//         appData.read('reminderNotificationCounts') ?? {};
-//     reminderNotificationCounts =
-//         storedCounts.map((key, value) => MapEntry(int.parse(key), value));
-//   }
+  void handleMessage(RemoteMessage? message) {
+    if (message == null) return;
+  }
 
-//   void _saveStatusesToStorage() {
-//     appData.write('reminderStatuses',
-//         reminderStatuses.map((key, value) => MapEntry(key.toString(), value)));
-//   }
+  Future initLocalNotification() async {
+    const ios = DarwinInitializationSettings();
+    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const settings = InitializationSettings(android: android, iOS: ios);
 
-//   void _saveCountsToStorage() {
-//     appData.write(
-//         'reminderNotificationCounts',
-//         reminderNotificationCounts
-//             .map((key, value) => MapEntry(key.toString(), value)));
-//   }
+    await _localNotification.initialize(
+      settings,
+      onDidReceiveNotificationResponse: (payload) {
+        final message = RemoteMessage.fromMap(jsonDecode(payload.toString()));
+        handleMessage(message);
+      },
+    );
 
-//   Future<void> initNotification() async {
-//     AndroidInitializationSettings initializationSettingsAndroid =
-//         const AndroidInitializationSettings('@mipmap/launcher_icon');
+    final platform = _localNotification.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    await platform?.createNotificationChannel(_androidChannel);
+  }
 
-//     var initializationSettingsIOS = DarwinInitializationSettings(
-//         requestAlertPermission: true,
-//         requestBadgePermission: true,
-//         requestSoundPermission: true,
-//         onDidReceiveLocalNotification:
-//             (int id, String? title, String? body, String? payload) async {});
+  Future initPushNotification() async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
-//     var initializationSettings = InitializationSettings(
-//         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-//     await notificationsPlugin.initialize(initializationSettings,
-//         onDidReceiveNotificationResponse:
-//             (NotificationResponse notificationResponse) async {});
-//     // await notificationsPlugin
-//     //     .resolvePlatformSpecificImplementation<
-//     //         AndroidFlutterLocalNotificationsPlugin>()
-//     //     ?.requestNotificationsPermission();
-//     // await notificationsPlugin
-//     //     .resolvePlatformSpecificImplementation<
-//     //         AndroidFlutterLocalNotificationsPlugin>()
-//     //     ?.requestExactAlarmsPermission();
-//     // var alarmStatus = await Permission.scheduleExactAlarm.request();
-//     // if (alarmStatus != PermissionStatus.granted) {
-//     //   throw Exception("Exact alarms permission not granted");
-//     // }
-//   }
+    // Handle when app is launched initially via a notification
+    FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
 
-//   NotificationDetails notificationDetails() {
-//     return const NotificationDetails(
-//         android: AndroidNotificationDetails(
-//             'reminder_notifications', 'Reminders',
-//             importance: Importance.max),
-//         iOS: DarwinNotificationDetails());
-//   }
+    // Handle when the app is opened via a notification
+    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
 
-//   // Future<void> showNotification(
-//   //     {int id = 0, String? title, String? body, String? payLoad}) async {
-//   //   return notificationsPlugin.show(
-//   //       id, title, body, await notificationDetails());
-//   // }
+    // Handle background messages
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
 
-//   // Schedule daily notifications with a custom count and unique IDs
-//   Future<void> scheduleNotifications(int reminderId, DateTime startTime,
-//       DateTime endTime, int notificationCount) async {
-//     var now = tz.TZDateTime.now(tz.local);
-//     var start = tz.TZDateTime.from(startTime, tz.local);
-//     var end = tz.TZDateTime.from(endTime, tz.local);
+    // Handle foreground notifications
+    FirebaseMessaging.onMessage.listen((message) {
+      final notification = message.notification;
+      if (notification != null) {
+        // Display local notification for foreground messages
+        _localNotification.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              _androidChannel.id,
+              _androidChannel.name,
+              channelDescription: _androidChannel.description,
+              icon: '@mipmap/ic_launcher',
+            ),
+            iOS: const DarwinNotificationDetails(),
+          ),
+          payload: jsonEncode(message.data),
+        );
+      }
+    });
+  }
 
-//     // Adjust start and end times if they are in the past
-//     if (start.isBefore(now)) start = start.add(const Duration(days: 1));
-//     if (end.isBefore(now)) end = end.add(const Duration(days: 1));
+  Future<void> handleBackgroundMessage(RemoteMessage message) async {
+    log("Title ${message.notification?.title ?? ""}");
+    log("Body ${message.notification?.body ?? ""}");
+    log("data ${message.data}");
+  }
 
-//     var totalDuration = end.difference(start);
-//     var interval = totalDuration ~/
-//         (notificationCount - 1); // Interval based on number of notifications
-//     List<dynamic> storedQuotes = appData.read('quotes') ?? [];
-//     if (storedQuotes.isEmpty) return;
-//     for (int i = 0; i < notificationCount; i++) {
-//       var scheduledTime = start.add(interval * i);
-//       final randomQuote = storedQuotes[Random().nextInt(storedQuotes.length)];
-//       await notificationsPlugin.zonedSchedule(
-//         reminderId * 100 + i, // Unique ID for each notification
-//         'money is', // Title of the notification
-//         randomQuote['quote'], // Body of the notification
-//         scheduledTime,
-//         notificationDetails(),
-//         // androidAllowWhileIdle: true,
-//         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-//         uiLocalNotificationDateInterpretation:
-//             UILocalNotificationDateInterpretation.wallClockTime,
-//         matchDateTimeComponents: DateTimeComponents.time,
-//       );
-//     }
-//   } // Store the API response in local storage
+  Future<void> initNotification() async {
+    try {
+      // Request permission for notifications
+      await _firebaseMessaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
 
-//   void storeApiResponse(List<dynamic> apiResponse) {
-//     appData.write('quotes', apiResponse);
-//     // Save the data in GetStorage
+      String? fcmToken;
+      final deviceInfo = DeviceInfoPlugin();
+      String? deviceId;
 
-//     //  print(appData.read('quotes') ?? []);
-//   }
+      // Platform-specific token handling
+      if (Platform.isIOS) {
+        log("Come here (iOS)");
+        final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+        fcmToken = await _firebaseMessaging.getToken();
+        log("FCM Token =====>>> $fcmToken");
 
-// //check notification status
-//   Future<void> checkAndSyncNotifications(List<dynamic> reminders) async {
-//     for (var reminder in reminders) {
-//       int reminderId = reminder['id'];
-//       String status = reminder['status'];
-//       int howMany = reminder['how_many'];
-//       // DateTime startTime = DateTime.parse(    reminder['start_time']);
+        if (apnsToken != null) {
+          log("APNS Token =====>>> $apnsToken");
+        } else {
+          log("Error: APNS token is not set.");
+        }
 
-//       // //   reminder['start_time'];
-//       // //DateTime.parse(reminder['start_time']);
-//       // DateTime endTime = DateTime.parse(reminder['end_time']);
+        // Get iOS device ID
+        final iosInfo = await deviceInfo.iosInfo;
+        deviceId = iosInfo.identifierForVendor;
+      } else {
+        // Android token
+        fcmToken = await _firebaseMessaging.getToken();
+        log("FCM Token =====>>> $fcmToken");
 
-//       String startTimeString = reminder['start_time'];
-//       String endTimeString = reminder['end_time'];
+        // Get Android device ID
+        final androidInfo = await deviceInfo.androidInfo;
+        deviceId = androidInfo.id;
+      }
 
-//       //DateTime now = DateTime.now(); // Get the current date
+      // Fallback to random UUID if device ID is null
+      deviceId ??= const Uuid().v4();
 
-// // Parse the start_time by combining with today's date
-//       DateTime startTime = DateFormat.Hm().parse(startTimeString);
+      // Save tokens
+      appData.write(kKeyFCMToken, fcmToken);
+      appData.write(kKeyDeviceID, deviceId);
 
-//       DateTime endTime = DateFormat.Hm().parse(endTimeString);
+      log("FCM Token saved successfully: $fcmToken");
+      log("Generated Device ID =====>>> $deviceId");
 
-//       // String formattedStartTime = DateFormat.Hm().format(startTime);
-//       // String formattedEndTime = DateFormat.Hm().format(endTime);
+      // // Send to API
+      // final success = await storeNotificationApiRx.createFCM(
+      //   token: fcmToken,
+      //   device_id: deviceId,
+      // );
+      // if (success) {
+      //   log("Push notification sent successfully.");
+      // } else {
+      //   log("Failed to send push notification.");
+      // }
+    } catch (e) {
+      log("Error initializing notifications: $e");
+    }
 
-//       // print("Start Time: $formattedStartTime, End Time: $formattedEndTime");
-//       // Check the stored status
-//       String storedStatus = appData.read(reminderId.toString()) ?? 'inactive';
-
-//       if (storedStatus != status) {
-//         toggleNotification(
-//           reminderId,
-//           status == 'active',
-//           startTime,
-//           endTime,
-//           howMany,
-//         );
-//         // Update the stored status
-//         appData.write(reminderId.toString(), status);
-//       }
-//     }
-//   }
-
-//   // Cancel specific notifications by reminder ID
-//   Future<void> cancelReminderNotifications(
-//       int reminderId, int notificationCount) async {
-//     for (int i = 0; i < notificationCount; i++) {
-//       await notificationsPlugin.cancel(reminderId * 100 + i);
-//     }
-//     reminderStatuses.remove(reminderId);
-//     reminderNotificationCounts.remove(reminderId);
-//     appData.remove(reminderId.toString());
-//     _saveStatusesToStorage();
-//     _saveCountsToStorage();
-//   }
-
-//   // Toggle notification scheduling based on the user's preference
-//   // Map<int, bool> reminderStatuses = {};
-//   // Map<int, int> reminderNotificationCounts =
-//   //     {}; // To store the number of notifications for each reminder
-
-//   void toggleNotification(int reminderId, bool isEnabled, DateTime startTime,
-//       DateTime endTime, int notificationCount) {
-//     if (isEnabled) {
-//       reminderStatuses[reminderId] = true;
-//       reminderNotificationCounts[reminderId] = notificationCount;
-//       scheduleNotifications(reminderId, startTime, endTime, notificationCount);
-//     } else {
-//       reminderStatuses[reminderId] = false;
-//       cancelReminderNotifications(
-//           reminderId, reminderNotificationCounts[reminderId] ?? 0);
-//     } // Save the updated status and counts to GetStorage
-//     _saveStatusesToStorage();
-//     _saveCountsToStorage();
-//   }
-
-//   Future<void> cancelAllNotifications() async {
-//     await notificationsPlugin.cancelAll(); // Cancel all notifications
-//     reminderStatuses.clear(); // Clear the local statuses
-//     reminderNotificationCounts.clear(); // Clear the local notification counts
-//     appData.remove('reminderStatuses'); // Remove from GetStorage
-//     appData.remove('reminderNotificationCounts'); // Remove from GetStorage
-//   }
-// }
+    // Initialize listeners
+    initPushNotification();
+    initLocalNotification();
+  }
+}

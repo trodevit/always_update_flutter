@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, unused_field
 import 'dart:developer';
-import 'dart:io';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_icons.dart';
@@ -8,15 +7,15 @@ import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/assets_helper/app_lottie.dart';
 import 'package:always_update/common_widgets/custom_button.dart';
 import 'package:always_update/common_widgets/custom_textField.dart';
+import 'package:always_update/constants/app_constants.dart';
 import 'package:always_update/helpers/all_routes.dart';
+import 'package:always_update/helpers/di.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/networks/api_acess.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class SscPDFLoginScreen extends StatefulWidget {
   const SscPDFLoginScreen({
@@ -29,44 +28,11 @@ class SscPDFLoginScreen extends StatefulWidget {
 
 class _SscPDFLoginScreenState extends State<SscPDFLoginScreen> {
   String _deviceId = 'Unknown';
-  String _deviceName = 'Unknown';
 
   @override
   void initState() {
     super.initState();
-    _getDeviceInfo();
-  }
-
-  Future<void> _getDeviceInfo() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-
-    try {
-      if (Platform.isAndroid) {
-        if (await Permission.phone.request().isGranted) {
-          AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-          setState(() {
-            _deviceId = androidInfo.id;
-            _deviceName = androidInfo.model;
-          });
-        } else {
-          setState(() {
-            _deviceId = 'Permission Denied';
-            _deviceName = 'Permission Denied';
-          });
-        }
-      } else if (Platform.isIOS) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        setState(() {
-          _deviceId = iosInfo.identifierForVendor ?? 'Unknown';
-          _deviceName = iosInfo.name;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _deviceId = 'Error: $e';
-        _deviceName = 'Error: $e';
-      });
-    }
+    _deviceId = appData.read(kKeyUUID);
   }
 
   bool _isObscure = true;
@@ -77,7 +43,6 @@ class _SscPDFLoginScreenState extends State<SscPDFLoginScreen> {
   @override
   Widget build(BuildContext context) {
     log('=============> Device ID: $_deviceId');
-    log('=============> Device Name: $_deviceName');
 
     return Scaffold(
       body: Container(
@@ -204,7 +169,7 @@ class _SscPDFLoginScreenState extends State<SscPDFLoginScreen> {
                               : customButton(
                                   name: 'Sign In',
                                   onCallBack: () async {
-                                    print('Sign In button clicked');
+                                    log('Sign In button clicked');
                                     setState(() {
                                       isLoading = true;
                                     });
@@ -215,7 +180,7 @@ class _SscPDFLoginScreenState extends State<SscPDFLoginScreen> {
                                       device_id: _deviceId,
                                     );
 
-                                    print('Login success: $success');
+                                    log('Login success: $success');
                                     setState(() {
                                       isLoading = false;
                                     });
