@@ -7,6 +7,9 @@ import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';
+import 'dart:developer';
 
 class HonoursMCQDashboardScreen extends StatefulWidget {
   const HonoursMCQDashboardScreen({super.key});
@@ -17,6 +20,34 @@ class HonoursMCQDashboardScreen extends StatefulWidget {
 }
 
 class _HonoursMCQDashboardScreenState extends State<HonoursMCQDashboardScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -287,6 +318,19 @@ class _HonoursMCQDashboardScreenState extends State<HonoursMCQDashboardScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

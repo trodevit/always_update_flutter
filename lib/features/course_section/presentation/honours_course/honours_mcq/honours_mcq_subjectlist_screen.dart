@@ -11,6 +11,9 @@ import 'package:always_update/networks/api_acess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';
+import 'dart:developer';
 
 class HonoursSubjectListScreen extends StatefulWidget {
   final dynamic type;
@@ -24,10 +27,32 @@ class HonoursSubjectListScreen extends StatefulWidget {
 }
 
 class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
+  BannerAd? _bannerAd;
   @override
   void initState() {
     super.initState();
     honoursSubjectRX.honoursSubjectRX();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   @override
@@ -146,6 +171,19 @@ class _HonoursSubjectListScreenState extends State<HonoursSubjectListScreen> {
           },
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

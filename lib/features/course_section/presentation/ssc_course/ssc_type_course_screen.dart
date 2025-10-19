@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_fonts.dart';
 import 'package:always_update/assets_helper/app_images.dart';
 import 'package:always_update/common_widgets/custom_appbar.dart';
+import 'package:always_update/features/ad_helper.dart';
 import 'package:always_update/helpers/all_routes.dart';
 import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class SscTypeCourseScreen extends StatefulWidget {
   const SscTypeCourseScreen({super.key});
@@ -16,6 +20,34 @@ class SscTypeCourseScreen extends StatefulWidget {
 }
 
 class _SscTypeCourseScreenState extends State<SscTypeCourseScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +100,6 @@ class _SscTypeCourseScreenState extends State<SscTypeCourseScreen> {
                   ),
                 ),
                 UIHelper.verticalSpace(20.h),
-
                 GestureDetector(
                   onTap: () {
                     NavigationService.navigateTo(
@@ -107,92 +138,24 @@ class _SscTypeCourseScreenState extends State<SscTypeCourseScreen> {
                     ),
                   ),
                 ),
-
-                // * old code
-                // GestureDetector(
-                //   onTap: () {
-                //     NavigationService.navigateTo(
-                //       Routes.sscPdfLoginScreen,
-                //     );
-                //   },
-                //   child: Container(
-                //     width: double.infinity,
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(8),
-                //       border: Border.all(
-                //         color: Colors.grey.shade800,
-                //       ),
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(16),
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           SvgPicture.asset(
-                //             AppIcons.ebookIcon,
-                //             width: 40,
-                //             height: 40,
-                //           ),
-                //           Text(
-                //             'পিডিএফ সেকশন',
-                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
-                //               color: AppColors.c000000,
-                //               fontSize: 16.sp,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // UIHelper.verticalSpace(20.h),
-                // GestureDetector(
-                //   onTap: () {
-                //     NavigationService.navigateTo(
-                //       Routes.sscVideoLoginScreen,
-                //     );
-                //   },
-                //   child: Container(
-                //     width: double.infinity,
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(8),
-                //       border: Border.all(
-                //         color: Colors.grey.shade800,
-                //       ),
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(16),
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           SvgPicture.asset(
-                //             AppIcons.courseIcon,
-                //             width: 40,
-                //             height: 40,
-                //           ),
-                //           Text(
-                //             'ভিডিও সেকশন',
-                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
-                //               color: AppColors.c000000,
-                //               fontSize: 16.sp,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

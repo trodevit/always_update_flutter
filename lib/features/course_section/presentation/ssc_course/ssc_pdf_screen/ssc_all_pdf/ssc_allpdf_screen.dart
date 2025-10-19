@@ -10,6 +10,8 @@ import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';
 
 class SscAllPdfScreen extends StatefulWidget {
   const SscAllPdfScreen({super.key});
@@ -19,6 +21,34 @@ class SscAllPdfScreen extends StatefulWidget {
 }
 
 class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,142 +187,24 @@ class _SscAllPdfScreenState extends State<SscAllPdfScreen> {
                   ),
                 ),
                 UIHelper.verticalSpace(16.h),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Expanded(
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           NavigationService.navigateToWithArgs(
-                //             Routes.sscPDFCategoryScreen,
-                //             {'type': 'mcq'},
-                //           );
-                //           log('Navigating to SSC Group Subject Screen');
-                //         },
-                //         child: Container(
-                //           height: 100,
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(8),
-                //             border: Border.all(
-                //               color: Colors.grey.shade800,
-                //             ),
-                //           ),
-                //           child: Column(
-                //             crossAxisAlignment: CrossAxisAlignment.center,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               SvgPicture.asset(
-                //                 AppIcons.courseIcon,
-                //                 width: 40,
-                //                 height: 40,
-                //               ),
-                //               Text(
-                //                 'MCQ বোর্ড প্রশ্নোত্তর',
-                //                 style:
-                //                     TextFontStyle.hindisiliguri10w400.copyWith(
-                //                   color: AppColors.c000000,
-                //                   fontSize: 16,
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       width: 16,
-                //     ),
-                //     Expanded(
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           NavigationService.navigateToWithArgs(
-                //             Routes.sscPDFCategoryScreen,
-                //             {'type': 'short_question'},
-                //           );
-                //           log('Navigating to SSC Shortcut Screen');
-                //         },
-                //         child: Container(
-                //           height: 100,
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(8),
-                //             border: Border.all(
-                //               color: Colors.grey.shade800,
-                //             ),
-                //           ),
-                //           child: Column(
-                //             crossAxisAlignment: CrossAxisAlignment.center,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               SvgPicture.asset(
-                //                 AppIcons.courseIcon,
-                //                 width: 40,
-                //                 height: 40,
-                //               ),
-                //               Text(
-                //                 'সংক্ষিপ্ত প্রশ্নোত্তর',
-                //                 style:
-                //                     TextFontStyle.hindisiliguri10w400.copyWith(
-                //                   color: AppColors.c000000,
-                //                   fontSize: 16,
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       width: 16,
-                //     ),
-                //     Expanded(
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           NavigationService.navigateToWithArgs(
-                //             Routes.sscPDFCategoryScreen,
-                //             {'type': 'big_question'},
-                //           );
-                //           log('Navigating to SSC Shortcut Screen');
-                //         },
-                //         child: Container(
-                //           height: 100,
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(8),
-                //             border: Border.all(
-                //               color: Colors.grey.shade800,
-                //             ),
-                //           ),
-                //           child: Column(
-                //             crossAxisAlignment: CrossAxisAlignment.center,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               SvgPicture.asset(
-                //                 AppIcons.courseIcon,
-                //                 width: 40,
-                //                 height: 40,
-                //               ),
-                //               Text(
-                //                 'অনুধাবন প্রশ্নোত্তর',
-                //                 style:
-                //                     TextFontStyle.hindisiliguri10w400.copyWith(
-                //                   color: AppColors.c000000,
-                //                   fontSize: 16,
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

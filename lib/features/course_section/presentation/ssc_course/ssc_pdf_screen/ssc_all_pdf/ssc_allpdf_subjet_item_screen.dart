@@ -11,6 +11,9 @@ import 'package:always_update/networks/api_acess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';
+import 'dart:developer';
 
 class SscAllPdfSubjectItemScreen extends StatefulWidget {
   dynamic type, classType;
@@ -23,10 +26,32 @@ class SscAllPdfSubjectItemScreen extends StatefulWidget {
 
 class _SscAllPdfSubjectItemScreenState
     extends State<SscAllPdfSubjectItemScreen> {
+  BannerAd? _bannerAd;
   @override
   void initState() {
     super.initState();
     sscPDFSubjectRX.sscPDFSubjectRX();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   @override
@@ -136,6 +161,19 @@ class _SscAllPdfSubjectItemScreenState
           },
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

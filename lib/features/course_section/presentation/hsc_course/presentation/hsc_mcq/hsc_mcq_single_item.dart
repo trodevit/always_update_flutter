@@ -11,6 +11,8 @@ import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';  
 
 class HscMcqSingleItemScreen extends StatefulWidget {
   dynamic type, classType, itemID, subjectTitle, courseType;
@@ -28,6 +30,7 @@ class HscMcqSingleItemScreen extends StatefulWidget {
 }
 
 class _HscMcqSingleItemScreenState extends State<HscMcqSingleItemScreen> {
+  BannerAd? _bannerAd;
   @override
   void initState() {
     super.initState();
@@ -37,6 +40,27 @@ class _HscMcqSingleItemScreenState extends State<HscMcqSingleItemScreen> {
       subjectId: widget.itemID,
       courseType: widget.courseType,
     );
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   @override
@@ -52,113 +76,126 @@ class _HscMcqSingleItemScreenState extends State<HscMcqSingleItemScreen> {
         title: widget.subjectTitle,
       ),
       body: StreamBuilder<HscMcqSingelltemModel>(
-          stream: hscMcqSingleItemRX.getHscSingleItemRx,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return const Center(child: Text('কোন রাউট পাওয়া যায়নি'));
-            }
-            if (!snapshot.hasData ||
-                snapshot.data == null ||
-                snapshot.data!.data == null ||
-                snapshot.data!.data!.isEmpty) {
-              return Center(
-                child: Text(
-                  'কোন ডাটা পাওয়া যায়নি',
-                  style: TextFontStyle.hindisiliguri10w400.copyWith(
-                    color: AppColors.c000000,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+        stream: hscMcqSingleItemRX.getHscSingleItemRx,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return const Center(child: Text('কোন রাউট পাওয়া যায়নি'));
+          }
+          if (!snapshot.hasData ||
+              snapshot.data == null ||
+              snapshot.data!.data == null ||
+              snapshot.data!.data!.isEmpty) {
+            return Center(
+              child: Text(
+                'কোন ডাটা পাওয়া যায়নি',
+                style: TextFontStyle.hindisiliguri10w400.copyWith(
+                  color: AppColors.c000000,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-            }
-            final allPDFData = snapshot.data!.data;
-
-            return Padding(
-              padding: EdgeInsets.all(16),
-              child: ListView.builder(
-                itemCount: allPDFData!.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColors.cFFFFFF,
-                        borderRadius: BorderRadius.circular(6.r),
-                        border: Border.all(
-                          color: AppColors.boxShadow,
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(6.r), // Top-left corner
-                              topRight:
-                                  Radius.circular(6.r), // Top-right corner
-                            ),
-                            child: Image.network(
-                              imageUrls + allPDFData[index].thumbnail!,
-                              width: double.infinity,
-                              height: 200, // Adjust height as needed
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    allPDFData[index].title!,
-                                    style: TextFontStyle.hindisiliguri10w400
-                                        .copyWith(
-                                      color: AppColors.c000000,
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                UIHelper.verticalSpace(20.h),
-                                customButton(
-                                  minWidth: double.infinity,
-                                  name: 'পিডিএফ দেখুন',
-                                  textStyle: TextFontStyle.hindisiliguri10w400
-                                      .copyWith(
-                                    color: AppColors.cFFF5DA,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onCallBack: () {
-                                    log(allPDFData[index].pdf!);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PDFViewScreen(
-                                            pdfURL: allPDFData[index].pdf!),
-                                      ),
-                                    );
-                                  },
-                                  context: context,
-                                  color: AppColors.c02BF65,
-                                  borderColor: AppColors.c02BF65,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
               ),
             );
-          }),
+          }
+          final allPDFData = snapshot.data!.data;
+
+          return Padding(
+            padding: EdgeInsets.all(16),
+            child: ListView.builder(
+              itemCount: allPDFData!.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColors.cFFFFFF,
+                      borderRadius: BorderRadius.circular(6.r),
+                      border: Border.all(
+                        color: AppColors.boxShadow,
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(6.r), // Top-left corner
+                            topRight: Radius.circular(6.r), // Top-right corner
+                          ),
+                          child: Image.network(
+                            imageUrls + allPDFData[index].thumbnail!,
+                            width: double.infinity,
+                            height: 200, // Adjust height as needed
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  allPDFData[index].title!,
+                                  style: TextFontStyle.hindisiliguri10w400
+                                      .copyWith(
+                                    color: AppColors.c000000,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              UIHelper.verticalSpace(20.h),
+                              customButton(
+                                minWidth: double.infinity,
+                                name: 'পিডিএফ দেখুন',
+                                textStyle:
+                                    TextFontStyle.hindisiliguri10w400.copyWith(
+                                  color: AppColors.cFFF5DA,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onCallBack: () {
+                                  log(allPDFData[index].pdf!);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PDFViewScreen(
+                                          pdfURL: allPDFData[index].pdf!),
+                                    ),
+                                  );
+                                },
+                                context: context,
+                                color: AppColors.c02BF65,
+                                borderColor: AppColors.c02BF65,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

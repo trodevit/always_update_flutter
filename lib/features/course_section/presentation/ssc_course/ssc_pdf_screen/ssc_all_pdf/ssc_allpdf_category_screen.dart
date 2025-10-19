@@ -8,6 +8,9 @@ import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';
+import 'dart:developer';
 
 class SscAllPdfCategoryScreen extends StatefulWidget {
   dynamic type;
@@ -19,6 +22,34 @@ class SscAllPdfCategoryScreen extends StatefulWidget {
 }
 
 class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +104,6 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                     ),
                   ),
                 ),
-
                 UIHelper.verticalSpace(16.h),
                 GestureDetector(
                   onTap: () {
@@ -154,149 +184,24 @@ class _SscAllPdfCategoryScreenState extends State<SscAllPdfCategoryScreen> {
                     ),
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Expanded(
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           // Get.to(() => SscGroupSubjectScreen());
-                //           NavigationService.navigateToWithArgs(
-                //             Routes.sscAllPdfSubjectItemScreen,
-                //             {'type': widget.type, 'classType': 'science'},
-                //           );
-                //           ToastUtil.showShortToast(
-                //             'Navigating to ${widget.type} -> Science -> ALL PDF List',
-                //           );
-                //         },
-                //         child: Container(
-                //           height: 100,
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(8),
-                //             border: Border.all(
-                //               color: Colors.grey.shade800,
-                //             ),
-                //           ),
-                //           child: Column(
-                //             crossAxisAlignment: CrossAxisAlignment.center,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               SvgPicture.asset(
-                //                 AppIcons.courseIcon,
-                //                 width: 40,
-                //                 height: 40,
-                //               ),
-                //               Text(
-                //                 'বিজ্ঞান বিভাগ',
-                //                 style:
-                //                     TextFontStyle.hindisiliguri10w400.copyWith(
-                //                   color: AppColors.c000000,
-                //                   fontSize: 16,
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       width: 16,
-                //     ),
-                //     Expanded(
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           NavigationService.navigateToWithArgs(
-                //             Routes.sscAllPdfSubjectItemScreen,
-                //             {'type': widget.type, 'classType': 'arts'},
-                //           );
-                //           ToastUtil.showShortToast(
-                //             'Navigating to ${widget.type} -> Arts -> ALL PDF List',
-                //           );
-                //         },
-                //         child: Container(
-                //           height: 100,
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(8),
-                //             border: Border.all(
-                //               color: Colors.grey.shade800,
-                //             ),
-                //           ),
-                //           child: Column(
-                //             crossAxisAlignment: CrossAxisAlignment.center,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               SvgPicture.asset(
-                //                 AppIcons.courseIcon,
-                //                 width: 40,
-                //                 height: 40,
-                //               ),
-                //               Text(
-                //                 'মানবিক বিভাগ',
-                //                 style:
-                //                     TextFontStyle.hindisiliguri10w400.copyWith(
-                //                   color: AppColors.c000000,
-                //                   fontSize: 16,
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       width: 16,
-                //     ),
-                //     Expanded(
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           NavigationService.navigateToWithArgs(
-                //             Routes.sscAllPdfSubjectItemScreen,
-                //             {'type': widget.type, 'classType': 'commerce'},
-                //           );
-                //           ToastUtil.showShortToast(
-                //             'Navigating to ${widget.type} -> Commerce -> ALL PDF List',
-                //           );
-                //         },
-                //         child: Container(
-                //           height: 100,
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(8),
-                //             border: Border.all(
-                //               color: Colors.grey.shade800,
-                //             ),
-                //           ),
-                //           child: Column(
-                //             crossAxisAlignment: CrossAxisAlignment.center,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               SvgPicture.asset(
-                //                 AppIcons.courseIcon,
-                //                 width: 40,
-                //                 height: 40,
-                //               ),
-                //               Text(
-                //                 'ব্যবসায় বিভাগ',
-                //                 style:
-                //                     TextFontStyle.hindisiliguri10w400.copyWith(
-                //                   color: AppColors.c000000,
-                //                   fontSize: 16,
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

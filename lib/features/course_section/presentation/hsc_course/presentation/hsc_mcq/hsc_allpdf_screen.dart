@@ -9,6 +9,9 @@ import 'package:always_update/helpers/navigation_service.dart';
 import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';
+import 'dart:developer';
 
 class HscAllpdfScreen extends StatefulWidget {
   dynamic yearID;
@@ -19,6 +22,34 @@ class HscAllpdfScreen extends StatefulWidget {
 }
 
 class _HscAllpdfScreenState extends State<HscAllpdfScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,142 +187,24 @@ class _HscAllpdfScreenState extends State<HscAllpdfScreen> {
                     ),
                   ),
                 ),
-
-// * old code
-                // // * HSC Group Based Suggestion
-                // GestureDetector(
-                //   onTap: () {
-                //     NavigationService.navigateToWithArgs(
-                //         Routes.hscSubjectListScreen, {
-                //       'yearID': widget.yearID,
-                //       'classType': 'science',
-                //     });
-                //   },
-                //   child: Container(
-                //     width: double.infinity,
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(8),
-                //       border: Border.all(
-                //         color: Colors.grey.shade800,
-                //       ),
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(16),
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           SvgPicture.asset(
-                //             AppIcons.ebookIcon,
-                //             width: 40,
-                //             height: 40,
-                //           ),
-                //           Text(
-                //             'বিজ্ঞান বিভাগ',
-                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
-                //               color: AppColors.c000000,
-                //               fontSize: 16.sp,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // UIHelper.verticalSpace(20.h),
-                // // * HSC MCQ
-                // GestureDetector(
-                //   onTap: () {
-                //     NavigationService.navigateToWithArgs(
-                //         Routes.hscSubjectListScreen, {
-                //       'yearID': widget.yearID,
-                //       'classType': 'commerce',
-                //     });
-                //   },
-                //   child: Container(
-                //     width: double.infinity,
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(8),
-                //       border: Border.all(
-                //         color: Colors.grey.shade800,
-                //       ),
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(16),
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           SvgPicture.asset(
-                //             AppIcons.courseIcon,
-                //             width: 40,
-                //             height: 40,
-                //           ),
-                //           Text(
-                //             'মানবিক বিভাগ',
-                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
-                //               color: AppColors.c000000,
-                //               fontSize: 16.sp,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // UIHelper.verticalSpace(20.h),
-
-                // // * HSC Video Section
-                // GestureDetector(
-                //   onTap: () {
-                //     NavigationService.navigateToWithArgs(
-                //         Routes.hscSubjectListScreen, {
-                //       'yearID': widget.yearID,
-                //       'classType': 'arts',
-                //     });
-                //   },
-                //   child: Container(
-                //     width: double.infinity,
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(8),
-                //       border: Border.all(
-                //         color: Colors.grey.shade800,
-                //       ),
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(16),
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           SvgPicture.asset(
-                //             AppIcons.courseIcon,
-                //             width: 40,
-                //             height: 40,
-                //           ),
-                //           Text(
-                //             'ব্যবসায় বিভাগ',
-                //             style: TextFontStyle.hindisiliguri10w400.copyWith(
-                //               color: AppColors.c000000,
-                //               fontSize: 16.sp,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

@@ -12,6 +12,9 @@ import 'package:always_update/networks/endpoints.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';  
+
 
 class SscAllPdfSubjectSingleItemScreen extends StatefulWidget {
   dynamic type, classType, itemID, subjectTitle;
@@ -30,6 +33,7 @@ class SscAllPdfSubjectSingleItemScreen extends StatefulWidget {
 
 class _SscAllPdfSubjectSingleItemScreenState
     extends State<SscAllPdfSubjectSingleItemScreen> {
+  BannerAd? _bannerAd;
   @override
   void initState() {
     super.initState();
@@ -38,6 +42,27 @@ class _SscAllPdfSubjectSingleItemScreenState
       classType: widget.classType,
       subjectId: widget.itemID,
     );
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   @override
@@ -168,6 +193,19 @@ class _SscAllPdfSubjectSingleItemScreenState
               ),
             );
           }),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }

@@ -13,6 +13,9 @@ import 'package:always_update/helpers/ui_helpers.dart';
 import 'package:always_update/networks/api_acess.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:always_update/features/ad_helper.dart';  
+
 
 class HscGroupSuggItemScreen extends StatefulWidget {
   dynamic yearID, className;
@@ -27,6 +30,8 @@ class HscGroupSuggItemScreen extends StatefulWidget {
 }
 
 class _HscGroupSuggItemScreenState extends State<HscGroupSuggItemScreen> {
+  BannerAd? _bannerAd;
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +39,27 @@ class _HscGroupSuggItemScreenState extends State<HscGroupSuggItemScreen> {
       className: widget.className,
       yearID: widget.yearID,
     );
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('Ad loaded.');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('Ad failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   @override
@@ -224,6 +250,19 @@ class _HscGroupSuggItemScreenState extends State<HscGroupSuggItemScreen> {
           );
         },
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? SizedBox.shrink()
+          : Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+              ),
+              child: Container(
+                color: Colors.white,
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
     );
   }
 }
