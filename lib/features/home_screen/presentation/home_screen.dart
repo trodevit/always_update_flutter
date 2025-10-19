@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_string_interpolations, unused_local_variable, avoid_print, depend_on_referenced_packages
-
 import 'dart:developer';
 import 'package:always_update/assets_helper/app_colors.dart';
 import 'package:always_update/assets_helper/app_images.dart';
