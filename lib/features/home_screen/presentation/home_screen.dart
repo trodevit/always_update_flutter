@@ -285,6 +285,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
 
+                SizedBox(height: 20.h),
+                Divider(color: Colors.grey, thickness: 1),
+                Text(
+                  'ডিভাইস তথ্য',
+                  style: TextFontStyle.hindisiliguri10w400.copyWith(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Divider(color: Colors.grey, thickness: 1),
+
                 // === DEVICE INFO ===
                 SizedBox(height: 20),
                 Text(

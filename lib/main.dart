@@ -28,7 +28,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-    await NotificationService().initNotification();
+  await NotificationService().initNotification();
 
   // * run the app
   runApp(const MyApp());

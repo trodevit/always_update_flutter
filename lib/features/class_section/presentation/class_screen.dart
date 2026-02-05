@@ -170,59 +170,61 @@ class _ClassSecreenState extends State<ClassSecreen> {
             ),
     );
   }
+}
 
-  Widget _buildCard({
-    required Color color,
-    required String icon,
-    required String title,
-    required String subtitle,
-    required String type,
-  }) {
-    return GestureDetector(
-      onTap: () {
-        NavigationService.navigateToWithArgs(
-          Routes.classTopicScreen,
-          {
-            'type': type,
-            'className': widget.className,
-          },
-        );
-      },
-      child: Container(
-        height: 110.h,
-        width: 150.w,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SvgPicture.asset(icon, color: AppColors.white),
-              SizedBox(height: 8),
-              Text(
-                title,
-                style: TextFontStyle.hindisiliguri10w400.copyWith(
-                  color: Colors.white,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+
+Widget _buildCard({
+  required Color color,
+  required String icon,
+  required String title,
+  required String subtitle,
+  required String type,
+}) {
+  return 
+  GestureDetector(
+    onTap: () {
+      NavigationService.navigateToWithArgs(
+        Routes.classTopicScreen,
+        {
+          'type': type,
+          'className': 'widget.className',
+        },
+      );
+    },
+    child: Container(
+      height: 110.h,
+      width: 150.w,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SvgPicture.asset(icon, color: AppColors.white),
+            SizedBox(height: 8),
+            Text(
+              title,
+              style: TextFontStyle.hindisiliguri10w400.copyWith(
+                color: Colors.white,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w700,
               ),
-              Text(
-                subtitle,
-                style: TextFontStyle.hindisiliguri10w400.copyWith(
-                  color: Colors.white,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                ),
+            ),
+            Text(
+              subtitle,
+              style: TextFontStyle.hindisiliguri10w400.copyWith(
+                color: Colors.white,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }

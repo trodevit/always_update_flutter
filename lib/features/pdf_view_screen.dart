@@ -7,12 +7,13 @@ import 'package:always_update/common_widgets/custom_appbar.dart';
 import 'package:always_update/features/ad_helper.dart';
 import 'package:always_update/networks/endpoints.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+// import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PDFViewScreen extends StatefulWidget {
   final String pdfURL;
@@ -85,7 +86,7 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log("========================> PDF URL: ${url + widget.pdfURL}");
+    log("========================> PDF URL: ${url + "/" + widget.pdfURL}");
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
       appBar: CustomAppBar(
@@ -99,15 +100,15 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                 AppLottie.bookLottie,
               ),
             )
-          : PDFView(
-              filePath: localPath,
-              enableSwipe: true,
-              swipeHorizontal: false,
-              autoSpacing: false,
-              pageFling: false,
-              defaultPage: 0,
-              backgroundColor: Colors.grey.shade100,
-            ),
+          : SfPdfViewer.network(url + "/" + widget.pdfURL
+              // filePath: localPath,
+              // enableSwipe: true,
+              // swipeHorizontal: false,
+              // autoSpacing: false,
+              // pageFling: false,
+              // defaultPage: 0,
+              // backgroundColor: Colors.grey.shade100,
+              ),
       bottomNavigationBar: _bannerAd == null
           ? SizedBox.shrink()
           : Padding(
